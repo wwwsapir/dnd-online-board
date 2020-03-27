@@ -6,7 +6,7 @@ class BoardMap extends Component {
 
   state = {
     matrix: this.createMatrix(this.props.rowCount, this.props.colCount),
-    cellSize: 80,
+    cellSize: this.props.cellSize,
     selectedCell: undefined
   };
 

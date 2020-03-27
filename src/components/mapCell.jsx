@@ -9,11 +9,12 @@ class MapCell extends Component {
     color: "rgba(255, 255, 255, 1)"
   };
 
-  setCellColor() {
-    let borderStyle = "3px solid ";
+  setCellStyle() {
+    let borderStyle = "solid ";
     borderStyle += this.props.selected ? "red" : "black";
+    borderStyle += " " + Math.ceil(this.props.cellSize * 0.02) + "px"
     let backgroundStyle = "rgba(0, 0, 0, ";
-    backgroundStyle += this.props.cell.wall ? "0.2)" : "0)";
+    backgroundStyle += this.props.cell.wall ? "0.4)" : "0)";
     let cellStyle = { ...this.cellStyle };
     cellStyle.border = borderStyle;
     cellStyle.background = backgroundStyle;
@@ -21,7 +22,7 @@ class MapCell extends Component {
   }
 
   render() {
-    this.setCellColor();
+    this.setCellStyle();
     if (this.props.selected) {
     }
     const { onClick, cell, children } = this.props;
