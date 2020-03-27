@@ -4,24 +4,32 @@ class MapCell extends Component {
   cellStyle = {
     width: this.props.cellSize,
     height: this.props.cellSize,
-    border: "3px solid ",
     display: "inline-block",
-    verticalAlign: "top"
+    verticalAlign: "top",
+    color: "rgba(255, 255, 255, 1)"
   };
 
-  setBorderColor() {
-    console.log(this.props.selected);
-    let borderColor = this.props.selected ? "red" : "black";
-    this.cellStyle.border += borderColor;
-  }
-
-  constructor(props) {
-    super(props);
-    this.setBorderColor();
+  setCellColor() {
+    let borderStyle = "3px solid ";
+    borderStyle += this.props.selected ? "red" : "black";
+    let backgroundStyle = "rgba(0, 0, 0, ";
+    backgroundStyle += this.props.cell.wall ? "0.2)" : "0)";
+    let cellStyle = { ...this.cellStyle };
+    cellStyle.border = borderStyle;
+    cellStyle.background = backgroundStyle;
+    this.cellStyle = cellStyle;
   }
 
   render() {
-    return <div style={this.cellStyle}>{this.props.children}</div>;
+    this.setCellColor();
+    if (this.props.selected) {
+    }
+    const { onClick, cell, children } = this.props;
+    return (
+      <div style={this.cellStyle} onClick={() => onClick(cell)}>
+        {children}
+      </div>
+    );
   }
 }
 

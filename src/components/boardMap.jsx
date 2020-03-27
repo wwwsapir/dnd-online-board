@@ -6,7 +6,8 @@ class BoardMap extends Component {
 
   state = {
     matrix: this.createMatrix(this.props.rowCount, this.props.colCount),
-    cellSize: 80
+    cellSize: 80,
+    selectedCell: undefined
   };
 
   createMatrix(rowCount, colCount) {
@@ -14,22 +15,57 @@ class BoardMap extends Component {
     for (let i = 0; i < rowCount; i++) {
       let row = [];
       for (let j = 0; j < colCount; j++) {
-        let col = { selected: false, character: null };
-        row.push(col);
+        let cell = {
+          character: null,
+          wall: this.isCellWall(i, j)
+        };
+        row.push(cell);
       }
       myarr.push(row);
     }
     return myarr;
   }
 
-  //   handleSubmit(){
-  //     this.setState({
-  //       array1: this.createarray1(this.props.rowCount, this.props.colCount)
-  //     });
-  //   }
+  isCellWall(row, col) {
+    const walls = this.props.walls.filter(c => c.row === row && c.col === col);
+    return walls.length > 0;
+  }
+
+  handleCellClick = cell => {
+    const { selectedCell } = this.state;
+    if (selectedCell) {
+      if (cell !== selectedCell && !cell.wall) {
+        this.handleAction(cell);
+      }
+      this.changeCellState(selectedCell, false);
+    } else if (!cell.wall) {
+      this.changeCellState(cell, true);
+    }
+  };
+
+  handleAction(cell) {
+    console.log("Taking action!", cell);
+  }
+
+  changeCellState(cell, selected) {
+    let newState = { ...this.state };
+    newState.selectedCell = selected ? cell : undefined;
+    this.setState(newState);
+  }
+
+  matrixIndexOf(cell) {
+    const { matrix } = this.state;
+    for (let row = 0; row < matrix.length; row++) {
+      const cellInd = matrix[row].indexOf(cell);
+      if (cellInd !== -1) {
+        return { row: row, col: cellInd };
+      }
+    }
+    return { row: undefined, col: undefined };
+  }
 
   render() {
-    const { matrix, cellSize } = this.state;
+    const { matrix, cellSize, selectedCell } = this.state;
 
     return (
       <div>
@@ -38,8 +74,10 @@ class BoardMap extends Component {
             {row.map((col, j) => (
               <MapCell
                 key={j}
+                selected={matrix[i][j] === selectedCell}
+                cell={matrix[i][j]}
                 cellSize={cellSize}
-                selected={matrix[i][j].selected}
+                onClick={this.handleCellClick}
               />
             ))}
           </div>

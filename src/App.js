@@ -5,12 +5,16 @@ import BoardMap from "./components/boardMap";
 class App extends Component {
   state = {
     rowCount: 3,
-    colCount: 3
+    colCount: 3,
+    walls: [
+      { row: 1, col: 1 },
+      { row: 1, col: 2 }
+    ]
   };
 
   render() {
-    const {rowCount, colCount} = this.state
-    return <BoardMap rowCount={rowCount} colCount={colCount} />;
+    const { rowCount, colCount, walls } = this.state;
+    return <BoardMap rowCount={rowCount} colCount={colCount} walls={walls} />;
   }
 }
 
