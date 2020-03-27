@@ -14,7 +14,7 @@ class BoardMap extends Component {
     for (let i = 0; i < rowCount; i++) {
       let row = [];
       for (let j = 0; j < colCount; j++) {
-        let col = "1";
+        let col = { selected: false, character: null };
         row.push(col);
       }
       myarr.push(row);
@@ -28,25 +28,6 @@ class BoardMap extends Component {
   //     });
   //   }
 
-  drawMatrix() {
-    let matStr = "";
-    const { matrix } = this.state;
-    const { rowCount, colCount } = this.props;
-    for (let row = 0; row < rowCount; row++) {
-      matStr += "<div>";
-      for (let col = 0; col < colCount; col++) {
-        matStr += <MapCell cellSize={80} />;
-      }
-      matStr += "</div>";
-    }
-    return matStr;
-  }
-
-  //   render() {
-  //     const Matrix = this.drawMatrix();
-  //     return <div>{Matrix}</div>;
-  //   }
-
   render() {
     const { matrix, cellSize } = this.state;
 
@@ -55,7 +36,11 @@ class BoardMap extends Component {
         {matrix.map((row, i) => (
           <div key={i}>
             {row.map((col, j) => (
-                <MapCell key={j} cellSize={cellSize} />
+              <MapCell
+                key={j}
+                cellSize={cellSize}
+                selected={matrix[i][j].selected}
+              />
             ))}
           </div>
         ))}
