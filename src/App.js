@@ -10,18 +10,17 @@ class App extends Component {
       // { row: 1, col: 1 },
       // { row: 1, col: 2 }
     ],
-    cellSize: 70
+    cellSize: this.props.cellSize,
+    borderWidth: Math.ceil(this.props.cellSize * 0.02)
   };
 
-  bg = {
+  bgImgStyle = {
     backgroundImage:
       'url("https://dicegrimorium.com/wp-content/uploads/2019/07/ForestPathPublic-1024x1024.jpg")',
     height:
-      (this.state.cellSize + Math.ceil(this.state.cellSize * 0.02) * 2) *
-      this.state.rowCount,
+      (this.state.cellSize + this.state.borderWidth * 2) * this.state.rowCount,
     width:
-      (this.state.cellSize + Math.ceil(this.state.cellSize * 0.02) * 2) *
-      this.state.colCount,
+      (this.state.cellSize + this.state.borderWidth * 2) * this.state.colCount,
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover"
@@ -31,12 +30,13 @@ class App extends Component {
     const { rowCount, colCount, walls } = this.state;
     return (
       <Fragment>
-        <div style={this.bg}>
+        <div style={this.bgImgStyle}>
           <BoardMap
             rowCount={rowCount}
             colCount={colCount}
             walls={walls}
             cellSize={this.state.cellSize}
+            borderWidth={this.state.borderWidth}
           />
         </div>
       </Fragment>

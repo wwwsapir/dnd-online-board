@@ -12,7 +12,7 @@ class MapCell extends Component {
   setCellStyle() {
     let borderStyle = "solid ";
     borderStyle += this.props.selected ? "red" : "black";
-    borderStyle += " " + Math.ceil(this.props.cellSize * 0.02) + "px"
+    borderStyle += " " + this.props.borderWidth + "px";
     let backgroundStyle = "rgba(0, 0, 0, ";
     backgroundStyle += this.props.cell.wall ? "0.4)" : "0)";
     let cellStyle = { ...this.cellStyle };

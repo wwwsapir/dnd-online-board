@@ -78,6 +78,7 @@ class BoardMap extends Component {
                 cell={matrix[i][j]}
                 cellSize={cellSize}
                 onClick={this.handleCellClick}
+                borderWidth={this.props.borderWidth}
               />
             ))}
           </div>
