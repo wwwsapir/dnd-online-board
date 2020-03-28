@@ -23,15 +23,13 @@ class MapCell extends Component {
     this.setCellStyle();
     if (this.props.selected) {
     }
-    const { onClick, cell, children } = this.props;
+    const { onClick, cell } = this.props;
     return (
       <div
         className="CellStyle"
         style={this.style}
         onClick={() => onClick(cell)}
-      >
-        {children}
-      </div>
+      />
     );
   }
 }

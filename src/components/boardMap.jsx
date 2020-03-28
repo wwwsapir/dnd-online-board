@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import MapCell from "./mapCell";
+import Character from "./character";
 
 class BoardMap extends Component {
   row = [{ cellInd: 0 }, { cellInd: 1 }, { cellInd: 2 }];
 
   state = {
     matrix: this.createMatrix(this.props.rowCount, this.props.colCount),
-    cellSize: this.props.cellSize,
-    selectedCell: undefined
+    selectedCell: undefined,
+    characters: this.props.characters
   };
 
   createMatrix(rowCount, colCount) {
@@ -16,7 +17,7 @@ class BoardMap extends Component {
       let row = [];
       for (let j = 0; j < colCount; j++) {
         let cell = {
-          character: null,
+          character: undefined,
           wall: this.isCellWall(i, j)
         };
         row.push(cell);
@@ -64,25 +65,51 @@ class BoardMap extends Component {
     return { row: undefined, col: undefined };
   }
 
+  calcCharPosition(char) {
+    const { cellSize, borderWidth } = this.props;
+    return {
+      topLeft: {
+        row: char.topLeftInd.row * (cellSize + borderWidth * 2) + borderWidth,
+        col: char.topLeftInd.col * (cellSize + borderWidth * 2) + borderWidth
+      },
+      width:
+        char.widthCells * cellSize + (char.widthCells - 1) * 2 * borderWidth,
+      height:
+        char.heightCells * cellSize + (char.widthCells - 1) * 2 * borderWidth
+    };
+  }
+
   render() {
-    const { matrix, cellSize, selectedCell } = this.state;
+    const { matrix, selectedCell, characters } = this.state;
+    const { cellSize, borderWidth } = this.props;
 
     return (
       <div>
-        {matrix.map((row, i) => (
-          <div key={i}>
-            {row.map((col, j) => (
-              <MapCell
-                key={j}
-                selected={matrix[i][j] === selectedCell}
-                cell={matrix[i][j]}
-                cellSize={cellSize}
-                onClick={this.handleCellClick}
-                borderWidth={this.props.borderWidth}
-              />
-            ))}
-          </div>
-        ))}
+        <div>
+          {matrix.map((row, i) => (
+            <div key={i}>
+              {row.map((col, j) => (
+                <MapCell
+                  key={j}
+                  selected={col === selectedCell}
+                  cell={col}
+                  cellSize={cellSize}
+                  onClick={this.handleCellClick}
+                  borderWidth={borderWidth}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+        <div>
+          {characters.map((char, i) => (
+            <Character
+              key={i}
+              character={char}
+              position={this.calcCharPosition(char)}
+            />
+          ))}
+        </div>
       </div>
     );
   }
