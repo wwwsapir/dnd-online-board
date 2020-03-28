@@ -46,8 +46,36 @@ class BoardMap extends Component {
   };
 
   handleCharClick = char => {
-    console.log("handleCharClick called");
+    let { selectedChar, selectedCells } = this.state;
+    let newState = { ...this.state };
+    if (selectedChar || selectedCells.length > 0) {
+      newState.selectedChar = undefined;
+      newState.selectedCells = [];
+    } else {
+      newState.selectedChar = char;
+      newState.selectedCells = this.getSelectesCharCells(char);
+    }
+    this.setState(newState);
   };
+
+  getSelectesCharCells(char) {
+    let selectedCells = [];
+    const { matrix } = this.state;
+    for (
+      let row = char.topLeftInd.row;
+      row < char.widthCells + char.topLeftInd.row;
+      row++
+    ) {
+      for (
+        let col = char.topLeftInd.col;
+        col < char.heightCells + char.topLeftInd.col;
+        col++
+      ) {
+        selectedCells.push(matrix[row][col]);
+      }
+    }
+    return selectedCells;
+  }
 
   handleAction(cell) {
     console.log("Taking action!", cell);
