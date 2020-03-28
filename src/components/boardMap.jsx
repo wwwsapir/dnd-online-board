@@ -63,20 +63,35 @@ class BoardMap extends Component {
   getSelectedCharCells(char) {
     let selectedCells = [];
     const { matrix } = this.state;
-    for (
-      let row = char.topLeftInd.row;
-      row < char.widthCells + char.topLeftInd.row;
-      row++
+    const lastRowInd = char.widthCells + char.topLeftInd.row - 1;
+    const lastColInd = char.widthCells + char.topLeftInd.col - 1;
+    if (
+      !this.checkIndicesValid(
+        lastRowInd,
+        lastColInd,
+        char.topLeftInd.row,
+        char.topLeftInd.col
+      )
     ) {
-      for (
-        let col = char.topLeftInd.col;
-        col < char.heightCells + char.topLeftInd.col;
-        col++
-      ) {
+      console.error("Trying to select/move to place outside map!");
+      return [];
+    }
+    for (let row = char.topLeftInd.row; row < lastRowInd + 1; row++) {
+      for (let col = char.topLeftInd.col; col < lastColInd + 1; col++) {
         selectedCells.push(matrix[row][col]);
       }
     }
     return selectedCells;
+  }
+
+  checkIndicesValid(smallRow, smallCol, largeRow, largeCol) {
+    const { rowCount, colCount } = this.props;
+    return (
+      smallRow >= 0 &&
+      smallCol >= 0 &&
+      largeRow < rowCount &&
+      largeCol < colCount
+    );
   }
 
   handleAction(cell) {
