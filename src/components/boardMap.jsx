@@ -7,8 +7,9 @@ class BoardMap extends Component {
 
   state = {
     matrix: this.createMatrix(this.props.rowCount, this.props.colCount),
-    selectedCell: undefined,
-    characters: this.props.characters
+    selectedCells: [],
+    characters: this.props.characters,
+    selectedChar: undefined
   };
 
   createMatrix(rowCount, colCount) {
@@ -33,24 +34,32 @@ class BoardMap extends Component {
   }
 
   handleCellClick = cell => {
-    const { selectedCell } = this.state;
-    if (selectedCell) {
-      if (cell !== selectedCell && !cell.wall) {
+    const { selectedCells } = this.state;
+    if (selectedCells.length > 0) {
+      if (!selectedCells.includes(cell) && !cell.wall) {
         this.handleAction(cell);
       }
-      this.changeCellState(selectedCell, false);
+      this.changeCellsState(selectedCells, false);
     } else if (!cell.wall) {
-      this.changeCellState(cell, true);
+      this.changeCellsState([cell], true);
     }
+  };
+
+  handleCharClick = char => {
+    console.log("handleCharClick called");
   };
 
   handleAction(cell) {
     console.log("Taking action!", cell);
   }
 
-  changeCellState(cell, selected) {
+  changeCellsState(cells, selected) {
     let newState = { ...this.state };
-    newState.selectedCell = selected ? cell : undefined;
+    if (selected) {
+      newState.selectedCells.push(cells[0]);
+    } else {
+      newState.selectedCells = [];
+    }
     this.setState(newState);
   }
 
@@ -80,7 +89,7 @@ class BoardMap extends Component {
   }
 
   render() {
-    const { matrix, selectedCell, characters } = this.state;
+    const { matrix, selectedCells, characters } = this.state;
     const { cellSize, borderWidth } = this.props;
 
     return (
@@ -88,11 +97,11 @@ class BoardMap extends Component {
         <div>
           {matrix.map((row, i) => (
             <div key={i}>
-              {row.map((col, j) => (
+              {row.map((cell, j) => (
                 <MapCell
                   key={j}
-                  selected={col === selectedCell}
-                  cell={col}
+                  selected={selectedCells.includes(cell)}
+                  cell={cell}
                   cellSize={cellSize}
                   onClick={this.handleCellClick}
                   borderWidth={borderWidth}
@@ -107,6 +116,7 @@ class BoardMap extends Component {
               key={i}
               character={char}
               position={this.calcCharPosition(char)}
+              onClick={this.handleCharClick}
             />
           ))}
         </div>
