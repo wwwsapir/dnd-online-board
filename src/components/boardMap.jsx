@@ -34,14 +34,16 @@ class BoardMap extends Component {
   }
 
   handleCellClick = cell => {
-    const { selectedCells } = this.state;
-    if (selectedCells.length > 0) {
-      if (!selectedCells.includes(cell) && !cell.wall) {
-        this.handleAction(cell);
+    const { selectedCells, selectedChar } = this.state;
+    if (selectedChar) {
+      if (selectedCells.length > 0) {
+        if (!selectedCells.includes(cell) && !cell.wall) {
+          this.handleAction(cell);
+        }
+        this.changeCellsState(selectedCells, false);
+      } else if (!cell.wall) {
+        this.changeCellsState([cell], true);
       }
-      this.changeCellsState(selectedCells, false);
-    } else if (!cell.wall) {
-      this.changeCellsState([cell], true);
     }
   };
 
@@ -53,12 +55,12 @@ class BoardMap extends Component {
       newState.selectedCells = [];
     } else {
       newState.selectedChar = char;
-      newState.selectedCells = this.getSelectesCharCells(char);
+      newState.selectedCells = this.getSelectedCharCells(char);
     }
     this.setState(newState);
   };
 
-  getSelectesCharCells(char) {
+  getSelectedCharCells(char) {
     let selectedCells = [];
     const { matrix } = this.state;
     for (
@@ -87,6 +89,7 @@ class BoardMap extends Component {
       newState.selectedCells.push(cells[0]);
     } else {
       newState.selectedCells = [];
+      newState.selectedChar = undefined;
     }
     this.setState(newState);
   }
