@@ -1,12 +1,10 @@
 import React, { Component } from "react";
+import "./mapCell.css";
 
 class MapCell extends Component {
-  cellStyle = {
+  style = {
     width: this.props.cellSize,
-    height: this.props.cellSize,
-    display: "inline-block",
-    verticalAlign: "top",
-    color: "rgba(255, 255, 255, 1)"
+    height: this.props.cellSize
   };
 
   setCellStyle() {
@@ -15,10 +13,10 @@ class MapCell extends Component {
     borderStyle += " " + this.props.borderWidth + "px";
     let backgroundStyle = "rgba(0, 0, 0, ";
     backgroundStyle += this.props.cell.wall ? "0.4)" : "0)";
-    let cellStyle = { ...this.cellStyle };
+    let cellStyle = { ...this.style };
     cellStyle.border = borderStyle;
     cellStyle.background = backgroundStyle;
-    this.cellStyle = cellStyle;
+    this.style = cellStyle;
   }
 
   render() {
@@ -27,7 +25,11 @@ class MapCell extends Component {
     }
     const { onClick, cell, children } = this.props;
     return (
-      <div style={this.cellStyle} onClick={() => onClick(cell)}>
+      <div
+        className="CellStyle"
+        style={this.style}
+        onClick={() => onClick(cell)}
+      >
         {children}
       </div>
     );
