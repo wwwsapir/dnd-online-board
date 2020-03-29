@@ -35,11 +35,12 @@ class BoardMap extends Component {
   }
 
   handleCellClick = cell => {
+    console.log("handleCellClick called");
     const { selectedCells, selectedChar } = this.state;
     if (selectedChar) {
       if (selectedCells.length > 0) {
-        if (!selectedCells.includes(cell) && !cell.wall) {
-          this.handleAction(cell);
+        if (!cell.wall) {
+          this.handleMoveCharacter(cell);
         }
         this.changeCellsState(selectedCells, false);
       } else if (!cell.wall) {
@@ -48,7 +49,44 @@ class BoardMap extends Component {
     }
   };
 
-  handleCharClick = char => {
+  handleKeyUp = e => {
+    let { selectedChar, matrix } = this.state;
+    if (!selectedChar) {
+      return;
+    }
+
+    let rowAdd = 0;
+    let colAdd = 0;
+
+    switch (e.keyCode) {
+      case 37: // Left
+        rowAdd = 0;
+        colAdd = -1;
+        break;
+      case 38: // Up
+        rowAdd = -1;
+        colAdd = 0;
+        break;
+      case 39: // Right
+        rowAdd = 0;
+        colAdd = 1;
+        break;
+      case 40: // Down
+        rowAdd = 1;
+        colAdd = 0;
+        break;
+      default:
+        this.setState({ selecterChar: undefined, selectedCells: [] });
+        return;
+    }
+    const row = selectedChar.topLeftRow + rowAdd;
+    const col = selectedChar.topLeftCol + colAdd;
+    if (this.checkIndicesValid(row, col, row, col)) {
+      this.handleCellClick(matrix[row][col], false);
+    }
+  };
+
+  handleCharClick = (char, triggerDeselect = true) => {
     let { selectedChar, selectedCells } = { ...this.state };
     if (selectedChar || selectedCells.length > 0) {
       selectedChar = undefined;
@@ -97,7 +135,7 @@ class BoardMap extends Component {
     );
   }
 
-  handleAction(cell) {
+  handleMoveCharacter(cell) {
     const charInd = this.state.characters.indexOf(this.state.selectedChar);
     const positionInd = this.matrixIndexOf(cell);
 
@@ -154,6 +192,13 @@ class BoardMap extends Component {
       height:
         char.heightCells * cellSize + (char.widthCells - 1) * 2 * borderWidth
     };
+  }
+
+  componentDidMount() {
+    document.addEventListener("keyup", this.handleKeyUp, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keyup", this.handleKeyUp, false);
   }
 
   render() {
