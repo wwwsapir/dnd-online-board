@@ -8,7 +8,6 @@ class BoardMap extends Component {
 
   state = {
     matrix: this.createMatrix(this.props.rowCount, this.props.colCount),
-    selectedCells: [],
     characters: this.props.characters,
     selectedChar: undefined
   };
@@ -34,19 +33,31 @@ class BoardMap extends Component {
     return walls.length > 0;
   }
 
-  handleCellClick = cell => {
-    console.log("handleCellClick called");
-    const { selectedCells, selectedChar } = this.state;
+  handleCellClick = (cell, triggerDeselect = true) => {
+    const { selectedChar, characters } = this.state;
     if (selectedChar) {
-      if (selectedCells.length > 0) {
-        if (!cell.wall) {
-          this.handleMoveCharacter(cell);
+      if (cell.wall) {
+        if (triggerDeselect) {
+          this.setState({ selectedChar: undefined });
         }
-        this.changeCellsState(selectedCells, false);
-      } else if (!cell.wall) {
-        this.changeCellsState([cell], true);
+        return;
+      }
+
+      const charInd = this.handleMoveCharacter(cell);
+      if (charInd == -1) {
+        if (triggerDeselect) {
+          this.setState({ selectedChar: undefined });
+        }
+        return;
+      }
+      if (triggerDeselect) {
+        console.log("trigger deselect", this.state);
+        this.setState({ selectedChar: undefined });
+      } else {
+        this.setState({ selectedChar: characters[charInd] });
       }
     }
+    console.log("after", this.state);
   };
 
   handleKeyUp = e => {
@@ -76,7 +87,7 @@ class BoardMap extends Component {
         colAdd = 0;
         break;
       default:
-        this.setState({ selectedChar: undefined, selectedCells: [] });
+        this.setState({ selectedChar: undefined });
         return;
     }
     const row = selectedChar.topLeftRow + rowAdd;
@@ -86,19 +97,18 @@ class BoardMap extends Component {
     }
   };
 
-  handleCharClick = (char, triggerDeselect = true) => {
-    let { selectedChar, selectedCells } = { ...this.state };
-    if (selectedChar || selectedCells.length > 0) {
+  handleCharClick = char => {
+    let { selectedChar } = { ...this.state };
+    if (selectedChar) {
       selectedChar = undefined;
-      selectedCells = [];
     } else {
       selectedChar = char;
-      selectedCells = this.getSelectedCharCells(char);
+      const selectedCells = this.getSelectedCharCells(char);
       if (!selectedCells) {
         selectedChar = undefined;
       }
     }
-    this.setState({ selectedChar, selectedCells });
+    this.setState({ selectedChar });
   };
 
   getSelectedCharCells(char) {
@@ -140,15 +150,15 @@ class BoardMap extends Component {
     const positionInd = this.matrixIndexOf(cell);
 
     if (!this.isNewPosValid(positionInd)) {
-      this.setState({ selectedChar: undefined, selectedCells: [] });
-      return;
+      return -1;
     }
 
     const { characters } = { ...this.state };
     characters[charInd] = { ...this.state.selectedChar };
     characters[charInd].topLeftRow = positionInd.row;
     characters[charInd].topLeftCol = positionInd.col;
-    this.setState({ characters, selectedChar: undefined, selectedCells: [] });
+    this.setState({ characters });
+    return charInd;
   }
 
   isNewPosValid(newPositionInd) {
@@ -156,17 +166,6 @@ class BoardMap extends Component {
     selectedCharCopy.topLeftRow = newPositionInd.row;
     selectedCharCopy.topLeftCol = newPositionInd.col;
     return this.getSelectedCharCells(selectedCharCopy).length > 0;
-  }
-
-  changeCellsState(cells, selected) {
-    let { selectedCells, selectedChar } = { ...this.state };
-    if (selected) {
-      selectedCells.push(cells[0]);
-    } else {
-      selectedCells = [];
-      selectedChar = undefined;
-    }
-    this.setState({ selectedCells, selectedChar });
   }
 
   matrixIndexOf(cell) {
@@ -202,7 +201,7 @@ class BoardMap extends Component {
   }
 
   render() {
-    const { matrix, selectedCells, characters } = this.state;
+    const { matrix, selectedChar, characters } = this.state;
     const { cellSize, borderWidth } = this.props;
 
     return (
@@ -213,7 +212,6 @@ class BoardMap extends Component {
               {row.map((cell, j) => (
                 <MapCell
                   key={j}
-                  selected={selectedCells.includes(cell)}
                   cell={cell}
                   cellSize={cellSize}
                   onClick={this.handleCellClick}
@@ -228,8 +226,10 @@ class BoardMap extends Component {
             <Character
               key={i}
               character={char}
+              selected={selectedChar === char}
               position={this.calcCharPosition(char)}
               onClick={this.handleCharClick}
+              borderWidth={borderWidth}
             />
           ))}
         </div>

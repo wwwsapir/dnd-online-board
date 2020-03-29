@@ -2,12 +2,17 @@ import React, { Component } from "react";
 
 class Character extends Component {
   getStyle() {
+    const { selected, position, borderWidth } = this.props;
+    let borderStyle = selected ? "solid red" : "none"
+    borderStyle += " " + borderWidth + "px";
+    const borderChange = selected ? borderWidth : 0;
     return {
-      width: this.props.position.width,
-      height: this.props.position.height,
+      width: position.width,
+      height: position.height,
       position: "absolute",
-      top: this.props.position.topLeft.row,
-      left: this.props.position.topLeft.col
+      top: position.topLeft.row - borderChange,
+      left: position.topLeft.col - borderChange,
+      border: borderStyle
     };
   }
 
