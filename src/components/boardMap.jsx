@@ -76,7 +76,7 @@ class BoardMap extends Component {
         colAdd = 0;
         break;
       default:
-        this.setState({ selecterChar: undefined, selectedCells: [] });
+        this.setState({ selectedChar: undefined, selectedCells: [] });
         return;
     }
     const row = selectedChar.topLeftRow + rowAdd;
