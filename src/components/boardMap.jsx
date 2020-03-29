@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import MapCell from "./mapCell";
 import Character from "./character";
+import CloneDeep from "lodash/cloneDeep";
 
 class BoardMap extends Component {
   row = [{ cellInd: 0 }, { cellInd: 1 }, { cellInd: 2 }];
@@ -48,36 +49,38 @@ class BoardMap extends Component {
   };
 
   handleCharClick = char => {
-    let { selectedChar, selectedCells } = this.state;
-    let newState = { ...this.state };
+    let { selectedChar, selectedCells } = { ...this.state };
     if (selectedChar || selectedCells.length > 0) {
-      newState.selectedChar = undefined;
-      newState.selectedCells = [];
+      selectedChar = undefined;
+      selectedCells = [];
     } else {
-      newState.selectedChar = char;
-      newState.selectedCells = this.getSelectedCharCells(char);
+      selectedChar = char;
+      selectedCells = this.getSelectedCharCells(char);
+      if (!selectedCells) {
+        selectedChar = undefined;
+      }
     }
-    this.setState(newState);
+    this.setState({ selectedChar, selectedCells });
   };
 
   getSelectedCharCells(char) {
     let selectedCells = [];
     const { matrix } = this.state;
-    const lastRowInd = char.widthCells + char.topLeftInd.row - 1;
-    const lastColInd = char.widthCells + char.topLeftInd.col - 1;
+    const lastRowInd = char.heightCells + char.topLeftRow - 1;
+    const lastColInd = char.widthCells + char.topLeftCol - 1;
     if (
       !this.checkIndicesValid(
+        char.topLeftRow,
+        char.topLeftCol,
         lastRowInd,
-        lastColInd,
-        char.topLeftInd.row,
-        char.topLeftInd.col
+        lastColInd
       )
     ) {
-      console.error("Trying to select/move to place outside map!");
+      console.warn("Can't place character outside map boundary!");
       return [];
     }
-    for (let row = char.topLeftInd.row; row < lastRowInd + 1; row++) {
-      for (let col = char.topLeftInd.col; col < lastColInd + 1; col++) {
+    for (let row = char.topLeftRow; row < lastRowInd + 1; row++) {
+      for (let col = char.topLeftCol; col < lastColInd + 1; col++) {
         selectedCells.push(matrix[row][col]);
       }
     }
@@ -95,18 +98,37 @@ class BoardMap extends Component {
   }
 
   handleAction(cell) {
-    console.log("Taking action!", cell);
+    const charInd = this.state.characters.indexOf(this.state.selectedChar);
+    const positionInd = this.matrixIndexOf(cell);
+
+    if (!this.isNewPosValid(positionInd)) {
+      this.setState({ selectedChar: undefined, selectedCells: [] });
+      return;
+    }
+
+    const { characters } = { ...this.state };
+    characters[charInd] = { ...this.state.selectedChar };
+    characters[charInd].topLeftRow = positionInd.row;
+    characters[charInd].topLeftCol = positionInd.col;
+    this.setState({ characters, selectedChar: undefined, selectedCells: [] });
+  }
+
+  isNewPosValid(newPositionInd) {
+    let selectedCharCopy = CloneDeep(this.state.selectedChar);
+    selectedCharCopy.topLeftRow = newPositionInd.row;
+    selectedCharCopy.topLeftCol = newPositionInd.col;
+    return this.getSelectedCharCells(selectedCharCopy).length > 0;
   }
 
   changeCellsState(cells, selected) {
-    let newState = { ...this.state };
+    let { selectedCells, selectedChar } = { ...this.state };
     if (selected) {
-      newState.selectedCells.push(cells[0]);
+      selectedCells.push(cells[0]);
     } else {
-      newState.selectedCells = [];
-      newState.selectedChar = undefined;
+      selectedCells = [];
+      selectedChar = undefined;
     }
-    this.setState(newState);
+    this.setState({ selectedCells, selectedChar });
   }
 
   matrixIndexOf(cell) {
@@ -124,8 +146,8 @@ class BoardMap extends Component {
     const { cellSize, borderWidth } = this.props;
     return {
       topLeft: {
-        row: char.topLeftInd.row * (cellSize + borderWidth * 2) + borderWidth,
-        col: char.topLeftInd.col * (cellSize + borderWidth * 2) + borderWidth
+        row: char.topLeftRow * (cellSize + borderWidth * 2) + borderWidth,
+        col: char.topLeftCol * (cellSize + borderWidth * 2) + borderWidth
       },
       width:
         char.widthCells * cellSize + (char.widthCells - 1) * 2 * borderWidth,

@@ -16,14 +16,16 @@ class App extends Component {
       {
         name: "Ranger",
         imgSrc: this.props.imageLinks.ranger,
-        topLeftInd: { row: 0, col: 0 },
+        topLeftRow: 0,
+        topLeftCol: 0,
         widthCells: 1,
         heightCells: 1
       },
       {
         name: "Warlock",
         imgSrc: this.props.imageLinks.warlock,
-        topLeftInd: { row: 2, col: 2 },
+        topLeftRow: 2,
+        topLeftCol: 2,
         widthCells: 2,
         heightCells: 2
       }
