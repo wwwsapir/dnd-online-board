@@ -205,9 +205,9 @@ class BoardMap extends Component {
 
     return (
       <div className="w-100 h-100">
-        <div>
+        <div className="w-100 h-100">
           {matrix.map((row, i) => (
-            <div key={i}>
+            <div key={i} className="row" style={{height: cellSize + "%"}}>
               {row.map((cell, j) => (
                 <MapCell
                   key={j}

@@ -4,7 +4,7 @@ import "./mapCell.css";
 class MapCell extends Component {
   style = {
     width: this.props.cellSize + "%",
-    height: this.props.cellSize
+    height: "100%"
   };
 
   setCellStyle() {
@@ -26,7 +26,7 @@ class MapCell extends Component {
     const { onClick, cell } = this.props;
     return (
       <div
-        className="CellStyle"
+        className="CellStyle col"
         style={this.style}
         onClick={() => onClick(cell)}
       />
