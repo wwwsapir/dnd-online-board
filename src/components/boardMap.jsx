@@ -44,20 +44,18 @@ class BoardMap extends Component {
       }
 
       const charInd = this.handleMoveCharacter(cell);
-      if (charInd == -1) {
+      if (charInd === -1) {
         if (triggerDeselect) {
           this.setState({ selectedChar: undefined });
         }
         return;
       }
       if (triggerDeselect) {
-        console.log("trigger deselect", this.state);
         this.setState({ selectedChar: undefined });
       } else {
         this.setState({ selectedChar: characters[charInd] });
       }
     }
-    console.log("after", this.state);
   };
 
   handleKeyUp = e => {
