@@ -182,8 +182,8 @@ class BoardMap extends Component {
     const { cellSize, borderWidth } = this.props;
     return {
       topLeft: {
-        row: char.topLeftRow * (cellSize + borderWidth * 2) + borderWidth,
-        col: char.topLeftCol * (cellSize + borderWidth * 2) + borderWidth
+        row: char.topLeftRow * cellSize + borderWidth,
+        col: char.topLeftCol * cellSize + borderWidth
       },
       width:
         char.widthCells * cellSize + (char.widthCells - 1) * 2 * borderWidth,
@@ -202,12 +202,13 @@ class BoardMap extends Component {
   render() {
     const { matrix, selectedChar, characters } = this.state;
     const { cellSize, borderWidth } = this.props;
+    console.log(cellSize);
 
     return (
       <div className="w-100 h-100">
         <div className="w-100 h-100">
           {matrix.map((row, i) => (
-            <div key={i} className="row" style={{height: cellSize + "%"}}>
+            <div key={i} className="row" style={{ height: cellSize + "%" }}>
               {row.map((cell, j) => (
                 <MapCell
                   key={j}
@@ -219,8 +220,20 @@ class BoardMap extends Component {
               ))}
             </div>
           ))}
+          <div className="w-100 h-100">
+            {characters.map((char, i) => (
+              <Character
+                key={i}
+                character={char}
+                selected={selectedChar === char}
+                position={this.calcCharPosition(char)}
+                onClick={this.handleCharClick}
+                borderWidth={borderWidth}
+              />
+            ))}
+          </div>
         </div>
-        <div>
+        {/*<div className="w-100 h-100">
           {characters.map((char, i) => (
             <Character
               key={i}
@@ -231,7 +244,7 @@ class BoardMap extends Component {
               borderWidth={borderWidth}
             />
           ))}
-        </div>
+        </div> */}
       </div>
     );
   }

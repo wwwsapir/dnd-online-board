@@ -12,8 +12,8 @@ class App extends Component {
       // { row: 1, col: 1 },
       // { row: 1, col: 2 }
     ],
-    cellSize: Math.floor((100 / this.props.rowCount) * 0.96),
-    borderWidth: Math.ceil((100 / this.props.rowCount) * 0.02),
+    cellSize: 100 / this.props.rowCount,
+    borderWidth: Math.ceil((100 / this.props.rowCount) * 0.2),
     characters: [
       {
         name: "Ranger",
