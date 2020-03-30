@@ -43,14 +43,6 @@ class App extends Component {
     console.log("handleCharacterCreation called");
   }
 
-  MapBgImg = {
-    backgroundImage:
-      'url("https://dicegrimorium.com/wp-content/uploads/2019/07/ForestPathPublic-1024x1024.jpg")',
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover"
-  };
-
   render() {
     const {
       rowCount,
@@ -61,8 +53,8 @@ class App extends Component {
       characters
     } = this.state;
     return (
-      <div style={{border: "solid black 3px"}} className="h-50" >
-        <div className="h-50" style={this.MapBgImg}>
+      <div className="row h-100 w-100">
+        <div className="MapBgImg col-md-9" style={{ border: "blue 5px solid" }}>
           <BoardMap
             rowCount={rowCount}
             colCount={colCount}
@@ -72,7 +64,14 @@ class App extends Component {
             characters={characters}
           />
         </div>
-        {/* <CharacterCreator onCreation={this.handleCharacterCreation} /> */}
+        <div
+          className="col-md-3"
+          style={{
+            border: "blue 5px solid"
+          }}
+        >
+          <CharacterCreator onCreation={this.handleCharacterCreation} />
+        </div>
       </div>
     );
   }

@@ -15,7 +15,12 @@ const imageLinks = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App rowCount={8} imageLinks={imageLinks} className='h-50' />
+    <div
+      className="container-fluid"
+      style={{ border: "solid black 3px", height: "800px" }}
+    >
+      <App rowCount={8} imageLinks={imageLinks} />
+    </div>
   </React.StrictMode>,
   document.getElementById("root")
 );

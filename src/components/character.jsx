@@ -7,11 +7,11 @@ class Character extends Component {
     borderStyle += " " + borderWidth + "px";
     const borderChange = selected ? borderWidth : 0;
     return {
-      width: position.width,
-      height: position.height,
+      width: position.width + '%',
+      height: position.height + '%',
       position: "absolute",
-      top: position.topLeft.row - borderChange,
-      left: position.topLeft.col - borderChange,
+      top: (position.topLeft.row - borderChange) + '%',
+      left: (position.topLeft.col - borderChange) + '%',
       border: borderStyle
     };
   }

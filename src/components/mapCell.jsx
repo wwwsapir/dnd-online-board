@@ -3,7 +3,7 @@ import "./mapCell.css";
 
 class MapCell extends Component {
   style = {
-    width: this.props.cellSize,
+    width: this.props.cellSize + "%",
     height: this.props.cellSize
   };
 
@@ -19,6 +19,7 @@ class MapCell extends Component {
   }
 
   render() {
+    console.log("cellSize", this.props.cellSize)
     this.setCellStyle();
     if (this.props.selected) {
     }

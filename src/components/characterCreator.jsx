@@ -15,8 +15,8 @@ class CharacterCreator extends Component {
     const { boardRowCount, boardColCount, onCreation } = this.props;
     return (
       //   <div style={this.styles.creationBar}>
-      <ul className="nav nav-tabs flex-column" style={this.styles.creationBar}>
-        <h4>Add a new character to the board:</h4>
+      <ul className="nav nav-tabs flex-column">
+        <h4>Add a new character to the board</h4>
         <li className="nav-item">
           <label className="mr-1">Character name: </label>
           <input />
@@ -31,11 +31,11 @@ class CharacterCreator extends Component {
         </li>
         <li className="nav-item">
           <label className="mr-2" >Character type:</label>
-          <input type="radio" className="CharType" value="Player" />
+          <input type="radio" name="CharType" value="Player" />
           <label className="ml-1 mr-3">Player</label>
-          <input type="radio" className="CharType" value="Enemy" />
+          <input type="radio" name="CharType" value="Enemy" />
           <label className="ml-1 mr-3"> Enemy</label>
-          <input type="radio" className="CharType" value="Ally" />
+          <input type="radio" name="CharType" value="Ally" />
           <label className="ml-1 mr-3"> Ally</label>
         </li>
         <li className="nav-item">

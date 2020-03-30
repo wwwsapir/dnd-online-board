@@ -204,7 +204,7 @@ class BoardMap extends Component {
     const { cellSize, borderWidth } = this.props;
 
     return (
-      <div>
+      <div className="w-100 h-100">
         <div>
           {matrix.map((row, i) => (
             <div key={i}>
