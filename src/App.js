@@ -1,17 +1,19 @@
 import React, { Component, Fragment } from "react";
 import "./App.css";
 import BoardMap from "./components/boardMap";
+import CharacterCreator from "./components/characterCreator";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 class App extends Component {
   state = {
-    rowCount: 8,
-    colCount: 8,
+    rowCount: this.props.rowCount,
+    colCount: this.getColCount(),
     walls: [
       // { row: 1, col: 1 },
       // { row: 1, col: 2 }
     ],
-    cellSize: this.props.cellSize,
-    borderWidth: Math.ceil(this.props.cellSize * 0.02),
+    cellSize: Math.floor((100 / this.props.rowCount) * 0.96),
+    borderWidth: Math.ceil((100 / this.props.rowCount) * 0.02),
     characters: [
       {
         name: "Ranger",
@@ -32,31 +34,46 @@ class App extends Component {
     ]
   };
 
-  style = {
-    mapBgImg: {
-      height:
-        (this.state.cellSize + this.state.borderWidth * 2) *
-        this.state.rowCount,
-      width:
-        (this.state.cellSize + this.state.borderWidth * 2) * this.state.colCount
-    }
+  getColCount() {
+    console.warn("Temp col count");
+    return 8;
+  }
+
+  handleCharacterCreation() {
+    console.log("handleCharacterCreation called");
+  }
+
+  MapBgImg = {
+    backgroundImage:
+      'url("https://dicegrimorium.com/wp-content/uploads/2019/07/ForestPathPublic-1024x1024.jpg")',
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover"
   };
 
   render() {
-    const { rowCount, colCount, walls } = this.state;
+    const {
+      rowCount,
+      colCount,
+      walls,
+      cellSize,
+      borderWidth,
+      characters
+    } = this.state;
     return (
-      <Fragment>
-        <div className="MapBgImg" style={this.style.mapBgImg}>
+      <div style={{border: "solid black 3px"}} className="h-50" >
+        <div className="h-50" style={this.MapBgImg}>
           <BoardMap
             rowCount={rowCount}
             colCount={colCount}
             walls={walls}
-            cellSize={this.state.cellSize}
-            borderWidth={this.state.borderWidth}
-            characters={this.state.characters}
+            cellSize={cellSize}
+            borderWidth={borderWidth}
+            characters={characters}
           />
         </div>
-      </Fragment>
+        {/* <CharacterCreator onCreation={this.handleCharacterCreation} /> */}
+      </div>
     );
   }
 }

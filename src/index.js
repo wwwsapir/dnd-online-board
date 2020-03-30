@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const imageLinks = {
   ranger: "https://drive.google.com/uc?id=1MIyJ4ATQToPI_RN7RfiFQPDmuKBWHz_j",
@@ -15,7 +15,7 @@ const imageLinks = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App cellSize={70} imageLinks={imageLinks} />
+    <App rowCount={8} imageLinks={imageLinks} className='h-50' />
   </React.StrictMode>,
   document.getElementById("root")
 );

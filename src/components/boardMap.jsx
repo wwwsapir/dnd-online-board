@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MapCell from "./mapCell";
 import Character from "./character";
 import CloneDeep from "lodash/cloneDeep";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 class BoardMap extends Component {
   row = [{ cellInd: 0 }, { cellInd: 1 }, { cellInd: 2 }];
