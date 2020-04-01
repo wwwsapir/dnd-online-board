@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import CharacterCreator from "./components/characterCreator";
+import DiceRoller from "./components/diceRoller";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MapCanvas from "./components/mapCanvas";
 
@@ -70,6 +71,7 @@ class App extends Component {
         </div>
         <div className="SideBar col-md-3 bg-primary">
           <CharacterCreator onCreation={this.handleCharacterCreation} />
+          <DiceRoller />
         </div>
       </div>
     );

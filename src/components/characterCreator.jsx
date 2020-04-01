@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./characterCreator.css";
+import "./sideBar.css";
 
 class CharacterCreator extends Component {
   state = {
@@ -37,10 +37,10 @@ class CharacterCreator extends Component {
             }
           />
         </li>
-        <li className="nav-item col">
-          <label className="mr-1">Width in squares: </label>
+        <li className="nav-item">
+          <label className="mr-1 col-md-5">Width in squares: </label>
           <input
-            className="input-group-sm mb-3 form-control"
+            className="input-group-sm mb-3 form-control col-md-6 d-inline"
             id="width"
             type="number"
             step={1}
@@ -52,10 +52,10 @@ class CharacterCreator extends Component {
             }
           />
         </li>
-        <li className="nav-item col">
-          <label className="mr-1">Height in squares: </label>
+        <li className="nav-item">
+          <label className="mr-1 col-md-5">Height in squares: </label>
           <input
-            className="input-group-sm mb-3 form-control"
+            className="input-group-sm mb-3 form-control col-md-6 d-inline"
             id="height"
             type="number"
             step={1}
