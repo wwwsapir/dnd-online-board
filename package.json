@@ -8,6 +8,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.4.1",
+    "croppie": "^2.6.4",
     "deep-freeze": "0.0.1",
     "expect": "^25.2.3",
     "lodash": "^4.17.15",
