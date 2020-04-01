@@ -3,6 +3,7 @@ import "./App.css";
 import BoardMap from "./components/boardMap";
 import CharacterCreator from "./components/characterCreator";
 import "bootstrap/dist/css/bootstrap.min.css";
+import MapCanvas from "./components/mapCanvas";
 
 class App extends Component {
   state = {
@@ -54,15 +55,17 @@ class App extends Component {
     } = this.state;
     return (
       <div className="row h-100 w-100">
-        <div className="MapBgImg col-md-9" style={{ border: "blue 5px solid" }}>
-          <BoardMap
+        {/* <div className="MapBgImg col-md-9" style={{ border: "blue 5px solid" }}> */}
+        <div className="col-md-9 h-100" style={{ border: "blue 5px solid", padding: 0 }}>
+          {/* <BoardMap
             rowCount={rowCount}
             colCount={colCount}
             walls={walls}
             cellSize={cellSize}
             borderWidth={borderWidth}
             characters={characters}
-          />
+          /> */}
+          <MapCanvas />
         </div>
         <div
           className="col-md-3"
