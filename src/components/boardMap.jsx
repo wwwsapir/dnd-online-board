@@ -181,13 +181,11 @@ class BoardMap extends Component {
     const { cellSize, borderWidth } = this.props;
     return {
       topLeft: {
-        row: char.topLeftRow * (cellSize) + borderWidth,
-        col: char.topLeftCol * (cellSize) + borderWidth
+        row: char.topLeftRow * cellSize + borderWidth,
+        col: char.topLeftCol * cellSize + borderWidth
       },
-      width:
-        char.widthCells * cellSize - 2 * borderWidth,
-      height:
-        char.heightCells * cellSize - 2 * borderWidth
+      width: char.widthCells * cellSize - 2 * borderWidth,
+      height: char.heightCells * cellSize - 2 * borderWidth
     };
   }
 
@@ -199,7 +197,7 @@ class BoardMap extends Component {
   }
 
   render() {
-    const { matrix, selectedChar, characters } = this.state;
+    const { matrix, selectedChar, characters, cursor } = this.state;
     const { cellSize, borderWidth } = this.props;
 
     return (
@@ -214,6 +212,7 @@ class BoardMap extends Component {
                   cellSize={cellSize}
                   onClick={this.handleCellClick}
                   borderWidth={borderWidth}
+                  cursorHover={selectedChar ? "pointer" : "move"}
                 />
               ))}
             </div>
@@ -228,6 +227,7 @@ class BoardMap extends Component {
               position={this.calcCharPosition(char)}
               onClick={this.handleCharClick}
               borderWidth={borderWidth}
+              cursorHover={selectedChar ? "auto" : "pointer"}
             />
           ))}
         </div>

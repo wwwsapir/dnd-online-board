@@ -2,8 +2,8 @@ import React, { Component } from "react";
 
 class Character extends Component {
   getStyle() {
-    const { selected, position, borderWidth } = this.props;
-    let borderStyle = selected ? "solid red" : "none"
+    const { selected, position, borderWidth, cursorHover } = this.props;
+    let borderStyle = selected ? "solid red" : "none";
     borderStyle += " " + borderWidth + "px";
     return {
       width: position.width,
@@ -11,11 +11,15 @@ class Character extends Component {
       position: "absolute",
       top: position.topLeft.row,
       left: position.topLeft.col,
-      border: borderStyle
+      border: borderStyle,
+      cursor: cursorHover
     };
   }
 
+  onMouseHover() {}
+
   render() {
+    console.log("character cursor", this.props.cursorHover);
     if (this.props.character === undefined) {
       return "";
     }

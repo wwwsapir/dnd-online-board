@@ -7,26 +7,28 @@ class MapCell extends Component {
     height: this.props.cellSize
   };
 
-  setCellStyle() {
+  getCellStyle() {
+    const { borderWidth, cell, cursorHover } = this.props;
     let borderStyle = "solid black ";
-    borderStyle += this.props.borderWidth + "px";
+    borderStyle += borderWidth + "px";
     let backgroundStyle = "rgba(0, 0, 0, ";
-    backgroundStyle += this.props.cell.wall ? "0.4)" : "0)";
+    backgroundStyle += cell.wall ? "0.4)" : "0)";
     let cellStyle = { ...this.style };
     cellStyle.border = borderStyle;
     cellStyle.background = backgroundStyle;
-    this.style = cellStyle;
+    cellStyle.cursor = cursorHover;
+    return cellStyle;
   }
 
   render() {
-    this.setCellStyle();
+    console.log("cell cursor", this.props.cursorHover);
     if (this.props.selected) {
     }
     const { onClick, cell } = this.props;
     return (
       <div
         className="CellStyle"
-        style={this.style}
+        style={this.getCellStyle()}
         onClick={() => onClick(cell)}
       />
     );
