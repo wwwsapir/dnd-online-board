@@ -38,8 +38,18 @@
 }
 
 .MapBgImg {
-  background-image:
-    url("https://dicegrimorium.com/wp-content/uploads/2019/07/ForestPathPublic-1024x1024.jpg");
+  background-image: url("https://dicegrimorium.com/wp-content/uploads/2019/07/ForestPathPublic-1024x1024.jpg");
   background-position: left;
-  background-repeat: no-repeat
+  background-repeat: no-repeat;
+}
+
+.MapArea {
+  border: blue 5px solid;
+  padding: 0;
+  background-color: grey;
+}
+
+.SideBar {
+  border: blue 5px solid;
+  padding: 20;
 }

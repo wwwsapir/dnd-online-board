@@ -15,10 +15,7 @@ const imageLinks = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <div
-      className="container-fluid"
-      style={{ border: "solid black 3px", height: "800px" }}
-    >
+    <div className="container-fluid DNDMapContainer">
       <App cellSize={40} rowCount={15} colCount={15} imageLinks={imageLinks} />
     </div>
   </React.StrictMode>,

@@ -197,7 +197,7 @@ class BoardMap extends Component {
   }
 
   render() {
-    const { matrix, selectedChar, characters, cursor } = this.state;
+    const { matrix, selectedChar, characters } = this.state;
     const { cellSize, borderWidth } = this.props;
 
     return (

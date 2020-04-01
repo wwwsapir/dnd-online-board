@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import "./App.css";
 import CharacterCreator from "./components/characterCreator";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -58,14 +58,7 @@ class App extends Component {
     return (
       <div className="row h-100 w-100">
         {/* <div className="MapBgImg col-md-9" style={{ border: "blue 5px solid" }}> */}
-        <div
-          className="col-md-9 h-100"
-          style={{
-            border: "blue 5px solid",
-            padding: 0,
-            backgroundColor: "maroon"
-          }}
-        >
+        <div className="MapArea col-md-9 h-100">
           <MapCanvas
             rowCount={rowCount}
             colCount={colCount}
@@ -75,12 +68,7 @@ class App extends Component {
             characters={characters}
           ></MapCanvas>
         </div>
-        <div
-          className="col-md-3"
-          style={{
-            border: "blue 5px solid"
-          }}
-        >
+        <div className="SideBar col-md-3 bg-primary">
           <CharacterCreator onCreation={this.handleCharacterCreation} />
         </div>
       </div>
