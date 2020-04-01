@@ -29,6 +29,7 @@ class Character extends Component {
         alt={character.name}
         style={this.getStyle()}
         onClick={() => this.props.onClick(character)}
+        title={character.name}
       />
     );
   }
