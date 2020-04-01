@@ -19,7 +19,6 @@ class Character extends Component {
   onMouseHover() {}
 
   render() {
-    console.log("character cursor", this.props.cursorHover);
     if (this.props.character === undefined) {
       return "";
     }
