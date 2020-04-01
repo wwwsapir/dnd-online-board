@@ -7,14 +7,14 @@ import MapCanvas from "./components/mapCanvas";
 
 class App extends Component {
   state = {
-    rowCount: this.props.rowCount,
-    colCount: this.getColCount(),
+    rowCount: 8,
+    colCount: 8,
     walls: [
       // { row: 1, col: 1 },
       // { row: 1, col: 2 }
     ],
-    cellSize: 100 / this.props.rowCount,
-    borderWidth: Math.ceil((100 / this.props.rowCount) * 0.2),
+    cellSize: this.props.cellSize,
+    borderWidth: Math.ceil(this.props.cellSize * 0.02),
     characters: [
       {
         name: "Ranger",
@@ -35,11 +35,6 @@ class App extends Component {
     ]
   };
 
-  getColCount() {
-    console.warn("Temp col count");
-    return 8;
-  }
-
   handleCharacterCreation() {
     console.log("handleCharacterCreation called");
   }
@@ -56,16 +51,18 @@ class App extends Component {
     return (
       <div className="row h-100 w-100">
         {/* <div className="MapBgImg col-md-9" style={{ border: "blue 5px solid" }}> */}
-        <div className="col-md-9 h-100" style={{ border: "blue 5px solid", padding: 0 }}>
-          {/* <BoardMap
+        <div
+          className="col-md-9 h-100"
+          style={{ border: "blue 5px solid", padding: 0 }}
+        >
+          <MapCanvas
             rowCount={rowCount}
             colCount={colCount}
             walls={walls}
             cellSize={cellSize}
             borderWidth={borderWidth}
             characters={characters}
-          /> */}
-          <MapCanvas />
+          ></MapCanvas>
         </div>
         <div
           className="col-md-3"

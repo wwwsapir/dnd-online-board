@@ -2,23 +2,31 @@ import React, { Component } from "react";
 import "./mapCell.css";
 
 class MapCell extends Component {
-  getCellStyle() {
+  style = {
+    width: this.props.cellSize,
+    height: this.props.cellSize
+  };
+
+  setCellStyle() {
     let borderStyle = "solid black ";
     borderStyle += this.props.borderWidth + "px";
     let backgroundStyle = "rgba(0, 0, 0, ";
     backgroundStyle += this.props.cell.wall ? "0.4)" : "0)";
-    return { border: borderStyle, background: backgroundStyle };
+    let cellStyle = { ...this.style };
+    cellStyle.border = borderStyle;
+    cellStyle.background = backgroundStyle;
+    this.style = cellStyle;
   }
 
   render() {
-    console.log("this.style", this.style);
+    this.setCellStyle();
     if (this.props.selected) {
     }
     const { onClick, cell } = this.props;
     return (
       <div
-        className="CellStyle col"
-        style={this.getCellStyle()}
+        className="CellStyle"
+        style={this.style}
         onClick={() => onClick(cell)}
       />
     );
