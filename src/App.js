@@ -6,8 +6,8 @@ import MapCanvas from "./components/mapCanvas";
 
 class App extends Component {
   state = {
-    rowCount: 8,
-    colCount: 8,
+    rowCount: this.props.rowCount,
+    colCount: this.props.colCount,
     walls: [
       // { row: 1, col: 1 },
       // { row: 1, col: 2 }
@@ -60,7 +60,11 @@ class App extends Component {
         {/* <div className="MapBgImg col-md-9" style={{ border: "blue 5px solid" }}> */}
         <div
           className="col-md-9 h-100"
-          style={{ border: "blue 5px solid", padding: 0 }}
+          style={{
+            border: "blue 5px solid",
+            padding: 0,
+            backgroundColor: "maroon"
+          }}
         >
           <MapCanvas
             rowCount={rowCount}
