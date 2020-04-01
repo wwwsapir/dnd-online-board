@@ -5,13 +5,12 @@ class Character extends Component {
     const { selected, position, borderWidth } = this.props;
     let borderStyle = selected ? "solid red" : "none"
     borderStyle += " " + borderWidth + "px";
-    const borderChange = selected ? borderWidth : 0;
     return {
       width: position.width,
       height: position.height,
       position: "absolute",
-      top: position.topLeft.row - borderChange,
-      left: position.topLeft.col - borderChange,
+      top: position.topLeft.row,
+      left: position.topLeft.col,
       border: borderStyle
     };
   }

@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import "./App.css";
-import BoardMap from "./components/boardMap";
 import CharacterCreator from "./components/characterCreator";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MapCanvas from "./components/mapCanvas";
@@ -31,6 +30,14 @@ class App extends Component {
         topLeftCol: 2,
         widthCells: 2,
         heightCells: 2
+      },
+      {
+        name: "Fighter",
+        imgSrc: this.props.imageLinks.fighter,
+        topLeftRow: 5,
+        topLeftCol: 0,
+        widthCells: 1,
+        heightCells: 1
       }
     ]
   };

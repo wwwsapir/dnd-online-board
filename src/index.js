@@ -19,7 +19,7 @@ ReactDOM.render(
       className="container-fluid"
       style={{ border: "solid black 3px", height: "800px" }}
     >
-      <App cellSize={70} imageLinks={imageLinks} />
+      <App cellSize={120} imageLinks={imageLinks} />
     </div>
   </React.StrictMode>,
   document.getElementById("root")

@@ -181,13 +181,13 @@ class BoardMap extends Component {
     const { cellSize, borderWidth } = this.props;
     return {
       topLeft: {
-        row: char.topLeftRow * (cellSize + borderWidth * 2) + borderWidth,
-        col: char.topLeftCol * (cellSize + borderWidth * 2) + borderWidth
+        row: char.topLeftRow * (cellSize) + borderWidth,
+        col: char.topLeftCol * (cellSize) + borderWidth
       },
       width:
-        char.widthCells * cellSize + (char.widthCells - 1) * 2 * borderWidth,
+        char.widthCells * cellSize - 2 * borderWidth,
       height:
-        char.heightCells * cellSize + (char.widthCells - 1) * 2 * borderWidth
+        char.heightCells * cellSize - 2 * borderWidth
     };
   }
 
