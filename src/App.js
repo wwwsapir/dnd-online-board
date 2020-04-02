@@ -20,24 +20,40 @@ class App extends Component {
       {
         name: "Ranger",
         imgSrc: this.props.imageLinks.ranger,
-        topLeftRow: 0,
-        topLeftCol: 0,
+        topLeftRow: 1,
+        topLeftCol: 7,
         widthCells: 1,
         heightCells: 1
       },
       {
-        name: "Warlock",
-        imgSrc: this.props.imageLinks.warlock,
-        topLeftRow: 2,
-        topLeftCol: 2,
+        name: "Dragon",
+        imgSrc: this.props.imageLinks.dragon,
+        topLeftRow: 1,
+        topLeftCol: 4,
         widthCells: 2,
         heightCells: 2
       },
       {
+        name: "Warlock",
+        imgSrc: this.props.imageLinks.warlock,
+        topLeftRow: 4,
+        topLeftCol: 9,
+        widthCells: 1,
+        heightCells: 1
+      },
+      {
         name: "Fighter",
         imgSrc: this.props.imageLinks.fighter,
-        topLeftRow: 5,
-        topLeftCol: 0,
+        topLeftRow: 3,
+        topLeftCol: 6,
+        widthCells: 1,
+        heightCells: 1
+      },
+      {
+        name: "Beetle",
+        imgSrc: this.props.imageLinks.beetle,
+        topLeftRow: 6,
+        topLeftCol: 5,
         widthCells: 1,
         heightCells: 1
       }
