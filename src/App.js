@@ -19,6 +19,7 @@ class App extends Component {
     borderWidth: Math.ceil(this.props.cellSize * 0.02),
     matrix: null,
     selectedChar: null,
+    placingChar: null,
     characters: [
       {
         name: "Ranger",
@@ -79,7 +80,8 @@ class App extends Component {
       let row = [];
       for (let j = 0; j < colCount; j++) {
         let cell = {
-          character: null,
+          row: i,
+          col: j,
           wall: this.isCellWall(i, j)
         };
         row.push(cell);
@@ -99,75 +101,95 @@ class App extends Component {
     if (selectedChar) {
       if (cell.wall) {
         if (triggerDeselect) {
-          this.setState({ selectedChar: null });
+          characters.pop();
+          this.setState({ selectedChar: null, placingChar: null, characters });
         }
         return;
       }
 
       const charInd = this.moveCharacter(cell);
-      if (charInd === -1) {
-        if (triggerDeselect) {
-          this.setState({ selectedChar: null });
-        }
-        return;
-      }
       if (triggerDeselect) {
-        this.setState({ selectedChar: null });
-      } else {
+        characters.pop();
+        this.setState({ selectedChar: null, placingChar: null, characters });
+      } else if (charInd > -1) {
         this.setState({ selectedChar: characters[charInd] });
       }
     }
   };
 
+  // handleKeyUp = e => {
+  //   let { selectedChar, matrix } = this.state;
+  //   if (!selectedChar) {
+  //     return;
+  //   }
+
+  //   let rowAdd = 0;
+  //   let colAdd = 0;
+
+  //   switch (e.keyCode) {
+  //     case 37: // Left
+  //       rowAdd = 0;
+  //       colAdd = -1;
+  //       break;
+  //     case 38: // Up
+  //       rowAdd = -1;
+  //       colAdd = 0;
+  //       break;
+  //     case 39: // Right
+  //       rowAdd = 0;
+  //       colAdd = 1;
+  //       break;
+  //     case 40: // Down
+  //       rowAdd = 1;
+  //       colAdd = 0;
+  //       break;
+  //     default:
+  //       const characters = [...this.state.characters];
+  //       characters.pop();
+  //       this.setState({ selectedChar: null, placingChar: null, characters });
+  //       return;
+  //   }
+  //   const row = selectedChar.topLeftRow + rowAdd;
+  //   const col = selectedChar.topLeftCol + colAdd;
+  //   if (this.checkIndicesValid(row, col, row, col)) {
+  //     this.handleCellClick(matrix[row][col], false);
+  //   }
+  // };
+
   handleKeyUp = e => {
-    let { selectedChar, matrix } = this.state;
+    let { selectedChar } = { ...this.state };
     if (!selectedChar) {
       return;
     }
-
-    let rowAdd = 0;
-    let colAdd = 0;
-
-    switch (e.keyCode) {
-      case 37: // Left
-        rowAdd = 0;
-        colAdd = -1;
-        break;
-      case 38: // Up
-        rowAdd = -1;
-        colAdd = 0;
-        break;
-      case 39: // Right
-        rowAdd = 0;
-        colAdd = 1;
-        break;
-      case 40: // Down
-        rowAdd = 1;
-        colAdd = 0;
-        break;
-      default:
-        this.setState({ selectedChar: null });
-        return;
-    }
-    const row = selectedChar.topLeftRow + rowAdd;
-    const col = selectedChar.topLeftCol + colAdd;
-    if (this.checkIndicesValid(row, col, row, col)) {
-      this.handleCellClick(matrix[row][col], false);
-    }
+    const characters = [...this.state.characters];
+    characters.pop();
+    this.setState({ selectedChar: null, placingChar: null, characters });
+    return;
   };
 
   handleCharClick = char => {
-    let { selectedChar } = { ...this.state };
+    let { selectedChar, placingChar, characters, matrix } = { ...this.state };
+    if (placingChar === char) {
+      this.handleCellClick(matrix[char.topLeftRow][char.topLeftCol]);
+      return;
+    }
     if (selectedChar) {
       selectedChar = null;
+      placingChar = null;
+      characters.pop(); // Remove the temporary placing image from characters list
     } else {
       selectedChar = char;
+      characters = [...characters];
+      characters.push({ ...char });
+      placingChar = characters[characters.length - 1];
       const selectedCells = this.getSelectedCharCells(char);
       if (!selectedCells) {
         selectedChar = null;
+        placingChar = null;
+        characters.pop(); // Remove the temporary placing image from characters list
       }
     }
-    this.setState({ selectedChar });
+    this.setState({ selectedChar, placingChar, characters });
   };
 
   getSelectedCharCells(char) {
@@ -205,17 +227,16 @@ class App extends Component {
   }
 
   moveCharacter(cell) {
-    const charInd = this.state.characters.indexOf(this.state.selectedChar);
-    const positionInd = this.matrixIndexOf(cell);
-
-    if (!this.isNewPosValid(positionInd)) {
+    const { characters, selectedChar, placingChar } = { ...this.state };
+    const charInd = characters.indexOf(selectedChar);
+    const { row, col } = cell;
+    if (!this.isNewPosValid({ row, col })) {
       return -1;
     }
 
-    const { characters } = { ...this.state };
     characters[charInd] = { ...this.state.selectedChar };
-    characters[charInd].topLeftRow = positionInd.row;
-    characters[charInd].topLeftCol = positionInd.col;
+    characters[charInd].topLeftRow = row;
+    characters[charInd].topLeftCol = col;
     this.setState({ characters });
     return charInd;
   }
@@ -227,16 +248,16 @@ class App extends Component {
     return this.getSelectedCharCells(selectedCharCopy).length > 0;
   }
 
-  matrixIndexOf(cell) {
-    const { matrix } = this.state;
-    for (let row = 0; row < matrix.length; row++) {
-      const cellInd = matrix[row].indexOf(cell);
-      if (cellInd !== -1) {
-        return { row: row, col: cellInd };
-      }
-    }
-    return { row: null, col: null };
-  }
+  // matrixIndexOf(cell) {
+  //   const { matrix } = this.state;
+  //   for (let row = 0; row < matrix.length; row++) {
+  //     const cellInd = matrix[row].indexOf(cell);
+  //     if (cellInd !== -1) {
+  //       return { row: row, col: cellInd };
+  //     }
+  //   }
+  //   return { row: null, col: null };
+  // }
 
   calcCharPosition = char => {
     const { cellSize } = this.props;
@@ -259,11 +280,14 @@ class App extends Component {
   }
 
   handleMouseEnterCell = cell => {
-    console.log("handleMouseEnterCell called. cell:", cell);
-  };
-
-  handleMouseLeaveCell = cell => {
-    console.log("handleMouseLeaveCell called. cell:", cell);
+    let { placingChar } = { ...this.state };
+    if (!placingChar) {
+      return;
+    }
+    placingChar.topLeftRow = cell.row;
+    placingChar.topLeftCol = cell.col;
+    this.setState({ placingChar });
+    console.log(this.state);
   };
 
   handleCharacterCreation(stateData) {
@@ -293,7 +317,8 @@ class App extends Component {
       borderWidth,
       selectedChar,
       characters,
-      matrix
+      matrix,
+      placingChar
     } = this.state;
     return (
       <div className="row h-100 w-100">
@@ -311,7 +336,7 @@ class App extends Component {
             onCharClick={this.handleCharClick}
             onCalcCharPosition={this.calcCharPosition}
             onMouseEnterCell={this.handleMouseEnterCell}
-            onMouseLeaveCell={this.handleMouseLeaveCell}
+            placingChar={placingChar}
           ></MapCanvas>
         </div>
         <div className="SideBar col-3 bg-primary">

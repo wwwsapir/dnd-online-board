@@ -2,9 +2,16 @@ import React, { Component } from "react";
 
 class Character extends Component {
   getStyle() {
-    const { selected, position, borderWidth, cursorHover } = this.props;
+    const {
+      selected,
+      position,
+      borderWidth,
+      cursorHover,
+      transparent
+    } = this.props;
     let borderStyle = selected ? "solid red" : "none";
     borderStyle += " " + borderWidth + "px";
+    const opacity = transparent ? 0.4 : 1;
     return {
       width: position.width,
       height: position.height,
@@ -12,7 +19,8 @@ class Character extends Component {
       top: position.topLeft.row,
       left: position.topLeft.col,
       border: borderStyle,
-      cursor: cursorHover
+      cursor: cursorHover,
+      opacity
     };
   }
 

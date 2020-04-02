@@ -14,7 +14,7 @@ class BoardMap extends Component {
       onCharClick,
       onCalcCharPosition,
       onMouseEnterCell,
-      onMouseLeaveCell
+      placingChar
     } = this.props;
 
     return (
@@ -31,7 +31,6 @@ class BoardMap extends Component {
                   borderWidth={borderWidth}
                   cursorHover={selectedChar ? "pointer" : "move"}
                   onMouseEnterCell={onMouseEnterCell}
-                  onMouseLeaveCell={onMouseLeaveCell}
                 />
               ))}
             </div>
@@ -47,6 +46,7 @@ class BoardMap extends Component {
               onClick={onCharClick}
               borderWidth={borderWidth}
               cursorHover={selectedChar ? "auto" : "pointer"}
+              transparent={placingChar === char}
             />
           ))}
         </div>
