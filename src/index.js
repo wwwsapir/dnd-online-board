@@ -22,7 +22,7 @@ const imageLinks = {
 ReactDOM.render(
   <React.StrictMode>
     <div className="container-fluid DNDMapContainer">
-      <App cellSize={40} rowCount={15} colCount={15} imageLinks={imageLinks} />
+      <App cellSize={45} rowCount={15} colCount={15} imageLinks={imageLinks} />
     </div>
   </React.StrictMode>,
   document.getElementById("root")

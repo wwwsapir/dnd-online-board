@@ -65,8 +65,8 @@ class App extends Component {
     this.state.showPopup = false;
   }
 
-  handleCharacterCreation() {
-    console.log("handleCharacterCreation called");
+  handleCharacterCreation(stateData) {
+    console.log("handleCharacterCreation called. data:", stateData);
   }
 
   toggleCharacterCreatorPopup = () => {

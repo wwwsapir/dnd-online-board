@@ -4,12 +4,23 @@ import "./PopUp.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class CharacterCreatorPopUp extends Component {
+  handleCharacterCreationClick = stateData => {
+    this.props.closePopup();
+    this.props.onCharacterCreation(stateData);
+  };
+
+  handleCancelCreation = () => {
+    this.props.closePopup();
+  };
+
   render() {
     return (
       <div className="PopUp">
         <div className="PopUpInner">
-          <CharacterCreator />
-          <button onClick={this.props.closePopup}>Finish</button>
+          <CharacterCreator
+            onCreation={this.handleCharacterCreationClick}
+            onCancel={this.handleCancelCreation}
+          />
         </div>
       </div>
     );

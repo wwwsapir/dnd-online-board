@@ -15,8 +15,29 @@ class CharacterCreator extends Component {
     return path.replace(/^.*[\\\/]/, "");
   }
 
+  initiateState() {
+    this.setState({
+      characterName: "",
+      height: 1,
+      width: 1,
+      type: undefined,
+      avatar: "Choose File"
+    });
+  }
+
+  handleCancelCreation = () => {
+    this.initiateState();
+    this.props.onCancel();
+  };
+
+  handleCreate = () => {
+    const stateData = { ...this.state };
+    this.initiateState();
+    this.props.onCreation(stateData);
+  };
+
   render() {
-    const { boardRowCount, boardColCount, onCreation } = this.props;
+    const { boardRowCount, boardColCount } = this.props;
     const { characterName, height, width, avatar } = this.state;
     return (
       <ul
@@ -115,7 +136,6 @@ class CharacterCreator extends Component {
               className="custom-file-input"
               id="inputGroupFile01"
               onChange={event => {
-                console.log("change!", event.target.value);
                 this.setState({ avatar: event.target.value });
               }}
             />
@@ -124,12 +144,18 @@ class CharacterCreator extends Component {
             </label>
           </div>
         </li>
-        <li className="nav-item col">
+        <li className="nav-item">
           <button
-            onClick={onCreation}
-            className="btn btn-primary form-control mt-3"
+            onClick={this.handleCreate}
+            className="btn btn-primary form-control m-3 col-md-8"
           >
             Create!
+          </button>
+          <button
+            onClick={this.handleCancelCreation}
+            className="btn btn-danger form-control ml-4 col-md-3"
+          >
+            Cancel
           </button>
         </li>
       </ul>
