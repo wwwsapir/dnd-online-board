@@ -5,7 +5,6 @@ import ImagePicker from "react-image-picker";
 import "react-image-picker/dist/index.css";
 import { avatarImageURLs } from "../constants";
 
-console.log(avatarImageURLs);
 const avatarsList = Object.values(avatarImageURLs);
 
 class CharacterCreator extends Component {

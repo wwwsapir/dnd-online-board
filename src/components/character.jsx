@@ -19,16 +19,16 @@ class Character extends Component {
   onMouseHover() {}
 
   render() {
-    if (this.props.character === undefined) {
+    if (!this.props.character) {
       return "";
     }
-    const { character } = this.props;
+    const { character, onClick } = this.props;
     return (
       <img
         src={character.imgSrc}
         alt={character.name}
         style={this.getStyle()}
-        onClick={() => this.props.onClick(character)}
+        onClick={() => onClick(character)}
         title={character.name}
       />
     );

@@ -27,10 +27,14 @@ class MapCanvas extends Component {
     const {
       rowCount,
       colCount,
-      walls,
+      matrix,
       cellSize,
       borderWidth,
-      characters
+      selectedChar,
+      characters,
+      onCellClick,
+      onCharClick,
+      onCalcCharPosition
     } = this.props;
     const { scale, translation } = this.state;
 
@@ -46,10 +50,14 @@ class MapCanvas extends Component {
           <BoardMap
             rowCount={rowCount}
             colCount={colCount}
-            walls={walls}
+            matrix={matrix}
             cellSize={cellSize}
             borderWidth={borderWidth}
+            selectedChar={selectedChar}
             characters={characters}
+            onCellClick={onCellClick}
+            onCharClick={onCharClick}
+            onCalcCharPosition={onCalcCharPosition}
           />
         </div>
       </MapInteractionCSS>
