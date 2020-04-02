@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import "./App.css";
-import CharacterCreator from "./components/characterCreator";
 import DiceRoller from "./components/diceRoller";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MapCanvas from "./components/mapCanvas";
+import CharacterCreatorPopUp from "./components/CharacterCreatorPopUp";
+import ActionsMenu from "./components/actionsMenu";
 
 class App extends Component {
   state = {
@@ -43,9 +44,26 @@ class App extends Component {
     ]
   };
 
+  constructor(props) {
+    super(props);
+    this.state.showPopup = false;
+  }
+
   handleCharacterCreation() {
     console.log("handleCharacterCreation called");
   }
+
+  toggleCharacterCreatorPopup = () => {
+    this.setState({ showPopup: !this.state.showPopup });
+  };
+
+  toggleCircleCreatorPopup = () => {
+    console.log("toggleCircleCreatorPopup called");
+  };
+
+  handleSaveGame = () => {
+    console.log("handleSaveGame called");
+  };
 
   render() {
     const {
@@ -70,7 +88,17 @@ class App extends Component {
           ></MapCanvas>
         </div>
         <div className="SideBar col-md-3 bg-primary">
-          <CharacterCreator onCreation={this.handleCharacterCreation} />
+          <ActionsMenu
+            onCharacterCreation={this.toggleCharacterCreatorPopup}
+            onCircleCreation={this.toggleCircleCreatorPopup}
+            onGameSave={this.handleSaveGame}
+          />
+          {this.state.showPopup ? (
+            <CharacterCreatorPopUp
+              closePopup={this.toggleCharacterCreatorPopup}
+              onCharacterCreation={this.handleCharacterCreation}
+            />
+          ) : null}
           <DiceRoller />
         </div>
       </div>
