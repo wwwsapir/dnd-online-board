@@ -287,7 +287,6 @@ class App extends Component {
     placingChar.topLeftRow = cell.row;
     placingChar.topLeftCol = cell.col;
     this.setState({ placingChar });
-    console.log(this.state);
   };
 
   handleCharacterCreation(stateData) {
