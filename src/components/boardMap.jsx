@@ -12,7 +12,9 @@ class BoardMap extends Component {
       borderWidth,
       onCellClick,
       onCharClick,
-      onCalcCharPosition
+      onCalcCharPosition,
+      onMouseEnterCell,
+      onMouseLeaveCell
     } = this.props;
 
     return (
@@ -28,6 +30,8 @@ class BoardMap extends Component {
                   onClick={onCellClick}
                   borderWidth={borderWidth}
                   cursorHover={selectedChar ? "pointer" : "move"}
+                  onMouseEnterCell={onMouseEnterCell}
+                  onMouseLeaveCell={onMouseLeaveCell}
                 />
               ))}
             </div>

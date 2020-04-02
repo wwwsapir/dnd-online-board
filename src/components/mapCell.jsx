@@ -20,12 +20,14 @@ class MapCell extends Component {
   render() {
     if (this.props.selected) {
     }
-    const { onClick, cell } = this.props;
+    const { onClick, cell, onMouseEnterCell, onMouseLeaveCell } = this.props;
     return (
       <div
         className="CellStyle"
         style={this.getCellStyle()}
         onClick={() => onClick(cell)}
+        onMouseEnter={() => onMouseEnterCell(cell)}
+        onMouseLeave={() => onMouseLeaveCell(cell)}
       />
     );
   }

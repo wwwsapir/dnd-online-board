@@ -258,6 +258,14 @@ class App extends Component {
     document.removeEventListener("keyup", this.handleKeyUp, false);
   }
 
+  handleMouseEnterCell = cell => {
+    console.log("handleMouseEnterCell called. cell:", cell);
+  };
+
+  handleMouseLeaveCell = cell => {
+    console.log("handleMouseLeaveCell called. cell:", cell);
+  };
+
   handleCharacterCreation(stateData) {
     console.log("handleCharacterCreation called. data:", stateData);
   }
@@ -302,6 +310,8 @@ class App extends Component {
             onCellClick={this.handleCellClick}
             onCharClick={this.handleCharClick}
             onCalcCharPosition={this.calcCharPosition}
+            onMouseEnterCell={this.handleMouseEnterCell}
+            onMouseLeaveCell={this.handleMouseLeaveCell}
           ></MapCanvas>
         </div>
         <div className="SideBar col-3 bg-primary">

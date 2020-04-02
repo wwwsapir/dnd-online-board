@@ -34,7 +34,9 @@ class MapCanvas extends Component {
       characters,
       onCellClick,
       onCharClick,
-      onCalcCharPosition
+      onCalcCharPosition,
+      onMouseEnterCell,
+      onMouseLeaveCell
     } = this.props;
     const { scale, translation } = this.state;
 
@@ -58,6 +60,8 @@ class MapCanvas extends Component {
             onCellClick={onCellClick}
             onCharClick={onCharClick}
             onCalcCharPosition={onCalcCharPosition}
+            onMouseEnterCell={onMouseEnterCell}
+            onMouseLeaveCell={onMouseLeaveCell}
           />
         </div>
       </MapInteractionCSS>
