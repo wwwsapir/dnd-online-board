@@ -25,7 +25,7 @@ class DiceRoller extends Component {
         className="nav nav-tabs flex-column text-white bg-dark row w-100"
         style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
       >
-        <h4 className="col mb-3">
+        <h4 className="col mb-4">
           <span className="creatorHeader">Roll Dice</span>
         </h4>
         <li className="nav-item col">

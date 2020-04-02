@@ -15,10 +15,21 @@ class CharacterCreator extends Component {
       characterName: "",
       height: 1,
       width: 1,
-      avatarImage: null
-      //   type: undefined,
+      avatarImage: null,
+      //   type: null,
       //   avatar: "Choose File"
+      missingFields: false
     });
+  }
+
+  onChangeSize(event, isHeight) {
+    let newVal = Number(event.target.value.replace(/\D/, ""));
+    if (event.target.min > newVal || newVal > event.target.max) {
+      newVal = isHeight ? this.state.height : this.state.width;
+    }
+    isHeight
+      ? this.setState({ height: newVal })
+      : this.setState({ width: newVal });
   }
 
   onPickAvatar = avatarImage => {
@@ -34,15 +45,20 @@ class CharacterCreator extends Component {
     this.props.onCancel();
   };
 
-  handleCreate = () => {
-    const stateData = { ...this.state };
+  handleCreateButtonClick = () => {
+    const { characterName, height, width } = { ...this.state };
+    let { avatarImage } = { ...this.state };
+    if (!characterName || height <= 0 || width <= 0 || !avatarImage) {
+      this.setState({ missingFields: true });
+      return;
+    }
+    this.setState({ missingFields: false });
     this.initiateState();
-    stateData.avatarImage = stateData.avatarImage.src;
-    this.props.onCreation(stateData);
+    avatarImage = avatarImage.src;
+    this.props.onCreation({ characterName, height, width, avatarImage });
   };
 
   render() {
-    const { boardRowCount, boardColCount } = this.props;
     const { characterName, height, width, avatarFile } = this.state;
     return (
       <ul
@@ -58,6 +74,7 @@ class CharacterCreator extends Component {
             className="input-group-sm form-control col-8 d-inline"
             id="characterMame"
             value={characterName}
+            required
             onChange={event =>
               this.setState({ characterName: event.target.value })
             }
@@ -71,11 +88,10 @@ class CharacterCreator extends Component {
             type="number"
             step={1}
             min={1}
-            max={boardColCount}
+            max={6}
             value={width}
-            onChange={event =>
-              this.setState({ width: event.target.value.replace(/\D/, "") })
-            }
+            required
+            onChange={event => this.onChangeSize(event, false)}
           />
           <label className="ml-30 col-4 d-inline">Height in squares:</label>
           <input
@@ -84,11 +100,10 @@ class CharacterCreator extends Component {
             type="number"
             step={1}
             min={1}
-            max={boardRowCount}
+            max={6}
             value={height}
-            onChange={event =>
-              this.setState({ height: event.target.value.replace(/\D/, "") })
-            }
+            required
+            onChange={event => this.onChangeSize(event, true)}
           />
         </li>
         <li className="nav-item col">
@@ -161,18 +176,27 @@ class CharacterCreator extends Component {
         </li> */}
         <li className="nav-item">
           <button
-            onClick={this.handleCreate}
-            className="btn btn-primary form-control ml-3 mt-3 col-md-8"
+            onClick={this.handleCreateButtonClick}
+            className="btn btn-primary form-control ml-3 mt-3 col-md-8 d-inline"
           >
             Create!
           </button>
           <button
             onClick={this.handleCancelCreation}
-            className="btn btn-danger form-control ml-4 mt-3 col-md-3"
+            className="btn btn-danger form-control ml-4 mt-3 col-md-3 d-inline"
           >
             Cancel
           </button>
         </li>
+        {this.state.missingFields ? (
+          <li className="nav-item col">
+            <h4>
+              <span className="badge badge-danger">
+                Not all fields are filled/selected!
+              </span>
+            </h4>
+          </li>
+        ) : null}
       </ul>
     );
   }
