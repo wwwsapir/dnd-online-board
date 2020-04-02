@@ -92,8 +92,7 @@ class App extends Component {
     } = this.state;
     return (
       <div className="row h-100 w-100">
-        {/* <div className="MapBgImg col-md-9" style={{ border: "blue 5px solid" }}> */}
-        <div className="MapArea col-md-9 h-100">
+        <div className="MapArea col-9 h-100">
           <MapCanvas
             rowCount={rowCount}
             colCount={colCount}
@@ -103,7 +102,7 @@ class App extends Component {
             characters={characters}
           ></MapCanvas>
         </div>
-        <div className="SideBar col-md-3 bg-primary">
+        <div className="SideBar col-3 bg-primary">
           <ActionsMenu
             onCharacterCreation={this.toggleCharacterCreatorPopup}
             onCircleCreation={this.toggleCircleCreatorPopup}
