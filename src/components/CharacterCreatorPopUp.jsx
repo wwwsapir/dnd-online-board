@@ -16,7 +16,7 @@ class CharacterCreatorPopUp extends Component {
   render() {
     return (
       <div className="PopUp">
-        <div className="PopUpInner">
+        <div className="CharacterCreatorPopUpInner">
           <CharacterCreator
             onCreation={this.handleCharacterCreationClick}
             onCancel={this.handleCancelCreation}

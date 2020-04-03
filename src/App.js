@@ -3,11 +3,12 @@ import "./App.css";
 import DiceRoller from "./components/diceRoller";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MapCanvas from "./components/mapCanvas";
-import CharacterCreatorPopUp from "./components/CharacterCreatorPopUp";
+import CharacterCreatorPopUp from "./components/characterCreatorPopUp";
 import ActionsMenu from "./components/actionsMenu";
 import CloneDeep from "lodash/cloneDeep";
 import ErrorBoundary from "react-error-boundary";
 import { DefaultFallbackComponent } from "./constants";
+import SpellCircleCreatorPopUp from "./components/spellCircleCreatorPopUp";
 
 class App extends Component {
   state = {
@@ -30,7 +31,7 @@ class App extends Component {
         radius: 10,
         row: 3,
         col: 3,
-        color: "rgb(51, 204, 255)"
+        color: { r: 51, g: 204, b: 255, a: 1 }
       }
     ],
     characters: [
@@ -84,7 +85,7 @@ class App extends Component {
       this.props.colCount
     );
     this.state.showCharacterCreatorPopup = false;
-    this.state.showCircleCreatorPopup = false;
+    this.state.showSpellCircleCreatorPopup = false;
   }
 
   createMatrix(rowCount, colCount) {
@@ -390,6 +391,10 @@ class App extends Component {
     });
   };
 
+  handleSpellCircleCreation = stateData => {
+    console.log("Spell circle created", stateData);
+  };
+
   toggleItemDeletionMode = () => {
     const { itemDeletionModeOn, selectedChar } = this.state;
     if (selectedChar) {
@@ -402,8 +407,10 @@ class App extends Component {
     this.setState({ itemDeletionModeOn: !itemDeletionModeOn });
   };
 
-  toggleCircleCreatorPopup = () => {
-    console.log("toggleCircleCreatorPopup called");
+  toggleSpellCircleCreatorPopup = () => {
+    this.setState({
+      showSpellCircleCreatorPopup: !this.state.showSpellCircleCreatorPopup
+    });
   };
 
   handleSaveGame = () => {
@@ -453,7 +460,7 @@ class App extends Component {
           <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
             <ActionsMenu
               onCharacterCreation={this.toggleCharacterCreatorPopup}
-              onCircleCreation={this.toggleCircleCreatorPopup}
+              onSpellCircleCreation={this.toggleSpellCircleCreatorPopup}
               onCharacterCircleDelete={this.toggleItemDeletionMode}
               onGameSave={this.handleSaveGame}
               enableDeletion={characters.length > 0 || spellCircles.length > 0}
@@ -466,6 +473,14 @@ class App extends Component {
               <CharacterCreatorPopUp
                 closePopup={this.toggleCharacterCreatorPopup}
                 onCharacterCreation={this.handleCharacterCreation}
+              />
+            </ErrorBoundary>
+          ) : null}
+          {this.state.showSpellCircleCreatorPopup ? (
+            <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
+              <SpellCircleCreatorPopUp
+                closePopup={this.toggleSpellCircleCreatorPopup}
+                onSpellCircleCreation={this.handleSpellCircleCreation}
               />
             </ErrorBoundary>
           ) : null}

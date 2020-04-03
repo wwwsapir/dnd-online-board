@@ -6,7 +6,7 @@ class ActionsMenu extends Component {
   render() {
     const {
       onCharacterCreation,
-      onCircleCreation,
+      onSpellCircleCreation,
       onCharacterCircleDelete,
       onGameSave,
       enableDeletion,
@@ -43,7 +43,7 @@ class ActionsMenu extends Component {
             </li>
             <li className="nav-item col">
               <button
-                onClick={onCircleCreation}
+                onClick={onSpellCircleCreation}
                 className="btn btn-primary form-control mt-3"
               >
                 Create a Color Circle

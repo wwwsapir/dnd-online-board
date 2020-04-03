@@ -9,7 +9,8 @@ class SpellCircle extends Component {
       borderWidth
     } = this.props;
     const { color } = this.props.spellCircle;
-    const transparentColor = color.replace(")", ", 0.5)");
+    const transparentColor =
+      "rgb(" + color.r + ", " + color.g + ", " + color.b + ", 0.5) ";
     let borderStyle = null;
     if (itemDeletionModeOn) {
       borderStyle = "solid rgb(255, 0, 0, 1) " + (borderWidth + 1) + "px";

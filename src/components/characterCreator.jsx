@@ -8,7 +8,13 @@ import { avatarImageURLs } from "../constants";
 const avatarsList = Object.values(avatarImageURLs);
 
 class CharacterCreator extends Component {
-  state = { characterName: "", height: 1, width: 1, avatarImage: null };
+  state = {
+    characterName: "",
+    height: 1,
+    width: 1,
+    avatarImage: null,
+    missingFields: false
+  };
 
   initiateState() {
     this.setState({
@@ -72,7 +78,7 @@ class CharacterCreator extends Component {
           <label className="col-3 d-inline">Character name:</label>
           <input
             className="input-group-sm form-control col-8 d-inline"
-            id="characterMame"
+            id="characterName"
             value={characterName}
             required
             onChange={event =>
