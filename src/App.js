@@ -30,7 +30,7 @@ class App extends Component {
         radius: 10,
         row: 3,
         col: 3,
-        color: "rgb(51, 204, 255, 0.5)"
+        color: "rgb(51, 204, 255)"
       }
     ],
     characters: [

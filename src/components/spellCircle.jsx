@@ -4,13 +4,14 @@ class SpellCircle extends Component {
   getStyle() {
     const { position, cursorHover, itemDeletionModeOn } = this.props;
     const { color } = this.props.spellCircle;
+    const transparentColor = color.replace(")", ", 0.5)");
     return {
       position: "absolute",
       top: position.row,
       left: position.col,
       height: position.radius * 2,
       width: position.radius * 2,
-      background: color,
+      background: transparentColor,
       borderRadius: position.radius,
       cursor: cursorHover,
       border: itemDeletionModeOn ? "solid rgb(255, 0, 0, 1) 3px" : null
