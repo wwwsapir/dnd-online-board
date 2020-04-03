@@ -7,7 +7,7 @@ import CharacterCreatorPopUp from "./components/CharacterCreatorPopUp";
 import ActionsMenu from "./components/actionsMenu";
 import CloneDeep from "lodash/cloneDeep";
 import ErrorBoundary from "react-error-boundary";
-import { MyFallbackComponent } from "./constants";
+import { DefaultFallbackComponent } from "./constants";
 
 class App extends Component {
   state = {
@@ -99,11 +99,12 @@ class App extends Component {
   }
 
   handleCellClick = (cell, triggerDeselect = true) => {
-    const { selectedChar, characters } = this.state;
+    const { selectedChar } = this.state;
+    let characters = [...this.state.characters];
     if (selectedChar) {
       if (cell.wall) {
         if (triggerDeselect) {
-          characters.pop();
+          characters = this.getCharsArrWithoutSelection();
           this.setState({ selectedChar: null, placingChar: null, characters });
         }
         return;
@@ -111,7 +112,7 @@ class App extends Component {
 
       const charInd = this.moveCharacter(cell);
       if (triggerDeselect) {
-        characters.pop();
+        characters = this.getCharsArrWithoutSelection();
         this.setState({ selectedChar: null, placingChar: null, characters });
       } else if (charInd > -1) {
         this.setState({ selectedChar: characters[charInd] });
@@ -146,8 +147,7 @@ class App extends Component {
   //       colAdd = 0;
   //       break;
   //     default:
-  //       const characters = [...this.state.characters];
-  //       characters.pop();
+  //       const characters = this.getCharsArrWithoutSelection();
   //       this.setState({ selectedChar: null, placingChar: null, characters });
   //       return;
   //   }
@@ -163,11 +163,20 @@ class App extends Component {
     if (!selectedChar) {
       return;
     }
-    const characters = [...this.state.characters];
-    characters.pop();
+    const characters = this.getCharsArrWithoutSelection();
     this.setState({ selectedChar: null, placingChar: null, characters });
     return;
   };
+
+  getCharsArrWithoutSelection() {
+    let charactersCopy = [...this.state.characters];
+    charactersCopy.pop(); // Remove the temporary placing image from characters list
+    if (charactersCopy[charactersCopy.length - 1].topLeftRow === null) {
+      // This happens when canceling the creation of a new character
+      charactersCopy.pop();
+    }
+    return charactersCopy;
+  }
 
   handleCharClick = char => {
     let { selectedChar, placingChar, characters, matrix } = { ...this.state };
@@ -178,7 +187,7 @@ class App extends Component {
     if (selectedChar) {
       selectedChar = null;
       placingChar = null;
-      characters.pop(); // Remove the temporary placing image from characters list
+      characters = this.getCharsArrWithoutSelection();
     } else {
       selectedChar = char;
       characters = [...characters];
@@ -188,7 +197,7 @@ class App extends Component {
       if (!selectedCells) {
         selectedChar = null;
         placingChar = null;
-        characters.pop(); // Remove the temporary placing image from characters list
+        characters = this.getCharsArrWithoutSelection();
       }
     }
     this.setState({ selectedChar, placingChar, characters });
@@ -264,10 +273,17 @@ class App extends Component {
   calcCharPosition = char => {
     const { cellSize } = this.props;
     const { borderWidth } = this.state;
+    let xPixels = null;
+    let yPixels = null;
+    if (char.topLeftRow !== null && char.topLeftCol !== null) {
+      xPixels = char.topLeftRow * cellSize + borderWidth;
+      yPixels = char.topLeftCol * cellSize + borderWidth;
+    }
+
     return {
       topLeft: {
-        row: char.topLeftRow * cellSize + borderWidth,
-        col: char.topLeftCol * cellSize + borderWidth
+        row: xPixels,
+        col: yPixels
       },
       width: char.widthCells * cellSize - 2 * borderWidth,
       height: char.heightCells * cellSize - 2 * borderWidth
@@ -291,9 +307,26 @@ class App extends Component {
     this.setState({ placingChar });
   };
 
-  handleCharacterCreation(stateData) {
-    console.log("handleCharacterCreation called. data:", stateData);
-  }
+  handleCharacterCreation = stateData => {
+    const { characterName, height, width, avatarImage } = stateData;
+    let newChar = {
+      name: characterName,
+      imgSrc: avatarImage,
+      topLeftRow: null,
+      topLeftCol: null,
+      heightCells: height,
+      widthCells: width
+    };
+    const characters = [...this.state.characters];
+    characters.push(newChar);
+    const newCharTempPlacing = { ...newChar };
+    characters.push(newCharTempPlacing);
+    this.setState({
+      characters,
+      placingChar: newCharTempPlacing,
+      selectedChar: newChar
+    });
+  };
 
   toggleCharacterCreatorPopup = () => {
     this.setState({
@@ -324,7 +357,7 @@ class App extends Component {
     return (
       <div className="row h-100 w-100">
         <div className="MapArea col-9 h-100">
-          <ErrorBoundary FallbackComponent={MyFallbackComponent}>
+          <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
             <MapCanvas
               rowCount={rowCount}
               colCount={colCount}
@@ -343,7 +376,7 @@ class App extends Component {
           </ErrorBoundary>
         </div>
         <div className="SideBar col-3 bg-primary">
-          <ErrorBoundary FallbackComponent={MyFallbackComponent}>
+          <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
             <ActionsMenu
               onCharacterCreation={this.toggleCharacterCreatorPopup}
               onCircleCreation={this.toggleCircleCreatorPopup}
@@ -351,14 +384,14 @@ class App extends Component {
             />
           </ErrorBoundary>
           {this.state.showCharacterCreatorPopup ? (
-            <ErrorBoundary FallbackComponent={MyFallbackComponent}>
+            <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
               <CharacterCreatorPopUp
                 closePopup={this.toggleCharacterCreatorPopup}
                 onCharacterCreation={this.handleCharacterCreation}
               />
             </ErrorBoundary>
           ) : null}
-          <ErrorBoundary FallbackComponent={MyFallbackComponent}>
+          <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
             <DiceRoller />
           </ErrorBoundary>
         </div>

@@ -14,7 +14,7 @@ export const avatarImageURLs = {
   balrog: imageBaseUrl + "1-ShPk6rbliyWzEd7yEFqrJoOZwn1awAM"
 };
 
-export const MyFallbackComponent = ({ componentStack, error }) => (
+export const DefaultFallbackComponent = ({ componentStack, error }) => (
   <div>
     <p>
       <strong>
