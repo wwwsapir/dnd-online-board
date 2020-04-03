@@ -2,9 +2,18 @@ import React, { Component } from "react";
 
 class SpellCircle extends Component {
   getStyle() {
-    const { position, cursorHover, itemDeletionModeOn } = this.props;
+    const {
+      position,
+      cursorHover,
+      itemDeletionModeOn,
+      borderWidth
+    } = this.props;
     const { color } = this.props.spellCircle;
     const transparentColor = color.replace(")", ", 0.5)");
+    let borderStyle = null;
+    if (itemDeletionModeOn) {
+      borderStyle = "solid rgb(255, 0, 0, 1) " + (borderWidth + 1) + "px";
+    }
     return {
       position: "absolute",
       top: position.row,
@@ -14,7 +23,7 @@ class SpellCircle extends Component {
       background: transparentColor,
       borderRadius: position.radius,
       cursor: cursorHover,
-      border: itemDeletionModeOn ? "solid rgb(255, 0, 0, 1) 3px" : null
+      border: borderStyle
     };
   }
 

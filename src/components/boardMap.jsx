@@ -51,6 +51,7 @@ class BoardMap extends Component {
             <SpellCircle
               key={i}
               spellCircle={spellCircle}
+              borderWidth={borderWidth}
               position={onCalcSpellCirclePosition(spellCircle)}
               onClick={onSpellCircleClick}
               cursorHover={itemDeletionModeOn ? "pointer" : "move"}
