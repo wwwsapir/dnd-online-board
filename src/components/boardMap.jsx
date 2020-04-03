@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import MapCell from "./mapCell";
 import Character from "./character";
+import "./boardMap.css";
 
 class BoardMap extends Component {
+  getBackgroundClass() {
+    return this.props.itemDeletionModeOn ? "DeletionMode" : "";
+  }
+
   render() {
     const {
       matrix,
@@ -15,7 +20,8 @@ class BoardMap extends Component {
       onCharClick,
       onCalcCharPosition,
       onMouseEnterCell,
-      placingChar
+      placingChar,
+      itemDeletionModeOn
     } = this.props;
 
     return (
@@ -37,7 +43,7 @@ class BoardMap extends Component {
             </div>
           ))}
         </div>
-        <div>
+        <div className={this.getBackgroundClass()}>
           {characters.map((char, i) => (
             <Character
               key={i}
@@ -48,8 +54,10 @@ class BoardMap extends Component {
               borderWidth={borderWidth}
               cursorHover={selectedChar ? "auto" : "pointer"}
               transparent={placingChar === char}
+              itemDeletionModeOn={itemDeletionModeOn}
             />
           ))}
+          {/* {Circles drawing area} */}
         </div>
       </div>
     );

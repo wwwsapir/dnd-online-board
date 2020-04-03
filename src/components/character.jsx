@@ -7,9 +7,10 @@ class Character extends Component {
       position,
       borderWidth,
       cursorHover,
-      transparent
+      transparent,
+      itemDeletionModeOn
     } = this.props;
-    let borderStyle = selected ? "solid red" : "none";
+    let borderStyle = selected || itemDeletionModeOn ? "solid red" : "none";
     borderStyle += " " + borderWidth + "px";
     const opacity = transparent ? 0.4 : 1;
     return {

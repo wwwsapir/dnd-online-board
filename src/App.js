@@ -383,6 +383,7 @@ class App extends Component {
               onCalcCharPosition={this.calcCharPosition}
               onMouseEnterCell={this.handleMouseEnterCell}
               placingChar={placingChar}
+              itemDeletionModeOn={itemDeletionModeOn}
             ></MapCanvas>
           </ErrorBoundary>
         </div>
