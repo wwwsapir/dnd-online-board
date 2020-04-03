@@ -25,13 +25,12 @@ class Character extends Component {
     };
   }
 
-  onMouseHover() {}
-
   render() {
-    if (!this.props.character) {
+    const { character, onClick } = this.props;
+    if (!character) {
       return "";
     }
-    const { character, onClick } = this.props;
+
     return (
       <img
         src={character.imgSrc}

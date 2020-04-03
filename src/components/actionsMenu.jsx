@@ -21,51 +21,53 @@ class ActionsMenu extends Component {
         <h4 className="col mb-3">
           <span className="creatorHeader">Actions</span>
         </h4>
-        <li className="nav-item col">
-          <button
-            onClick={onCharacterCreation}
-            className="btn btn-primary form-control mt-3"
-          >
-            Create a New Character
-          </button>
-        </li>
-        <li className="nav-item col">
-          <button
-            onClick={onCircleCreation}
-            className="btn btn-primary form-control mt-3"
-          >
-            Create a Color Circle
-          </button>
-        </li>
-        <li className="nav-item col">
-          {itemDeletionModeOn ? (
-            <span>
-              <h5 className="mt-3">Click items on the map to delete them</h5>
-              <button
-                onClick={onFinishDeletion}
-                className="btn btn-danger form-control col mt-1"
-              >
-                Finish Deletion
-              </button>
-            </span>
-          ) : (
+        {itemDeletionModeOn ? (
+          <li className="nav-item col">
+            <h5 className="mt-3">Click items on the map to delete them</h5>
             <button
-              onClick={onCharacterCircleDelete}
-              className="btn btn-primary form-control mt-3"
-              disabled={!enableDeletion}
+              onClick={onFinishDeletion}
+              className="btn btn-danger form-control col mt-1"
             >
-              Delete a Character / Circle
+              Finish Deletion
             </button>
-          )}
-        </li>
-        <li className="nav-item col">
-          <button
-            onClick={onGameSave}
-            className="btn btn-primary form-control mt-3"
-          >
-            Save the Game
-          </button>
-        </li>
+          </li>
+        ) : (
+          <span>
+            <li className="nav-item col">
+              <button
+                onClick={onCharacterCreation}
+                className="btn btn-primary form-control mt-3"
+              >
+                Create a New Character
+              </button>
+            </li>
+            <li className="nav-item col">
+              <button
+                onClick={onCircleCreation}
+                className="btn btn-primary form-control mt-3"
+              >
+                Create a Color Circle
+              </button>
+            </li>
+            <li className="nav-item col">
+              <button
+                onClick={onCharacterCircleDelete}
+                className="btn btn-primary form-control mt-3"
+                disabled={!enableDeletion}
+              >
+                Delete a Character / Circle
+              </button>
+            </li>
+            <li className="nav-item col">
+              <button
+                onClick={onGameSave}
+                className="btn btn-primary form-control mt-3"
+              >
+                Save the Game
+              </button>
+            </li>
+          </span>
+        )}
       </ul>
     );
   }

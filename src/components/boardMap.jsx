@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import MapCell from "./mapCell";
 import Character from "./character";
+import SpellCircle from "./spellCircle";
 import "./boardMap.css";
 
 class BoardMap extends Component {
@@ -13,7 +14,7 @@ class BoardMap extends Component {
       matrix,
       selectedChar,
       characters,
-      circles,
+      spellCircles,
       cellSize,
       borderWidth,
       onCellClick,
@@ -21,7 +22,9 @@ class BoardMap extends Component {
       onCalcCharPosition,
       onMouseEnterCell,
       placingChar,
-      itemDeletionModeOn
+      itemDeletionModeOn,
+      onSpellCircleClick,
+      onCalcSpellCirclePosition
     } = this.props;
 
     return (
@@ -44,6 +47,16 @@ class BoardMap extends Component {
           ))}
         </div>
         <div className={this.getBackgroundClass()}>
+          {spellCircles.map((spellCircle, i) => (
+            <SpellCircle
+              key={i}
+              spellCircle={spellCircle}
+              position={onCalcSpellCirclePosition(spellCircle)}
+              onClick={onSpellCircleClick}
+              cursorHover={itemDeletionModeOn ? "pointer" : "move"}
+              itemDeletionModeOn={itemDeletionModeOn}
+            />
+          ))}
           {characters.map((char, i) => (
             <Character
               key={i}
@@ -57,7 +70,6 @@ class BoardMap extends Component {
               itemDeletionModeOn={itemDeletionModeOn}
             />
           ))}
-          {/* {Circles drawing area} */}
         </div>
       </div>
     );

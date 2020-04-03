@@ -23,7 +23,16 @@ class App extends Component {
     selectedChar: null,
     placingChar: null,
     itemDeletionModeOn: false,
-    circles: [],
+    spellCircles: [
+      {
+        name: "Fireball",
+        owner: "Warlock",
+        radius: 10,
+        row: 3,
+        col: 3,
+        color: "rgb(51, 204, 255, 0.5)"
+      }
+    ],
     characters: [
       {
         name: "Ranger",
@@ -184,7 +193,7 @@ class App extends Component {
     let characters = [...this.state.characters];
     characters = characters.filter(char => char !== charToDelete);
     this.setState({ characters });
-    if (characters.length === 0 && this.state.circles.length === 0) {
+    if (characters.length === 0 && this.state.spellCircles.length === 0) {
       this.toggleItemDeletionMode();
     }
   }
@@ -223,6 +232,24 @@ class App extends Component {
     }
     this.setState({ selectedChar, placingChar, characters });
   };
+
+  handleSpellCircleClick = spellCircle => {
+    if (this.state.itemDeletionModeOn) {
+      this.deleteSpellCircle(spellCircle);
+      return;
+    }
+  };
+
+  deleteSpellCircle(spellCircleToDelete) {
+    let spellCircles = [...this.state.spellCircles];
+    spellCircles = spellCircles.filter(
+      spellCircle => spellCircle !== spellCircleToDelete
+    );
+    this.setState({ spellCircles });
+    if (this.state.characters.length === 0 && spellCircles.length === 0) {
+      this.toggleItemDeletionMode();
+    }
+  }
 
   getSelectedCharCells(char) {
     let selectedCells = [];
@@ -300,6 +327,25 @@ class App extends Component {
     };
   };
 
+  calcSpellCirclePosition = spellCircle => {
+    const { cellSize } = this.props;
+    // const { borderWidth } = this.state;
+    let xPixels = null;
+    let yPixels = null;
+    if (spellCircle.row !== null && spellCircle.col !== null) {
+      xPixels =
+        spellCircle.row * cellSize - (spellCircle.radius / 5 - 0.5) * cellSize;
+      yPixels =
+        spellCircle.col * cellSize - (spellCircle.radius / 5 - 0.5) * cellSize;
+    }
+
+    return {
+      row: xPixels,
+      col: yPixels,
+      radius: spellCircle.radius * (cellSize / 5)
+    };
+  };
+
   componentDidMount() {
     document.addEventListener("keyup", this.handleKeyUp, false);
   }
@@ -373,7 +419,7 @@ class App extends Component {
       borderWidth,
       selectedChar,
       characters,
-      circles,
+      spellCircles,
       matrix,
       placingChar,
       itemDeletionModeOn
@@ -390,14 +436,16 @@ class App extends Component {
               borderWidth={borderWidth}
               selectedChar={selectedChar}
               characters={characters}
-              circles={circles}
+              spellCircles={spellCircles}
               matrix={matrix}
               onCellClick={this.handleCellClick}
               onCharClick={this.handleCharClick}
               onCalcCharPosition={this.calcCharPosition}
+              onCalcSpellCirclePosition={this.calcSpellCirclePosition}
               onMouseEnterCell={this.handleMouseEnterCell}
               placingChar={placingChar}
               itemDeletionModeOn={itemDeletionModeOn}
+              onSpellCircleClick={this.handleSpellCircleClick}
             ></MapCanvas>
           </ErrorBoundary>
         </div>
@@ -408,7 +456,7 @@ class App extends Component {
               onCircleCreation={this.toggleCircleCreatorPopup}
               onCharacterCircleDelete={this.toggleItemDeletionMode}
               onGameSave={this.handleSaveGame}
-              enableDeletion={characters.length > 0 || circles.length > 0}
+              enableDeletion={characters.length > 0 || spellCircles.length > 0}
               itemDeletionModeOn={itemDeletionModeOn}
               onFinishDeletion={this.toggleItemDeletionMode}
             />

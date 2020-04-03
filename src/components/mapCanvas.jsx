@@ -32,13 +32,15 @@ class MapCanvas extends Component {
       borderWidth,
       selectedChar,
       characters,
-      circles,
       onCellClick,
       onCharClick,
       onCalcCharPosition,
       onMouseEnterCell,
       placingChar,
-      itemDeletionModeOn
+      itemDeletionModeOn,
+      spellCircles,
+      onSpellCircleClick,
+      onCalcSpellCirclePosition
     } = this.props;
     const { scale, translation } = this.state;
 
@@ -59,13 +61,15 @@ class MapCanvas extends Component {
             borderWidth={borderWidth}
             selectedChar={selectedChar}
             characters={characters}
-            circles={circles}
+            spellCircles={spellCircles}
             onCellClick={onCellClick}
             onCharClick={onCharClick}
             onCalcCharPosition={onCalcCharPosition}
             onMouseEnterCell={onMouseEnterCell}
             placingChar={placingChar}
             itemDeletionModeOn={itemDeletionModeOn}
+            onSpellCircleClick={onSpellCircleClick}
+            onCalcSpellCirclePosition={onCalcSpellCirclePosition}
           />
         </div>
       </MapInteractionCSS>
