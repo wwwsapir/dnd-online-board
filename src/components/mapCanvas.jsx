@@ -32,6 +32,7 @@ class MapCanvas extends Component {
       borderWidth,
       selectedChar,
       characters,
+      circles,
       onCellClick,
       onCharClick,
       onCalcCharPosition,
@@ -57,6 +58,7 @@ class MapCanvas extends Component {
             borderWidth={borderWidth}
             selectedChar={selectedChar}
             characters={characters}
+            circles={circles}
             onCellClick={onCellClick}
             onCharClick={onCharClick}
             onCalcCharPosition={onCalcCharPosition}

@@ -8,6 +8,7 @@ class BoardMap extends Component {
       matrix,
       selectedChar,
       characters,
+      circles,
       cellSize,
       borderWidth,
       onCellClick,

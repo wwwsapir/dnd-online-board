@@ -1,0 +1,25 @@
+Version 0.0:
+1. Characters creation toolbar. + Roll dice. - Done
+2. The abiliy to move characters. - Done
+2.5. The abiliy to place characters on the map. - Done
+3. Example maps.
+4. Maps uploading.
+5. Larger characters option. - Done
+6. character editing and deletion option.
+7. Server and user name and url that all players can use.
+8. partially transperant mouse circle with customized radius that can be placed, choose color and text that will apear while hovering (also can delete it).
+9. Characters list (turns)
+10. Add characters movement with arrow keys. - Done but deprectaed.
+
+Further versions:
+0. save states from game to game.
+1. Show possible movement range for each selected character.
+2. Prevent walls actions unless flying or magic (diagon is 1.5 steps).
+3. Change number of possible steps dynamically for each character.
+4. Limit the players that are not the DM.
+5. Walls for dafault maps and wall choosing for uploaded maps.
+6. All party can see the hovering circle before/without placing it.
+7. Characters dynamic list (select current character's turn) with the option to pass the turn.
+8. Only the current turn player select their character to move (Except the DM that can go nuts).
+9. For large maps - the option to zoo, out on all of it.
+10. Handle flying characters (character above character in the same position).

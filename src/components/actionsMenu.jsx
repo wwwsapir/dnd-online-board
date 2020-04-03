@@ -4,7 +4,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 class ActionsMenu extends Component {
   render() {
-    const { onCharacterCreation, onCircleCreation, onGameSave } = this.props;
+    const {
+      onCharacterCreation,
+      onCircleCreation,
+      onCharacterCircleDelete,
+      onGameSave,
+      enableDeletion,
+      itemDeletionModeOn,
+      onFinishDeletion
+    } = this.props;
     return (
       <ul
         className="nav nav-tabs flex-column text-white bg-dark row w-100"
@@ -28,6 +36,27 @@ class ActionsMenu extends Component {
           >
             Create a Color Circle
           </button>
+        </li>
+        <li className="nav-item col">
+          {itemDeletionModeOn ? (
+            <span>
+              <h5 className="mt-3">Click items on the map to delete them</h5>
+              <button
+                onClick={onFinishDeletion}
+                className="btn btn-danger form-control col mt-1"
+              >
+                Finish Deletion
+              </button>
+            </span>
+          ) : (
+            <button
+              onClick={onCharacterCircleDelete}
+              className="btn btn-primary form-control mt-3"
+              disabled={!enableDeletion}
+            >
+              Delete a Character / Circle
+            </button>
+          )}
         </li>
         <li className="nav-item col">
           <button

@@ -22,6 +22,8 @@ class App extends Component {
     matrix: null,
     selectedChar: null,
     placingChar: null,
+    itemDeletionModeOn: false,
+    circles: [],
     characters: [
       {
         name: "Ranger",
@@ -334,6 +336,12 @@ class App extends Component {
     });
   };
 
+  toggleItemDeletionMode = () => {
+    console.log("toggleItemDeletionMode called");
+    const { itemDeletionModeOn } = this.state;
+    this.setState({ itemDeletionModeOn: !itemDeletionModeOn });
+  };
+
   toggleCircleCreatorPopup = () => {
     console.log("toggleCircleCreatorPopup called");
   };
@@ -351,8 +359,10 @@ class App extends Component {
       borderWidth,
       selectedChar,
       characters,
+      circles,
       matrix,
-      placingChar
+      placingChar,
+      itemDeletionModeOn
     } = this.state;
     return (
       <div className="row h-100 w-100">
@@ -366,6 +376,7 @@ class App extends Component {
               borderWidth={borderWidth}
               selectedChar={selectedChar}
               characters={characters}
+              circles={circles}
               matrix={matrix}
               onCellClick={this.handleCellClick}
               onCharClick={this.handleCharClick}
@@ -380,7 +391,11 @@ class App extends Component {
             <ActionsMenu
               onCharacterCreation={this.toggleCharacterCreatorPopup}
               onCircleCreation={this.toggleCircleCreatorPopup}
+              onCharacterCircleDelete={this.toggleItemDeletionMode}
               onGameSave={this.handleSaveGame}
+              enableDeletion={characters.length > 0 || circles.length > 0}
+              itemDeletionModeOn={itemDeletionModeOn}
+              onFinishDeletion={this.toggleItemDeletionMode}
             />
           </ErrorBoundary>
           {this.state.showCharacterCreatorPopup ? (
