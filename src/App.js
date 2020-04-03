@@ -180,8 +180,27 @@ class App extends Component {
     return charactersCopy;
   }
 
+  deleteCharacter(charToDelete) {
+    let characters = [...this.state.characters];
+    characters = characters.filter(char => char !== charToDelete);
+    this.setState({ characters });
+    if (characters.length === 0 && this.state.circles.length === 0) {
+      this.toggleItemDeletionMode();
+    }
+  }
+
   handleCharClick = char => {
-    let { selectedChar, placingChar, characters, matrix } = { ...this.state };
+    let {
+      selectedChar,
+      placingChar,
+      characters,
+      matrix,
+      itemDeletionModeOn
+    } = { ...this.state };
+    if (itemDeletionModeOn) {
+      this.deleteCharacter(char);
+      return;
+    }
     if (placingChar === char) {
       this.handleCellClick(matrix[char.topLeftRow][char.topLeftCol]);
       return;
@@ -261,17 +280,6 @@ class App extends Component {
     return this.getSelectedCharCells(selectedCharCopy).length > 0;
   }
 
-  // matrixIndexOf(cell) {
-  //   const { matrix } = this.state;
-  //   for (let row = 0; row < matrix.length; row++) {
-  //     const cellInd = matrix[row].indexOf(cell);
-  //     if (cellInd !== -1) {
-  //       return { row: row, col: cellInd };
-  //     }
-  //   }
-  //   return { row: null, col: null };
-  // }
-
   calcCharPosition = char => {
     const { cellSize } = this.props;
     const { borderWidth } = this.state;
@@ -337,8 +345,14 @@ class App extends Component {
   };
 
   toggleItemDeletionMode = () => {
-    console.log("toggleItemDeletionMode called");
-    const { itemDeletionModeOn } = this.state;
+    const { itemDeletionModeOn, selectedChar } = this.state;
+    if (selectedChar) {
+      this.setState({
+        selectedChar: null,
+        placingChar: null,
+        characters: this.getCharsArrWithoutSelection()
+      }); // Cancel character selection
+    }
     this.setState({ itemDeletionModeOn: !itemDeletionModeOn });
   };
 
