@@ -6,6 +6,8 @@ import MapCanvas from "./components/mapCanvas";
 import CharacterCreatorPopUp from "./components/CharacterCreatorPopUp";
 import ActionsMenu from "./components/actionsMenu";
 import CloneDeep from "lodash/cloneDeep";
+import ErrorBoundary from "react-error-boundary";
+import { MyFallbackComponent } from "./constants";
 
 class App extends Component {
   state = {
@@ -322,35 +324,43 @@ class App extends Component {
     return (
       <div className="row h-100 w-100">
         <div className="MapArea col-9 h-100">
-          <MapCanvas
-            rowCount={rowCount}
-            colCount={colCount}
-            walls={walls}
-            cellSize={cellSize}
-            borderWidth={borderWidth}
-            selectedChar={selectedChar}
-            characters={characters}
-            matrix={matrix}
-            onCellClick={this.handleCellClick}
-            onCharClick={this.handleCharClick}
-            onCalcCharPosition={this.calcCharPosition}
-            onMouseEnterCell={this.handleMouseEnterCell}
-            placingChar={placingChar}
-          ></MapCanvas>
+          <ErrorBoundary FallbackComponent={MyFallbackComponent}>
+            <MapCanvas
+              rowCount={rowCount}
+              colCount={colCount}
+              walls={walls}
+              cellSize={cellSize}
+              borderWidth={borderWidth}
+              selectedChar={selectedChar}
+              characters={characters}
+              matrix={matrix}
+              onCellClick={this.handleCellClick}
+              onCharClick={this.handleCharClick}
+              onCalcCharPosition={this.calcCharPosition}
+              onMouseEnterCell={this.handleMouseEnterCell}
+              placingChar={placingChar}
+            ></MapCanvas>
+          </ErrorBoundary>
         </div>
         <div className="SideBar col-3 bg-primary">
-          <ActionsMenu
-            onCharacterCreation={this.toggleCharacterCreatorPopup}
-            onCircleCreation={this.toggleCircleCreatorPopup}
-            onGameSave={this.handleSaveGame}
-          />
-          {this.state.showCharacterCreatorPopup ? (
-            <CharacterCreatorPopUp
-              closePopup={this.toggleCharacterCreatorPopup}
-              onCharacterCreation={this.handleCharacterCreation}
+          <ErrorBoundary FallbackComponent={MyFallbackComponent}>
+            <ActionsMenu
+              onCharacterCreation={this.toggleCharacterCreatorPopup}
+              onCircleCreation={this.toggleCircleCreatorPopup}
+              onGameSave={this.handleSaveGame}
             />
+          </ErrorBoundary>
+          {this.state.showCharacterCreatorPopup ? (
+            <ErrorBoundary FallbackComponent={MyFallbackComponent}>
+              <CharacterCreatorPopUp
+                closePopup={this.toggleCharacterCreatorPopup}
+                onCharacterCreation={this.handleCharacterCreation}
+              />
+            </ErrorBoundary>
           ) : null}
-          <DiceRoller />
+          <ErrorBoundary FallbackComponent={MyFallbackComponent}>
+            <DiceRoller />
+          </ErrorBoundary>
         </div>
       </div>
     );

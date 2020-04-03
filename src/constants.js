@@ -1,3 +1,5 @@
+import React from "react";
+
 const imageBaseUrl = "https://drive.google.com/uc?id=";
 
 export const avatarImageURLs = {
@@ -11,3 +13,22 @@ export const avatarImageURLs = {
   beetle: imageBaseUrl + "1Iy7IJvd4PT7ImBPjSJRrf7Ytc7ZYiOgs",
   balrog: imageBaseUrl + "1-ShPk6rbliyWzEd7yEFqrJoOZwn1awAM"
 };
+
+export const MyFallbackComponent = ({ componentStack, error }) => (
+  <div>
+    <p>
+      <strong>
+        Oops! An error occured! I guess I haven't done enough QA because I
+        really wanted to show you the project early! But hey, at least I caught
+        the error using a boundary :)
+      </strong>
+    </p>
+    <p>Here’s what I know about the error:</p>
+    <p>
+      <strong>Error:</strong> {error.toString()}
+    </p>
+    <p>
+      <strong>Stacktrace:</strong> {componentStack}
+    </p>
+  </div>
+);
