@@ -237,12 +237,11 @@ class App extends Component {
     };
     if (itemDeletionModeOn) {
       this.deleteCharacter(char);
-      return;
+    } else {
+      selectedChar = char;
+      placingChar = { ...char }; // A copy of the character for the movement
+      this.setState({ selectedChar, placingChar });
     }
-
-    selectedChar = char;
-    placingChar = { ...char }; // A copy of the character for the movement
-    this.setState({ selectedChar, placingChar });
   };
 
   handleSpellCircleClick = spellCircle => {
@@ -251,11 +250,11 @@ class App extends Component {
     };
     if (itemDeletionModeOn) {
       this.deleteSpellCircle(spellCircle);
+    } else {
+      selectedCircle = spellCircle;
+      placingCircle = { ...spellCircle }; // A copy of the spellCircle for the movement
+      this.setState({ selectedCircle, placingCircle });
     }
-
-    selectedCircle = spellCircle;
-    placingCircle = { ...spellCircle }; // A copy of the spellCircle for the movement
-    this.setState({ selectedCircle, placingCircle });
   };
 
   deleteSpellCircle(spellCircleToDelete) {
@@ -392,7 +391,6 @@ class App extends Component {
       placingCircle.row = cell.row;
       placingCircle.col = cell.col;
       this.setState({ placingCircle });
-      console.log(this.state.spellCircles);
     }
   };
 
