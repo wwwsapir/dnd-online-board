@@ -23,6 +23,7 @@ class App extends Component {
     matrix: null,
     selectedChar: null,
     placingChar: null,
+    selectedCircle: null,
     placingCircle: null,
     itemDeletionModeOn: false,
     spellCircles: [
@@ -112,15 +113,26 @@ class App extends Component {
   }
 
   handleCellClick = (cell, triggerDeselect = true) => {
-    const { selectedChar, placingCircle } = { ...this.state };
-    if (placingCircle) {
-      let spellCirclesCopy = [...this.state.spellCircles];
-      spellCirclesCopy.push(placingCircle);
-      this.setState({ spellCircles: spellCirclesCopy, placingCircle: null });
-      return;
+    const { selectedChar, selectedCircle } = {
+      ...this.state
+    };
+    if (selectedCircle) {
+      let spellCircles = [...this.state.spellCircles];
+      const spellCircleInd = this.moveSpellCircle(cell);
+      if (triggerDeselect) {
+        spellCircles = this.getSpellCirclesArrWithoutSelection();
+        this.setState({
+          selectedCircle: null,
+          placingCircle: null,
+          spellCircles
+        });
+      } else if (spellCircleInd > -1) {
+        this.setState({ selectedCircle: spellCircles[spellCircleInd] });
+      }
     }
-    let characters = [...this.state.characters];
+
     if (selectedChar) {
+      let characters = [...this.state.characters];
       if (cell.wall) {
         if (triggerDeselect) {
           characters = this.getCharsArrWithoutSelection();
@@ -178,23 +190,36 @@ class App extends Component {
   // };
 
   handleKeyUp = e => {
-    let { selectedChar, placingCircle } = { ...this.state };
+    let { selectedChar, selectedCircle } = { ...this.state };
     if (selectedChar) {
       const characters = this.getCharsArrWithoutSelection();
       this.setState({ selectedChar: null, placingChar: null, characters });
-    } else if (placingCircle) {
-      this.setState({ placingCircle: null });
+    } else if (selectedCircle) {
+      const spellCircles = this.getSpellCirclesArrWithoutSelection();
+      this.setState({
+        selectedCircle: null,
+        placingCircle: null,
+        spellCircles
+      });
     }
   };
 
   getCharsArrWithoutSelection() {
     let charactersCopy = [...this.state.characters];
-    charactersCopy.pop(); // Remove the temporary placing image from characters list
     if (charactersCopy[charactersCopy.length - 1].topLeftRow === null) {
       // This happens when canceling the creation of a new character
       charactersCopy.pop();
     }
     return charactersCopy;
+  }
+
+  getSpellCirclesArrWithoutSelection() {
+    let spellCirclesCopy = [...this.state.spellCircles];
+    if (spellCirclesCopy[spellCirclesCopy.length - 1].row === null) {
+      // This happens when canceling the creation of a new character
+      spellCirclesCopy.pop();
+    }
+    return spellCirclesCopy;
   }
 
   deleteCharacter(charToDelete) {
@@ -207,40 +232,30 @@ class App extends Component {
   }
 
   handleCharClick = char => {
-    let {
-      selectedChar,
-      placingChar,
-      characters,
-      matrix,
-      itemDeletionModeOn
-    } = { ...this.state };
+    let { selectedChar, placingChar, itemDeletionModeOn } = {
+      ...this.state
+    };
     if (itemDeletionModeOn) {
       this.deleteCharacter(char);
       return;
     }
-    if (selectedChar) {
-      selectedChar = null;
-      placingChar = null;
-      characters = this.getCharsArrWithoutSelection();
-    } else {
-      selectedChar = char;
-      characters = [...characters];
-      characters.push({ ...char });
-      placingChar = characters[characters.length - 1];
-      const selectedCells = this.getSelectedCharCells(char);
-      if (!selectedCells) {
-        selectedChar = null;
-        placingChar = null;
-        characters = this.getCharsArrWithoutSelection();
-      }
-    }
-    this.setState({ selectedChar, placingChar, characters });
+
+    selectedChar = char;
+    placingChar = { ...char }; // A copy of the character for the movement
+    this.setState({ selectedChar, placingChar });
   };
 
   handleSpellCircleClick = spellCircle => {
-    if (this.state.itemDeletionModeOn) {
+    let { selectedCircle, placingCircle, itemDeletionModeOn } = {
+      ...this.state
+    };
+    if (itemDeletionModeOn) {
       this.deleteSpellCircle(spellCircle);
     }
+
+    selectedCircle = spellCircle;
+    placingCircle = { ...spellCircle }; // A copy of the spellCircle for the movement
+    this.setState({ selectedCircle, placingCircle });
   };
 
   deleteSpellCircle(spellCircleToDelete) {
@@ -289,10 +304,10 @@ class App extends Component {
   }
 
   moveCharacter(cell) {
-    const { characters, selectedChar, placingChar } = { ...this.state };
+    const { characters, selectedChar } = { ...this.state };
     const charInd = characters.indexOf(selectedChar);
     const { row, col } = cell;
-    if (!this.isNewPosValid({ row, col })) {
+    if (!this.isNewCharPosValid({ row, col })) {
       return -1;
     }
 
@@ -303,7 +318,19 @@ class App extends Component {
     return charInd;
   }
 
-  isNewPosValid(newPositionInd) {
+  moveSpellCircle(cell) {
+    const { spellCircles, selectedCircle } = { ...this.state };
+    const circleInd = spellCircles.indexOf(selectedCircle);
+    const { row, col } = cell;
+
+    spellCircles[circleInd] = { ...this.state.selectedCircle };
+    spellCircles[circleInd].row = row;
+    spellCircles[circleInd].col = col;
+    this.setState({ spellCircles });
+    return circleInd;
+  }
+
+  isNewCharPosValid(newPositionInd) {
     let selectedCharCopy = CloneDeep(this.state.selectedChar);
     selectedCharCopy.topLeftRow = newPositionInd.row;
     selectedCharCopy.topLeftCol = newPositionInd.col;
@@ -332,7 +359,6 @@ class App extends Component {
 
   calcSpellCirclePosition = spellCircle => {
     const { cellSize } = this.props;
-    // const { borderWidth } = this.state;
     let xPixels = null;
     let yPixels = null;
     if (spellCircle.row !== null && spellCircle.col !== null) {
@@ -366,6 +392,7 @@ class App extends Component {
       placingCircle.row = cell.row;
       placingCircle.col = cell.col;
       this.setState({ placingCircle });
+      console.log(this.state.spellCircles);
     }
   };
 
@@ -381,11 +408,9 @@ class App extends Component {
     };
     const characters = [...this.state.characters];
     characters.push(newChar);
-    const newCharTempPlacing = { ...newChar };
-    characters.push(newCharTempPlacing);
     this.setState({
       characters,
-      placingChar: newCharTempPlacing,
+      placingChar: { ...newChar },
       selectedChar: newChar
     });
   };
@@ -398,7 +423,7 @@ class App extends Component {
 
   handleSpellCircleCreation = stateData => {
     const { spellName, ownerName, radius, color } = stateData;
-    const placingCircle = {
+    const newCircle = {
       name: spellName,
       owner: ownerName,
       radius,
@@ -406,7 +431,13 @@ class App extends Component {
       col: null,
       color
     };
-    this.setState({ placingCircle });
+    const spellCircles = [...this.state.spellCircles];
+    spellCircles.push(newCircle);
+    this.setState({
+      spellCircles,
+      placingCircle: { ...newCircle },
+      selectedCircle: newCircle
+    });
   };
 
   toggleItemDeletionMode = () => {
@@ -440,6 +471,7 @@ class App extends Component {
       borderWidth,
       selectedChar,
       characters,
+      selectedCircle,
       spellCircles,
       matrix,
       placingChar,
@@ -458,6 +490,7 @@ class App extends Component {
               borderWidth={borderWidth}
               selectedChar={selectedChar}
               characters={characters}
+              selectedCircle={selectedCircle}
               spellCircles={spellCircles}
               matrix={matrix}
               onCellClick={this.handleCellClick}

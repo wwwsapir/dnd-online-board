@@ -41,7 +41,8 @@ class MapCanvas extends Component {
       spellCircles,
       onSpellCircleClick,
       onCalcSpellCirclePosition,
-      placingCircle
+      placingCircle,
+      selectedCircle
     } = this.props;
     const { scale, translation } = this.state;
 
@@ -62,6 +63,7 @@ class MapCanvas extends Component {
             borderWidth={borderWidth}
             selectedChar={selectedChar}
             characters={characters}
+            selectedCircle={selectedCircle}
             spellCircles={spellCircles}
             onCellClick={onCellClick}
             onCharClick={onCharClick}

@@ -4,16 +4,16 @@ class SpellCircle extends Component {
   getStyle() {
     const {
       position,
-      cursorHover,
       itemDeletionModeOn,
       borderWidth,
-      clickable
+      clickable,
+      selected
     } = this.props;
     const { color } = this.props.spellCircle;
     const transparentColor =
       "rgb(" + color.r + ", " + color.g + ", " + color.b + ", 0.5) ";
     let borderStyle = null;
-    if (itemDeletionModeOn) {
+    if (itemDeletionModeOn || selected) {
       borderStyle = "solid rgb(255, 0, 0, 1) " + (borderWidth + 1) + "px";
     }
     return {
@@ -24,7 +24,7 @@ class SpellCircle extends Component {
       width: position.radius * 2,
       background: transparentColor,
       borderRadius: position.radius,
-      cursor: cursorHover,
+      cursor: clickable ? "pointer" : "move",
       border: borderStyle,
       pointerEvents: clickable ? "auto" : "none"
     };

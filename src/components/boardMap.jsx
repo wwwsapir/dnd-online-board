@@ -14,6 +14,7 @@ class BoardMap extends Component {
       matrix,
       selectedChar,
       characters,
+      selectedCircle,
       spellCircles,
       cellSize,
       borderWidth,
@@ -40,7 +41,9 @@ class BoardMap extends Component {
                   cellSize={cellSize}
                   onClick={onCellClick}
                   borderWidth={borderWidth}
-                  cursorHover={selectedChar ? "pointer" : "move"}
+                  cursorHover={
+                    placingCircle || placingChar ? "pointer" : "move"
+                  }
                   onMouseEnterCell={onMouseEnterCell}
                 />
               ))}
@@ -55,10 +58,13 @@ class BoardMap extends Component {
               borderWidth={borderWidth}
               position={onCalcSpellCirclePosition(spellCircle)}
               onClick={onSpellCircleClick}
-              cursorHover={itemDeletionModeOn ? "pointer" : "move"}
               itemDeletionModeOn={itemDeletionModeOn}
               placingCircle={placingCircle}
-              clickable={itemDeletionModeOn}
+              clickable={
+                (!placingChar && !placingCircle && !itemDeletionModeOn) ||
+                itemDeletionModeOn
+              }
+              selected={selectedCircle === spellCircle}
             />
           ))}
           {placingCircle ? (
@@ -67,10 +73,10 @@ class BoardMap extends Component {
               borderWidth={borderWidth}
               position={onCalcSpellCirclePosition(placingCircle)}
               onClick={onSpellCircleClick}
-              cursorHover={itemDeletionModeOn ? "pointer" : "move"}
               itemDeletionModeOn={itemDeletionModeOn}
               placingCircle={placingCircle}
               clickable={false}
+              selected={false}
             />
           ) : null}
           {characters.map((char, i) => (
@@ -81,12 +87,26 @@ class BoardMap extends Component {
               position={onCalcCharPosition(char)}
               onClick={onCharClick}
               borderWidth={borderWidth}
-              cursorHover={selectedChar ? "auto" : "pointer"}
               transparent={placingChar === char}
               itemDeletionModeOn={itemDeletionModeOn}
-              clickable={!placingChar && !placingCircle}
+              clickable={
+                (!placingChar && !placingCircle && !itemDeletionModeOn) ||
+                itemDeletionModeOn
+              }
             />
           ))}
+          {placingChar ? (
+            <Character
+              character={placingChar}
+              selected={false}
+              position={onCalcCharPosition(placingChar)}
+              onClick={onCharClick}
+              borderWidth={borderWidth}
+              transparent={true}
+              itemDeletionModeOn={itemDeletionModeOn}
+              clickable={false}
+            />
+          ) : null}
         </div>
       </div>
     );

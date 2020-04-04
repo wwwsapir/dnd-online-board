@@ -6,7 +6,6 @@ class Character extends Component {
       selected,
       position,
       borderWidth,
-      cursorHover,
       transparent,
       itemDeletionModeOn,
       clickable
@@ -21,7 +20,7 @@ class Character extends Component {
       top: position.topLeft.row,
       left: position.topLeft.col,
       border: borderStyle,
-      cursor: cursorHover,
+      cursor: clickable ? "pointer" : "move",
       opacity,
       pointerEvents: clickable ? "auto" : "none"
     };
