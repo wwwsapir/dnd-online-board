@@ -5,9 +5,9 @@ Version 0.0:
 3. Example maps.
 4. Maps uploading.
 5. Larger characters option. - Done
-6. character editing and deletion option.
+6. character deletion option. - Done
 7. Server and user name and url that all players can use.
-8. partially transperant mouse circle with customized radius that can be placed, choose color and text that will apear while hovering (also can delete it).
+8. partially transperant mouse circle with customized radius that can be placed, choose color and text that will apear while hovering (also can delete it). - Done
 9. Characters list (turns)
 10. Add characters movement with arrow keys. - Done but deprectaed.
 

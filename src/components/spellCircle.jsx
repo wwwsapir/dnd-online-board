@@ -40,7 +40,10 @@ class SpellCircle extends Component {
       <div
         style={this.getStyle()}
         onClick={() => onClick(spellCircle)}
-        title={spellCircle.name}
+        title={
+          spellCircle.name +
+          (spellCircle.owner ? ". Owner: " + spellCircle.owner : null)
+        }
       />
     );
   }
