@@ -11,12 +11,12 @@ class LoginForm extends Component {
 
   handleLoginButtonClick = () => {
     const { userName, password } = this.state;
-    const { onLoginOperation } = this.props;
+    const { onLogin } = this.props;
     this.setState({ isUserNameValid: true, missingData: false }); // initiate errors
     if (!userName || !password) {
       this.setState({ missingData: true });
     } else {
-      onLoginOperation();
+      onLogin(userName);
     }
   };
 
