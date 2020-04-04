@@ -3,9 +3,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./sideBar.css";
 import ImagePicker from "react-image-picker";
 import "react-image-picker/dist/index.css";
-import { avatarImageURLs } from "../constants";
+import {
+  AVATAR_IMAGE_URLS,
+  MIN_CHARACTER_SIZE_SQUARES,
+  MAX_CHARACTER_SIZE_SQUARES
+} from "../constants";
 
-const avatarsList = Object.values(avatarImageURLs);
+const avatarsList = Object.values(AVATAR_IMAGE_URLS);
 
 class CharacterCreator extends Component {
   state = {
@@ -75,11 +79,11 @@ class CharacterCreator extends Component {
           <span className="creatorHeader">Add a New Character</span>
         </h4>
         <li className="nav-item">
-          <label className="col-3 d-inline">Character name:</label>
           <input
-            className="input-group-sm form-control col-8 d-inline"
+            className="input-group-sm form-control col-11 mb-3"
             id="characterName"
             value={characterName}
+            placeholder="Character name"
             required
             onChange={event =>
               this.setState({ characterName: event.target.value })
@@ -87,41 +91,55 @@ class CharacterCreator extends Component {
           />
         </li>
         <li className="nav-item">
-          <label className="col-4 d-inline">Width in squares: </label>
-          <input
-            className="input-group-sm mb-2 form-control col-3 d-inline"
-            id="width"
-            type="number"
-            step={1}
-            min={1}
-            max={6}
-            value={width}
-            required
-            onChange={event => this.onChangeSize(event, false)}
-          />
-          <label className="ml-30 col-4 d-inline">Height in squares:</label>
-          <input
-            className="input-group-sm mb-2 form-control col-3 d-inline"
-            id="height"
-            type="number"
-            step={1}
-            min={1}
-            max={6}
-            value={height}
-            required
-            onChange={event => this.onChangeSize(event, true)}
-          />
+          <span className="inline-form">
+            <span className="form-group">
+              <label className="col-4 d-inline" htmlFor="width">
+                Width in squares:{" "}
+              </label>
+              <input
+                className="input-group-sm form-control col-4 d-inline"
+                style={{ maxWidth: "264px" }}
+                id="width"
+                type="number"
+                step={MIN_CHARACTER_SIZE_SQUARES}
+                min={MIN_CHARACTER_SIZE_SQUARES}
+                max={MAX_CHARACTER_SIZE_SQUARES}
+                value={width}
+                required
+                onChange={event => this.onChangeSize(event, false)}
+              />
+            </span>
+            <span className="form-group">
+              <label className="ml-30 col-4 d-inline ml-1" htmlFor="height">
+                Height in squares:
+              </label>
+              <input
+                className="input-group-sm form-control col-4 d-inline"
+                style={{ maxWidth: "264px" }}
+                id="height"
+                type="number"
+                step={MIN_CHARACTER_SIZE_SQUARES}
+                min={MIN_CHARACTER_SIZE_SQUARES}
+                max={MAX_CHARACTER_SIZE_SQUARES}
+                value={height}
+                required
+                onChange={event => this.onChangeSize(event, true)}
+              />
+            </span>
+          </span>
         </li>
         <li className="nav-item col">
-          <label className="mr-3 mb-3">Choose Avatar:</label>
-          <span>
-            <ImagePicker
-              images={avatarsList.map((avatar, i) => ({
-                src: avatar,
-                value: i
-              }))}
-              onPick={this.onPickAvatar}
-            />
+          <span className="form-group">
+            <label className="mr-3 mb-3">Choose Avatar:</label>
+            <span>
+              <ImagePicker
+                images={avatarsList.map((avatar, i) => ({
+                  src: avatar,
+                  value: i
+                }))}
+                onPick={this.onPickAvatar}
+              />
+            </span>
           </span>
         </li>
         {/* <li className="nav-item col">
@@ -181,18 +199,20 @@ class CharacterCreator extends Component {
           </div>
         </li> */}
         <li className="nav-item">
-          <button
-            onClick={this.handleCreateButtonClick}
-            className="btn btn-primary form-control ml-3 mt-3 col-md-8 d-inline"
-          >
-            Create!
-          </button>
-          <button
-            onClick={this.handleCancelCreation}
-            className="btn btn-danger form-control ml-4 mt-3 col-md-3 d-inline"
-          >
-            Cancel
-          </button>
+          <span className="inline-form">
+            <button
+              onClick={this.handleCreateButtonClick}
+              className="btn btn-primary form-control mt-3 col-8 d-inline"
+            >
+              Create!
+            </button>
+            <button
+              onClick={this.handleCancelCreation}
+              className="btn btn-danger form-control ml-3 mt-3 col-3 d-inline"
+            >
+              Cancel
+            </button>
+          </span>
         </li>
         {this.state.missingFields ? (
           <li className="nav-item col">

@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { avatarImageURLs } from "./constants";
+import { AVATAR_IMAGE_URLS } from "./constants";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,7 +13,7 @@ ReactDOM.render(
         cellSize={45}
         rowCount={15}
         colCount={15}
-        imageLinks={avatarImageURLs}
+        imageLinks={AVATAR_IMAGE_URLS}
       />
     </div>
   </React.StrictMode>,

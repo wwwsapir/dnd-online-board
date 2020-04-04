@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./sideBar.css";
 import { SketchPicker } from "react-color";
+import {
+  MIN_SPELL_CIRCLE_RADIUS_FEET,
+  MAX_SPELL_CIRCLE_RADIUS_FEET
+} from "../constants";
 
 class CharacterCreator extends Component {
   state = {
@@ -69,11 +73,11 @@ class CharacterCreator extends Component {
         <span className="row">
           <span className="col-8 d-inline">
             <li className="nav-item">
-              <label className="col-4 d-inline">Spell name:</label>
               <input
-                className="input-group-sm form-control col-8 d-inline"
+                className="input-group-sm form-control col"
                 id="spellName"
                 value={spellName}
+                placeholder="Spell name"
                 required
                 onChange={event =>
                   this.setState({ spellName: event.target.value })
@@ -81,29 +85,28 @@ class CharacterCreator extends Component {
               />
             </li>
             <li className="nav-item">
-              <label className="col-3 d-inline">Owner name (optional):</label>
               <input
-                className="input-group-sm form-control col-7 d-inline mt-3"
+                className="input-group-sm form-control col mt-3"
                 id="ownerName"
                 value={ownerName}
+                placeholder="Owner name (optional)"
                 onChange={event =>
                   this.setState({ ownerName: event.target.value })
                 }
               />
             </li>
             <li className="nav-item">
-              <label className="col-8 d-inline">
+              <label className="col align-text-bottom mt-3">
                 Radius in feet (a square is 5 feet wide):
               </label>
               <input
-                className="input-group-sm mb-2 mt-3 form-control col-4 d-inline"
-                id="width"
+                className="input-group-sm form-control col"
+                id="radius"
                 type="number"
-                step={5}
-                min={5}
-                max={100}
+                step={MIN_SPELL_CIRCLE_RADIUS_FEET}
+                min={MIN_SPELL_CIRCLE_RADIUS_FEET}
+                max={MAX_SPELL_CIRCLE_RADIUS_FEET}
                 value={radius}
-                placeholder="Notice: a square on the board is 5 feet length"
                 required
                 onChange={event => this.onChangeRadius(event, false)}
               />

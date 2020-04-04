@@ -2,7 +2,7 @@ import React from "react";
 
 const imageBaseUrl = "https://drive.google.com/uc?id=";
 
-export const avatarImageURLs = {
+export const AVATAR_IMAGE_URLS = {
   ranger: imageBaseUrl + "1MIyJ4ATQToPI_RN7RfiFQPDmuKBWHz_j",
   rogue: imageBaseUrl + "1bRC8T6ywHD6f23cdLnp2WmWaIImY7YXM",
   sorcerer: imageBaseUrl + "1TK0i8R3td1vj0Xlo1kZmS0Zu7H2c90kK",
@@ -13,6 +13,11 @@ export const avatarImageURLs = {
   beetle: imageBaseUrl + "1Iy7IJvd4PT7ImBPjSJRrf7Ytc7ZYiOgs",
   balrog: imageBaseUrl + "1-ShPk6rbliyWzEd7yEFqrJoOZwn1awAM"
 };
+
+export const MIN_CHARACTER_SIZE_SQUARES = 1;
+export const MAX_CHARACTER_SIZE_SQUARES = 6;
+export const MIN_SPELL_CIRCLE_RADIUS_FEET = 5;
+export const MAX_SPELL_CIRCLE_RADIUS_FEET = 100;
 
 export const DefaultFallbackComponent = ({ componentStack, error }) => (
   <div>
