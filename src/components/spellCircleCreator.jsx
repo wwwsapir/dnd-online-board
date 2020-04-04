@@ -4,43 +4,43 @@ import "./sideBar.css";
 import { SketchPicker } from "react-color";
 import {
   MIN_SPELL_CIRCLE_RADIUS_FEET,
-  MAX_SPELL_CIRCLE_RADIUS_FEET
+  MAX_SPELL_CIRCLE_RADIUS_FEET,
+  MIN_CHARACTER_SIZE_SQUARES
 } from "../constants";
 
 class CharacterCreator extends Component {
   state = {
     spellName: "",
     ownerName: "",
-    radius: 5,
+    radius: MIN_SPELL_CIRCLE_RADIUS_FEET,
     color: {
       r: "241",
       g: "112",
       b: "19",
       a: "1"
     },
-    missingFields: false
+    missingFields: false,
+    isRadiusValid: true
   };
 
   initiateState() {
     this.setState({
       spellName: "",
       ownerName: "",
-      radius: 5,
+      radius: MIN_SPELL_CIRCLE_RADIUS_FEET,
       color: {
         r: "241",
         g: "112",
         b: "19",
         a: "1"
       },
-      missingFields: false
+      missingFields: false,
+      isRadiusValid: true
     });
   }
 
   onChangeRadius(event) {
     let newRadiusVal = Number(event.target.value.replace(/\D/, ""));
-    if (event.target.min > newRadiusVal || newRadiusVal > event.target.max) {
-      newRadiusVal = this.state.radius;
-    }
     this.setState({ radius: newRadiusVal });
   }
 
@@ -51,17 +51,30 @@ class CharacterCreator extends Component {
 
   handleCreateButtonClick = () => {
     const { spellName, ownerName, radius, color } = { ...this.state };
-    if (!spellName || radius <= 0 || !color) {
+    this.setState({ isRadiusValid: true, missingFields: false }); // initialize errors
+    if (!spellName || !color) {
       this.setState({ missingFields: true });
-      return;
+    } else if (
+      MIN_SPELL_CIRCLE_RADIUS_FEET > radius ||
+      radius > MAX_SPELL_CIRCLE_RADIUS_FEET
+    ) {
+      this.setState({ isRadiusValid: false });
+    } else {
+      // form is valid
+      this.initiateState(); // Prepare for next circle creation
+      this.props.onCreation({ spellName, ownerName, radius, color });
     }
-    this.setState({ missingFields: false });
-    this.initiateState();
-    this.props.onCreation({ spellName, ownerName, radius, color });
   };
 
   render() {
-    const { spellName, ownerName, radius, color } = this.state;
+    const {
+      spellName,
+      ownerName,
+      radius,
+      color,
+      isRadiusValid,
+      missingFields
+    } = this.state;
     return (
       <ul
         className="nav nav-tabs flex-column text-white bg-dark row w-100"
@@ -134,7 +147,7 @@ class CharacterCreator extends Component {
             Cancel
           </button>
         </li>
-        {this.state.missingFields ? (
+        {missingFields ? (
           <li className="nav-item col">
             <h4>
               <span className="badge badge-danger">
@@ -143,6 +156,16 @@ class CharacterCreator extends Component {
             </h4>
           </li>
         ) : null}
+        {isRadiusValid ? null : (
+          <li className="nav-item col">
+            <h4>
+              <span className="badge badge-danger">
+                Radius value should be {MIN_SPELL_CIRCLE_RADIUS_FEET}-
+                {MAX_SPELL_CIRCLE_RADIUS_FEET}
+              </span>
+            </h4>
+          </li>
+        )}
       </ul>
     );
   }

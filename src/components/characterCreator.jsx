@@ -23,8 +23,8 @@ class CharacterCreator extends Component {
   initiateState() {
     this.setState({
       characterName: "",
-      height: 1,
-      width: 1,
+      height: MIN_CHARACTER_SIZE_SQUARES,
+      width: MIN_CHARACTER_SIZE_SQUARES,
       avatarImage: null,
       //   type: null,
       //   avatar: "Choose File"

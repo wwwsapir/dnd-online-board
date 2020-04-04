@@ -1,3 +1,5 @@
+Fix Bug: Check the validity of the radius value only when creating circle! not onChange. Show alert if wrong value.
+
 Version 0.0:
 1. Characters creation toolbar. + Roll dice. - Done
 2. The abiliy to move characters. - Done

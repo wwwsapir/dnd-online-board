@@ -3,7 +3,7 @@ import "./App.css";
 import DiceRoller from "./components/diceRoller";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MapCanvas from "./components/mapCanvas";
-import CharacterCreatorPopUp from "./components/characterCreatorPopUp";
+import CharacterCreatorPopUp from "./components/CharacterCreatorPopUp";
 import ActionsMenu from "./components/actionsMenu";
 import CloneDeep from "lodash/cloneDeep";
 import ErrorBoundary from "react-error-boundary";
