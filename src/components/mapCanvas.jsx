@@ -40,7 +40,8 @@ class MapCanvas extends Component {
       itemDeletionModeOn,
       spellCircles,
       onSpellCircleClick,
-      onCalcSpellCirclePosition
+      onCalcSpellCirclePosition,
+      placingCircle
     } = this.props;
     const { scale, translation } = this.state;
 
@@ -70,6 +71,7 @@ class MapCanvas extends Component {
             itemDeletionModeOn={itemDeletionModeOn}
             onSpellCircleClick={onSpellCircleClick}
             onCalcSpellCirclePosition={onCalcSpellCirclePosition}
+            placingCircle={placingCircle}
           />
         </div>
       </MapInteractionCSS>

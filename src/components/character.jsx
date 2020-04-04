@@ -8,11 +8,12 @@ class Character extends Component {
       borderWidth,
       cursorHover,
       transparent,
-      itemDeletionModeOn
+      itemDeletionModeOn,
+      clickable
     } = this.props;
     let borderStyle = selected || itemDeletionModeOn ? "solid red" : "none";
     borderStyle += " " + borderWidth + "px";
-    const opacity = transparent ? 0.4 : 1;
+    const opacity = transparent ? 0.45 : 1;
     return {
       width: position.width,
       height: position.height,
@@ -21,7 +22,8 @@ class Character extends Component {
       left: position.topLeft.col,
       border: borderStyle,
       cursor: cursorHover,
-      opacity
+      opacity,
+      pointerEvents: clickable ? "auto" : "none"
     };
   }
 

@@ -24,7 +24,8 @@ class BoardMap extends Component {
       placingChar,
       itemDeletionModeOn,
       onSpellCircleClick,
-      onCalcSpellCirclePosition
+      onCalcSpellCirclePosition,
+      placingCircle
     } = this.props;
 
     return (
@@ -56,8 +57,22 @@ class BoardMap extends Component {
               onClick={onSpellCircleClick}
               cursorHover={itemDeletionModeOn ? "pointer" : "move"}
               itemDeletionModeOn={itemDeletionModeOn}
+              placingCircle={placingCircle}
+              clickable={itemDeletionModeOn}
             />
           ))}
+          {placingCircle ? (
+            <SpellCircle
+              spellCircle={placingCircle}
+              borderWidth={borderWidth}
+              position={onCalcSpellCirclePosition(placingCircle)}
+              onClick={onSpellCircleClick}
+              cursorHover={itemDeletionModeOn ? "pointer" : "move"}
+              itemDeletionModeOn={itemDeletionModeOn}
+              placingCircle={placingCircle}
+              clickable={false}
+            />
+          ) : null}
           {characters.map((char, i) => (
             <Character
               key={i}
@@ -69,6 +84,7 @@ class BoardMap extends Component {
               cursorHover={selectedChar ? "auto" : "pointer"}
               transparent={placingChar === char}
               itemDeletionModeOn={itemDeletionModeOn}
+              clickable={!placingChar && !placingCircle}
             />
           ))}
         </div>

@@ -6,7 +6,8 @@ class SpellCircle extends Component {
       position,
       cursorHover,
       itemDeletionModeOn,
-      borderWidth
+      borderWidth,
+      clickable
     } = this.props;
     const { color } = this.props.spellCircle;
     const transparentColor =
@@ -24,7 +25,8 @@ class SpellCircle extends Component {
       background: transparentColor,
       borderRadius: position.radius,
       cursor: cursorHover,
-      border: borderStyle
+      border: borderStyle,
+      pointerEvents: clickable ? "auto" : "none"
     };
   }
 

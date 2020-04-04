@@ -46,7 +46,7 @@ class ActionsMenu extends Component {
                 onClick={onSpellCircleCreation}
                 className="btn btn-primary form-control mt-3"
               >
-                Create a Color Circle
+                Create a Spell Circle
               </button>
             </li>
             <li className="nav-item col">

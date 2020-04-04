@@ -23,6 +23,7 @@ class App extends Component {
     matrix: null,
     selectedChar: null,
     placingChar: null,
+    placingCircle: null,
     itemDeletionModeOn: false,
     spellCircles: [
       {
@@ -111,7 +112,13 @@ class App extends Component {
   }
 
   handleCellClick = (cell, triggerDeselect = true) => {
-    const { selectedChar } = this.state;
+    const { selectedChar, placingCircle } = { ...this.state };
+    if (placingCircle) {
+      let spellCirclesCopy = [...this.state.spellCircles];
+      spellCirclesCopy.push(placingCircle);
+      this.setState({ spellCircles: spellCirclesCopy, placingCircle: null });
+      return;
+    }
     let characters = [...this.state.characters];
     if (selectedChar) {
       if (cell.wall) {
@@ -171,13 +178,13 @@ class App extends Component {
   // };
 
   handleKeyUp = e => {
-    let { selectedChar } = { ...this.state };
-    if (!selectedChar) {
-      return;
+    let { selectedChar, placingCircle } = { ...this.state };
+    if (selectedChar) {
+      const characters = this.getCharsArrWithoutSelection();
+      this.setState({ selectedChar: null, placingChar: null, characters });
+    } else if (placingCircle) {
+      this.setState({ placingCircle: null });
     }
-    const characters = this.getCharsArrWithoutSelection();
-    this.setState({ selectedChar: null, placingChar: null, characters });
-    return;
   };
 
   getCharsArrWithoutSelection() {
@@ -211,10 +218,6 @@ class App extends Component {
       this.deleteCharacter(char);
       return;
     }
-    if (placingChar === char) {
-      this.handleCellClick(matrix[char.topLeftRow][char.topLeftCol]);
-      return;
-    }
     if (selectedChar) {
       selectedChar = null;
       placingChar = null;
@@ -237,7 +240,6 @@ class App extends Component {
   handleSpellCircleClick = spellCircle => {
     if (this.state.itemDeletionModeOn) {
       this.deleteSpellCircle(spellCircle);
-      return;
     }
   };
 
@@ -355,13 +357,16 @@ class App extends Component {
   }
 
   handleMouseEnterCell = cell => {
-    let { placingChar } = { ...this.state };
-    if (!placingChar) {
-      return;
+    let { placingChar, placingCircle } = { ...this.state };
+    if (placingChar) {
+      placingChar.topLeftRow = cell.row;
+      placingChar.topLeftCol = cell.col;
+      this.setState({ placingChar });
+    } else if (placingCircle) {
+      placingCircle.row = cell.row;
+      placingCircle.col = cell.col;
+      this.setState({ placingCircle });
     }
-    placingChar.topLeftRow = cell.row;
-    placingChar.topLeftCol = cell.col;
-    this.setState({ placingChar });
   };
 
   handleCharacterCreation = stateData => {
@@ -392,7 +397,16 @@ class App extends Component {
   };
 
   handleSpellCircleCreation = stateData => {
-    console.log("Spell circle created", stateData);
+    const { spellName, ownerName, radius, color } = stateData;
+    const placingCircle = {
+      name: spellName,
+      owner: ownerName,
+      radius,
+      row: null,
+      col: null,
+      color
+    };
+    this.setState({ placingCircle });
   };
 
   toggleItemDeletionMode = () => {
@@ -429,7 +443,8 @@ class App extends Component {
       spellCircles,
       matrix,
       placingChar,
-      itemDeletionModeOn
+      itemDeletionModeOn,
+      placingCircle
     } = this.state;
     return (
       <div className="row h-100 w-100">
@@ -453,6 +468,7 @@ class App extends Component {
               placingChar={placingChar}
               itemDeletionModeOn={itemDeletionModeOn}
               onSpellCircleClick={this.handleSpellCircleClick}
+              placingCircle={placingCircle}
             ></MapCanvas>
           </ErrorBoundary>
         </div>

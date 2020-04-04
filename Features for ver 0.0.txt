@@ -23,3 +23,4 @@ Further versions:
 8. Only the current turn player select their character to move (Except the DM that can go nuts).
 9. For large maps - the option to zoo, out on all of it.
 10. Handle flying characters (character above character in the same position).
+11. Enable spell circle centered in the center of a character and not a cell (different when the character is large).
