@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import "./App.css";
-import DiceRoller from "./components/diceRoller";
+import DiceRoller from "./diceRoller";
 import "bootstrap/dist/css/bootstrap.min.css";
-import MapCanvas from "./components/mapCanvas";
-import CharacterCreatorPopUp from "./components/CharacterCreatorPopUp";
-import ActionsMenu from "./components/actionsMenu";
+import MapCanvas from "./mapCanvas";
+import CharacterCreatorPopUp from "./CharacterCreatorPopUp";
+import ActionsMenu from "./actionsMenu";
 import CloneDeep from "lodash/cloneDeep";
 import ErrorBoundary from "react-error-boundary";
-import { DefaultFallbackComponent } from "./constants";
-import SpellCircleCreatorPopUp from "./components/spellCircleCreatorPopUp";
+import { DefaultFallbackComponent } from "../constants";
+import SpellCircleCreatorPopUp from "./spellCircleCreatorPopUp";
+import LoginScreen from "./loginScreen";
 
 class App extends Component {
   state = {
@@ -26,6 +27,7 @@ class App extends Component {
     selectedCircle: null,
     placingCircle: null,
     itemDeletionModeOn: false,
+    loggedIn: false,
     spellCircles: [
       {
         name: "Fireball",
@@ -474,7 +476,8 @@ class App extends Component {
       matrix,
       placingChar,
       itemDeletionModeOn,
-      placingCircle
+      placingCircle,
+      loggedIn
     } = this.state;
     return (
       <div className="row h-100 w-100">
@@ -515,6 +518,9 @@ class App extends Component {
               onFinishDeletion={this.toggleItemDeletionMode}
             />
           </ErrorBoundary>
+          <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
+            <DiceRoller />
+          </ErrorBoundary>
           {this.state.showCharacterCreatorPopup ? (
             <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
               <CharacterCreatorPopUp
@@ -531,9 +537,15 @@ class App extends Component {
               />
             </ErrorBoundary>
           ) : null}
-          <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
-            <DiceRoller />
-          </ErrorBoundary>
+          {loggedIn ? (
+            console.log(loggedIn)
+          ) : (
+            <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
+              <LoginScreen
+                closePopup={() => this.setState({ loggedIn: true })}
+              />
+            </ErrorBoundary>
+          )}
         </div>
       </div>
     );
