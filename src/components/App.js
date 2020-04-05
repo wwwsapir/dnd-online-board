@@ -13,7 +13,7 @@ import LoginScreen from "./loginScreen";
 
 class App extends Component {
   state = {
-    userId: null,
+    loginToken: null,
     rowCount: this.props.rowCount,
     colCount: this.props.colCount,
     walls: [
