@@ -1,17 +1,28 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { API_URL } from "../constants";
 
 class LoginForm extends Component {
   state = {
     userName: "",
     password: "",
     isUserNameValid: true,
-    missingData: false
+    missingData: false,
+    loginData: null
   };
+
+  callLoginAPI() {
+    const { userName } = this.state;
+    fetch(API_URL + "login/" + userName)
+      .then(res => res.text())
+      .then(res => console.log(res));
+  }
 
   handleLoginButtonClick = () => {
     const { userName, password } = this.state;
     const { onLogin } = this.props;
+    this.callLoginAPI();
+    return;
     this.setState({ isUserNameValid: true, missingData: false }); // initiate errors
     if (!userName || !password) {
       this.setState({ missingData: true });

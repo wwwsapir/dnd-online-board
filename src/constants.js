@@ -19,6 +19,8 @@ export const MAX_CHARACTER_SIZE_SQUARES = 6;
 export const MIN_SPELL_CIRCLE_RADIUS_FEET = 5;
 export const MAX_SPELL_CIRCLE_RADIUS_FEET = 60;
 
+export const API_URL = "http://localhost:9000/";
+
 export const DefaultFallbackComponent = ({ componentStack, error }) => (
   <div>
     <p>

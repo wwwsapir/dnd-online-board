@@ -7,7 +7,7 @@ class SpellCircle extends Component {
       itemDeletionModeOn,
       borderWidth,
       clickable,
-      selected
+      selected,
     } = this.props;
     const { color } = this.props.spellCircle;
     const transparentColor =

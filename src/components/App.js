@@ -7,12 +7,13 @@ import CharacterCreatorPopUp from "./CharacterCreatorPopUp";
 import ActionsMenu from "./actionsMenu";
 import CloneDeep from "lodash/cloneDeep";
 import ErrorBoundary from "react-error-boundary";
-import { DefaultFallbackComponent } from "../constants";
+import { DefaultFallbackComponent, API_URL } from "../constants";
 import SpellCircleCreatorPopUp from "./spellCircleCreatorPopUp";
 import LoginScreen from "./loginScreen";
 
 class App extends Component {
   state = {
+    userId: null,
     rowCount: this.props.rowCount,
     colCount: this.props.colCount,
     walls: [
