@@ -5,6 +5,7 @@ import { API_URL } from "../constants";
 class LoginForm extends Component {
   state = {
     userName: "",
+    email: "",
     password: "",
     isUserNameValid: true,
     missingData: false,
@@ -45,7 +46,7 @@ class LoginForm extends Component {
         <h4 className="col mb-5">
           <span className="creatorHeader">Welcome to D&amp;D Online Map</span>
         </h4>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <input
             className="input-group-sm form-control col"
             id="userName"
@@ -53,6 +54,16 @@ class LoginForm extends Component {
             placeholder="User name"
             required
             onChange={event => this.setState({ userName: event.target.value })}
+          />
+        </li> */}
+        <li className="nav-item">
+          <input
+            className="input-group-sm form-control col"
+            id="email"
+            value={email}
+            placeholder="Email Address"
+            required
+            onChange={event => this.setState({ email: event.target.value })}
           />
         </li>
         <li className="nav-item">
