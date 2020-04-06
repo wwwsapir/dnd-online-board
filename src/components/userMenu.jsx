@@ -13,7 +13,7 @@ class UserMenu extends Component {
   };
 
   handleLogOutClick = () => {
-    console.log("handleLogOutClick called");
+    this.props.onLogOut();
   };
 
   render() {
@@ -43,7 +43,7 @@ class UserMenu extends Component {
           </button>
         </li>
         <li className="nav-item mt-2">
-          <a className="float-right" href="" onClick={this.handleLogOutClick}>
+          <a className="float-right" href="#" onClick={this.handleLogOutClick}>
             Log Out
           </a>
         </li>

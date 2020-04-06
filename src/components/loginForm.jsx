@@ -21,20 +21,16 @@ class LoginForm extends Component {
     promise.then(res => {
       if (!res) return;
       if (res.error) {
-        this.setState({ loginErrorMessage: res.error.message });
+        this.setState({ errorMessage: res.error.message });
       } else {
         onLogin(res.userName, res.authToken);
       }
     });
   };
 
-  handleForgotPasswordClick = () => {
-    console.log("handleForgotPasswordClick called");
-    this.props.onForgotPassword();
-  };
-
   render() {
-    const { email, password, errorMessage: loginErrorMessage } = this.state;
+    const { email, password, errorMessage } = this.state;
+    const { onForgotPassword, onRegistration } = this.props;
     return (
       <ul
         className="nav nav-tabs flex-column text-white bg-dark row w-100"
@@ -73,18 +69,17 @@ class LoginForm extends Component {
           </button>
         </li>
         <li className="nav-item mt-2">
-          <a
-            className="float-right"
-            href="#"
-            onClick={this.handleForgotPasswordClick}
-          >
-            forgot password?
+          <a className="float-right" href="#" onClick={onForgotPassword}>
+            Forgot password?
+          </a>
+          <a href="#" onClick={onRegistration}>
+            New user?
           </a>
         </li>
-        {loginErrorMessage ? (
+        {errorMessage ? (
           <li className="nav-item col">
             <h4>
-              <span className="badge badge-danger">{loginErrorMessage}</span>
+              <span className="badge badge-danger">{errorMessage}</span>
             </h4>
           </li>
         ) : null}

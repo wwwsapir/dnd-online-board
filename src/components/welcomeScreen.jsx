@@ -4,8 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import LoginForm from "./loginForm";
 import UserMenu from "./userMenu";
 import PasswordResetForm from "./passwordResetForm";
+import RegistrationForm from "./registrationForm";
 
-class LoginScreen extends Component {
+class WelcomeScreen extends Component {
   state = {
     authToken: "",
     userName: "",
@@ -13,12 +14,12 @@ class LoginScreen extends Component {
     showRegister: false
   };
 
-  logOut = () => {
-    this.setState({ userName: "", authToken: "", loggedIn: false });
+  handleLogOut = () => {
+    this.setState({ userName: "", authToken: "" });
   };
 
-  logIn = (userName, authToken) => {
-    this.setState({ userName, authToken, loggedIn: true });
+  handleLogIn = (userName, authToken) => {
+    this.setState({ userName, authToken });
   };
 
   handleContinueLastGame = () => {
@@ -32,32 +33,47 @@ class LoginScreen extends Component {
   };
 
   toggleForgotPassword = () => {
-    const { forgotPassword, authToken: loginToken } = this.state;
-    if (!loginToken) {
+    const { forgotPassword, authToken } = this.state;
+    if (!authToken) {
       this.setState({ forgotPassword: !forgotPassword });
     } else {
       console.error("Try to reset password while logged in");
     }
   };
 
+  toggleRegistration = () => {
+    const { registration, authToken } = this.state;
+    if (!authToken) {
+      this.setState({ registration: !registration });
+    } else {
+      console.error("Try to cancel registration while already logged in");
+    }
+  };
+
   render() {
-    const { authToken: loginToken, userName, forgotPassword } = this.state;
+    const { authToken, userName, forgotPassword, registration } = this.state;
     return (
       <div className="LoginScreen">
         <div className="LoginScreenContent">
-          {loginToken ? (
+          {authToken ? (
             <UserMenu
               onContinueLastGame={this.handleContinueLastGame}
               onStartANewGame={this.handleStartANewGame}
-              onLogOut={this.logOut}
+              onLogOut={this.handleLogOut}
               userName={userName}
             />
           ) : forgotPassword ? (
             <PasswordResetForm onBackToLoginPage={this.toggleForgotPassword} />
+          ) : registration ? (
+            <RegistrationForm
+              onRegistered={this.toggleRegistration}
+              onBackToLoginPage={this.toggleRegistration}
+            />
           ) : (
             <LoginForm
-              onLogin={this.logIn}
+              onLogin={this.handleLogIn}
               onForgotPassword={this.toggleForgotPassword}
+              onRegistration={this.toggleRegistration}
             />
           )}
         </div>
@@ -66,4 +82,4 @@ class LoginScreen extends Component {
   }
 }
 
-export default LoginScreen;
+export default WelcomeScreen;

@@ -9,7 +9,7 @@ import CloneDeep from "lodash/cloneDeep";
 import ErrorBoundary from "react-error-boundary";
 import { DefaultFallbackComponent, API_URL } from "../constants";
 import SpellCircleCreatorPopUp from "./spellCircleCreatorPopUp";
-import LoginScreen from "./loginScreen";
+import WelcomeScreen from "./welcomeScreen";
 
 class App extends Component {
   state = {
@@ -542,7 +542,7 @@ class App extends Component {
             console.log(loggedIn)
           ) : (
             <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
-              <LoginScreen
+              <WelcomeScreen
                 closePopup={() => this.setState({ loggedIn: true })}
               />
             </ErrorBoundary>

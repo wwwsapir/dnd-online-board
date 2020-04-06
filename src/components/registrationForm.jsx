@@ -10,43 +10,50 @@ class RegistrationForm extends Component {
     errorMessage: ""
   };
 
-  callLoginAPI(loginData) {
-    return SendRequest("/auth/login/", "POST", loginData);
+  callRegisterAPI(userData) {
+    return SendRequest("/auth/register/", "POST", userData);
   }
 
-  handleLoginButtonClick = () => {
-    const { email, password } = this.state;
-    const { onLogin } = this.props;
-    const promise = this.callLoginAPI({ email, password });
+  handleRegisterButtonClick = () => {
+    const { userName, email, password } = this.state;
+    const { onRegistered } = this.props;
+    const promise = this.callRegisterAPI({ userName, email, password });
 
     promise.then(res => {
+      console.log(res);
       if (!res) return;
       if (res.error) {
-        this.setState({ loginErrorMessage: res.error.message });
+        this.setState({ errorMessage: res.error.message });
       } else {
-        onLogin(res.userName, res.authToken);
+        onRegistered(res.userName, res.authToken);
       }
     });
   };
 
-  handleForgotPasswordClick = () => {
-    console.log("handleForgotPasswordClick called");
-    this.props.onForgotPassword();
-  };
-
   render() {
-    const { email, password, errorMessage: loginErrorMessage } = this.state;
+    const { userName, email, password, errorMessage } = this.state;
+    const { onBackToLoginPage } = this.props;
     return (
       <ul
         className="nav nav-tabs flex-column text-white bg-dark row w-100"
         style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
       >
         <h4 className="col mb-5">
-          <span className="creatorHeader">Welcome to D&amp;D Online Map</span>
+          <span className="creatorHeader">New User Registration</span>
         </h4>
         <li className="nav-item">
           <input
             className="input-group-sm form-control col"
+            id="userName"
+            value={userName}
+            placeholder="User Name"
+            required
+            onChange={event => this.setState({ userName: event.target.value })}
+          />
+        </li>
+        <li className="nav-item">
+          <input
+            className="input-group-sm form-control col mt-3"
             id="email"
             value={email}
             placeholder="Email Address"
@@ -67,25 +74,21 @@ class RegistrationForm extends Component {
         </li>
         <li className="nav-item">
           <button
-            onClick={this.handleLoginButtonClick}
+            onClick={this.handleRegisterButtonClick}
             className="btn btn-primary form-control mt-3 col"
           >
-            Login
+            Register
           </button>
         </li>
         <li className="nav-item mt-2">
-          <a
-            className="float-right"
-            href="#"
-            onClick={this.handleForgotPasswordClick}
-          >
-            forgot password?
+          <a className="float-right" href="#" onClick={onBackToLoginPage}>
+            Cancel and back to login
           </a>
         </li>
-        {loginErrorMessage ? (
+        {errorMessage ? (
           <li className="nav-item col">
             <h4>
-              <span className="badge badge-danger">{loginErrorMessage}</span>
+              <span className="badge badge-danger">{errorMessage}</span>
             </h4>
           </li>
         ) : null}
