@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-class UserArea extends Component {
+class UserMenu extends Component {
   handleContinueGameClick = () => {
     console.log("handleContinueGameClick called");
     this.props.onContinueLastGame();
@@ -52,4 +52,4 @@ class UserArea extends Component {
   }
 }
 
-export default UserArea;
+export default UserMenu;

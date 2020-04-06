@@ -34,10 +34,11 @@ class LoginForm extends Component {
 
   handleForgotPasswordClick = () => {
     console.log("handleForgotPasswordClick called");
+    this.props.onForgotPassword();
   };
 
   render() {
-    const { userName, password, isUserNameValid, missingData } = this.state;
+    const { email, password, isUserNameValid, missingData } = this.state;
     return (
       <ul
         className="nav nav-tabs flex-column text-white bg-dark row w-100"
@@ -46,16 +47,6 @@ class LoginForm extends Component {
         <h4 className="col mb-5">
           <span className="creatorHeader">Welcome to D&amp;D Online Map</span>
         </h4>
-        {/* <li className="nav-item">
-          <input
-            className="input-group-sm form-control col"
-            id="userName"
-            value={userName}
-            placeholder="User name"
-            required
-            onChange={event => this.setState({ userName: event.target.value })}
-          />
-        </li> */}
         <li className="nav-item">
           <input
             className="input-group-sm form-control col"
@@ -88,7 +79,7 @@ class LoginForm extends Component {
         <li className="nav-item mt-2">
           <a
             className="float-right"
-            href=""
+            href="#"
             onClick={this.handleForgotPasswordClick}
           >
             forgot password?
