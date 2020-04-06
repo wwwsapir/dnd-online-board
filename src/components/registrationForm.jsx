@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { SendRequest } from "../constants";
 
-class LoginForm extends Component {
+class RegistrationForm extends Component {
   state = {
+    userName: "",
     email: "",
     password: "",
     errorMessage: ""
@@ -93,4 +94,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default RegistrationForm;

@@ -7,12 +7,18 @@ import PasswordResetForm from "./passwordResetForm";
 
 class LoginScreen extends Component {
   state = {
-    loginToken: "",
+    authToken: "",
     userName: "",
-    forgotPassword: false
+    forgotPassword: false,
+    showRegister: false
   };
-  toggleLogin = userName => {
-    this.setState({ userName, loggedIn: !this.state.loggedIn });
+
+  logOut = () => {
+    this.setState({ userName: "", authToken: "", loggedIn: false });
+  };
+
+  logIn = (userName, authToken) => {
+    this.setState({ userName, authToken, loggedIn: true });
   };
 
   handleContinueLastGame = () => {
@@ -26,7 +32,7 @@ class LoginScreen extends Component {
   };
 
   toggleForgotPassword = () => {
-    const { forgotPassword, loginToken } = this.state;
+    const { forgotPassword, authToken: loginToken } = this.state;
     if (!loginToken) {
       this.setState({ forgotPassword: !forgotPassword });
     } else {
@@ -35,7 +41,7 @@ class LoginScreen extends Component {
   };
 
   render() {
-    const { loginToken, userName, forgotPassword } = this.state;
+    const { authToken: loginToken, userName, forgotPassword } = this.state;
     return (
       <div className="LoginScreen">
         <div className="LoginScreenContent">
@@ -43,15 +49,14 @@ class LoginScreen extends Component {
             <UserMenu
               onContinueLastGame={this.handleContinueLastGame}
               onStartANewGame={this.handleStartANewGame}
-              onLogOut={this.toggleLogin}
+              onLogOut={this.logOut}
               userName={userName}
             />
-          ) : null}
-          {forgotPassword ? (
+          ) : forgotPassword ? (
             <PasswordResetForm onBackToLoginPage={this.toggleForgotPassword} />
           ) : (
             <LoginForm
-              onLogin={this.toggleLogin}
+              onLogin={this.logIn}
               onForgotPassword={this.toggleForgotPassword}
             />
           )}

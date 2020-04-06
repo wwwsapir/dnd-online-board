@@ -19,7 +19,7 @@ export const MAX_CHARACTER_SIZE_SQUARES = 6;
 export const MIN_SPELL_CIRCLE_RADIUS_FEET = 5;
 export const MAX_SPELL_CIRCLE_RADIUS_FEET = 60;
 
-export const API_URL = "http://localhost:9000/";
+export const API_URL = "http://localhost:9000";
 
 export const DefaultFallbackComponent = ({ componentStack, error }) => (
   <div>
@@ -39,3 +39,26 @@ export const DefaultFallbackComponent = ({ componentStack, error }) => (
     </p>
   </div>
 );
+
+export const CreateRequest = (method, bodyObject) => {
+  return {
+    method: method,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(bodyObject)
+  };
+};
+
+export const SendRequest = async (urlEnd, method, bodyObject) => {
+  const url = API_URL + urlEnd;
+  const req = CreateRequest(method, bodyObject);
+  try {
+    const response = await fetch(url, req);
+    return response.json();
+  } catch (err) {
+    console.error(
+      "Error with request " + method + " to url " + url,
+      "body:",
+      bodyObject
+    );
+  }
+};
