@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CallSaveGameAPI } from "../constants";
+import { CallSaveNewGameDataAPI } from "../constants";
 
 class RegistrationForm extends Component {
   state = {
@@ -13,7 +13,7 @@ class RegistrationForm extends Component {
   handleRegisterButtonClick = () => {
     const { userName, email, password } = this.state;
     const { onRegistered } = this.props;
-    const promise = CallSaveGameAPI({ userName, email, password });
+    const promise = CallSaveNewGameDataAPI({ userName, email, password });
 
     promise.then((res) => {
       if (!res) return;

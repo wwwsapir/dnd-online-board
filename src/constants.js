@@ -59,7 +59,7 @@ const sendRequest = async (
   if (authToken) {
     req.headers["auth-token"] = authToken;
   }
-  console.info("sending: ", req);
+  console.debug("sending: ", req);
   try {
     const response = await fetch(url, req);
     return response.json();
@@ -89,6 +89,10 @@ export const CallGetGameDataAPI = (authToken) => {
   return sendRequest("/gameData", "GET", undefined, authToken);
 };
 
-export const CallSaveGameAPI = (gameState, authToken) => {
+export const CallSaveNewGameDataAPI = (gameState, authToken) => {
   return sendRequest("/gameData", "POST", gameState, authToken);
+};
+
+export const CallUpdateGameDataAPI = (gameState, authToken) => {
+  return sendRequest("/gameData", "PATCH", gameState, authToken);
 };

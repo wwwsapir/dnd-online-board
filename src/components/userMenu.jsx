@@ -12,12 +12,10 @@ class UserMenu extends Component {
   }
 
   handleContinueGameClick = () => {
-    console.log("handleContinueGameClick called");
     this.props.onContinueLastGame();
   };
 
   handleStartANewGameClick = () => {
-    console.log("handleStartANewGameClick called");
     this.props.onStartANewGame();
   };
 

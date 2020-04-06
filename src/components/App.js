@@ -11,7 +11,8 @@ import {
   DefaultFallbackComponent,
   CallEraseGameDataAPI,
   CallGetGameDataAPI,
-  CallSaveGameAPI,
+  CallSaveNewGameDataAPI,
+  CallUpdateGameDataAPI,
 } from "../constants";
 import SpellCircleCreatorPopUp from "./spellCircleCreatorPopUp";
 import WelcomeScreen from "./welcomeScreen";
@@ -466,7 +467,6 @@ class App extends Component {
   };
 
   handleSaveGame = () => {
-    console.log("handleSaveGame called");
     const {
       authToken,
       rowCount,
@@ -481,7 +481,6 @@ class App extends Component {
       spellCircles,
       characters,
     } = this.state;
-    CallEraseGameDataAPI(authToken);
     const gameStateToSave = {
       rowCount,
       colCount,
@@ -495,16 +494,25 @@ class App extends Component {
       spellCircles,
       characters,
     };
-    const promise = CallSaveGameAPI({ gameState: gameStateToSave }, authToken);
-    promise.then((res) => {
-      if (!res) return;
-      if (res.error) {
-        console.log(res.error.message);
-      } else {
-        console.log(res);
-      }
-    });
+    this.createOrUpdateGameState({ gameState: gameStateToSave }, authToken);
   };
+
+  createOrUpdateGameState(body_object, authToken) {
+    const promiseGet = CallGetGameDataAPI(authToken);
+    promiseGet.then((resGet) => {
+      if (!resGet) return;
+      const apiCall = resGet.error
+        ? CallSaveNewGameDataAPI
+        : CallUpdateGameDataAPI;
+      const promisePost = apiCall(body_object, authToken);
+      promisePost.then((resPost) => {
+        if (!resPost) return;
+        if (resPost.error) {
+          console.error(resPost.error.message);
+        }
+      });
+    });
+  }
 
   handleStartNewGame = (authToken) => {
     this.setState({ authToken });
@@ -512,9 +520,7 @@ class App extends Component {
     promise.then((res) => {
       if (!res) return;
       if (res.error) {
-        console.log(res.error.message);
-      } else {
-        console.log(res);
+        console.debug(res.error.message);
       }
     });
   };
