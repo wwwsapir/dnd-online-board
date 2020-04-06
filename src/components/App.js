@@ -495,7 +495,7 @@ class App extends Component {
       spellCircles,
       characters,
     };
-    const promise = CallSaveGameAPI(JSON.stringify(gameStateToSave), authToken);
+    const promise = CallSaveGameAPI({ gameState: gameStateToSave }, authToken);
     promise.then((res) => {
       if (!res) return;
       if (res.error) {
