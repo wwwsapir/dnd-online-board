@@ -7,13 +7,18 @@ import CharacterCreatorPopUp from "./CharacterCreatorPopUp";
 import ActionsMenu from "./actionsMenu";
 import CloneDeep from "lodash/cloneDeep";
 import ErrorBoundary from "react-error-boundary";
-import { DefaultFallbackComponent, API_URL } from "../constants";
+import {
+  DefaultFallbackComponent,
+  CallEraseGameDataAPI,
+  CallGetGameDataAPI,
+  CallSaveGameAPI,
+} from "../constants";
 import SpellCircleCreatorPopUp from "./spellCircleCreatorPopUp";
 import WelcomeScreen from "./welcomeScreen";
 
 class App extends Component {
   state = {
-    loginToken: null,
+    authToken: null,
     rowCount: this.props.rowCount,
     colCount: this.props.colCount,
     walls: [
@@ -28,7 +33,6 @@ class App extends Component {
     selectedCircle: null,
     placingCircle: null,
     itemDeletionModeOn: false,
-    loggedIn: false,
     spellCircles: [
       {
         name: "Fireball",
@@ -36,8 +40,8 @@ class App extends Component {
         radius: 10,
         row: 3,
         col: 3,
-        color: { r: 51, g: 204, b: 255, a: 1 }
-      }
+        color: { r: 51, g: 204, b: 255, a: 1 },
+      },
     ],
     characters: [
       {
@@ -46,7 +50,7 @@ class App extends Component {
         topLeftRow: 1,
         topLeftCol: 7,
         widthCells: 1,
-        heightCells: 1
+        heightCells: 1,
       },
       {
         name: "Dragon",
@@ -54,7 +58,7 @@ class App extends Component {
         topLeftRow: 1,
         topLeftCol: 4,
         widthCells: 2,
-        heightCells: 2
+        heightCells: 2,
       },
       {
         name: "Warlock",
@@ -62,7 +66,7 @@ class App extends Component {
         topLeftRow: 4,
         topLeftCol: 9,
         widthCells: 1,
-        heightCells: 1
+        heightCells: 1,
       },
       {
         name: "Fighter",
@@ -70,7 +74,7 @@ class App extends Component {
         topLeftRow: 3,
         topLeftCol: 6,
         widthCells: 1,
-        heightCells: 1
+        heightCells: 1,
       },
       {
         name: "Beetle",
@@ -78,9 +82,9 @@ class App extends Component {
         topLeftRow: 6,
         topLeftCol: 5,
         widthCells: 1,
-        heightCells: 1
-      }
-    ]
+        heightCells: 1,
+      },
+    ],
   };
 
   constructor(props) {
@@ -101,7 +105,7 @@ class App extends Component {
         let cell = {
           row: i,
           col: j,
-          wall: this.isCellWall(i, j)
+          wall: this.isCellWall(i, j),
         };
         row.push(cell);
       }
@@ -111,13 +115,15 @@ class App extends Component {
   }
 
   isCellWall(row, col) {
-    const walls = this.state.walls.filter(c => c.row === row && c.col === col);
+    const walls = this.state.walls.filter(
+      (c) => c.row === row && c.col === col
+    );
     return walls.length > 0;
   }
 
   handleCellClick = (cell, triggerDeselect = true) => {
     const { selectedChar, selectedCircle } = {
-      ...this.state
+      ...this.state,
     };
     if (selectedCircle) {
       let spellCircles = [...this.state.spellCircles];
@@ -127,7 +133,7 @@ class App extends Component {
         this.setState({
           selectedCircle: null,
           placingCircle: null,
-          spellCircles
+          spellCircles,
         });
       } else if (spellCircleInd > -1) {
         this.setState({ selectedCircle: spellCircles[spellCircleInd] });
@@ -192,7 +198,7 @@ class App extends Component {
   //   }
   // };
 
-  handleKeyUp = e => {
+  handleKeyUp = (e) => {
     let { selectedChar, selectedCircle } = { ...this.state };
     if (selectedChar) {
       const characters = this.getCharsArrWithoutSelection();
@@ -202,7 +208,7 @@ class App extends Component {
       this.setState({
         selectedCircle: null,
         placingCircle: null,
-        spellCircles
+        spellCircles,
       });
     }
   };
@@ -227,16 +233,16 @@ class App extends Component {
 
   deleteCharacter(charToDelete) {
     let characters = [...this.state.characters];
-    characters = characters.filter(char => char !== charToDelete);
+    characters = characters.filter((char) => char !== charToDelete);
     this.setState({ characters });
     if (characters.length === 0 && this.state.spellCircles.length === 0) {
       this.toggleItemDeletionMode();
     }
   }
 
-  handleCharClick = char => {
+  handleCharClick = (char) => {
     let { selectedChar, placingChar, itemDeletionModeOn } = {
-      ...this.state
+      ...this.state,
     };
     if (itemDeletionModeOn) {
       this.deleteCharacter(char);
@@ -247,9 +253,9 @@ class App extends Component {
     }
   };
 
-  handleSpellCircleClick = spellCircle => {
+  handleSpellCircleClick = (spellCircle) => {
     let { selectedCircle, placingCircle, itemDeletionModeOn } = {
-      ...this.state
+      ...this.state,
     };
     if (itemDeletionModeOn) {
       this.deleteSpellCircle(spellCircle);
@@ -263,7 +269,7 @@ class App extends Component {
   deleteSpellCircle(spellCircleToDelete) {
     let spellCircles = [...this.state.spellCircles];
     spellCircles = spellCircles.filter(
-      spellCircle => spellCircle !== spellCircleToDelete
+      (spellCircle) => spellCircle !== spellCircleToDelete
     );
     this.setState({ spellCircles });
     if (this.state.characters.length === 0 && spellCircles.length === 0) {
@@ -339,7 +345,7 @@ class App extends Component {
     return this.getSelectedCharCells(selectedCharCopy).length > 0;
   }
 
-  calcCharPosition = char => {
+  calcCharPosition = (char) => {
     const { cellSize } = this.props;
     const { borderWidth } = this.state;
     let xPixels = null;
@@ -352,14 +358,14 @@ class App extends Component {
     return {
       topLeft: {
         row: xPixels,
-        col: yPixels
+        col: yPixels,
       },
       width: char.widthCells * cellSize - 2 * borderWidth,
-      height: char.heightCells * cellSize - 2 * borderWidth
+      height: char.heightCells * cellSize - 2 * borderWidth,
     };
   };
 
-  calcSpellCirclePosition = spellCircle => {
+  calcSpellCirclePosition = (spellCircle) => {
     const { cellSize } = this.props;
     let xPixels = null;
     let yPixels = null;
@@ -373,7 +379,7 @@ class App extends Component {
     return {
       row: xPixels,
       col: yPixels,
-      radius: spellCircle.radius * (cellSize / 5)
+      radius: spellCircle.radius * (cellSize / 5),
     };
   };
 
@@ -384,7 +390,7 @@ class App extends Component {
     document.removeEventListener("keyup", this.handleKeyUp, false);
   }
 
-  handleMouseEnterCell = cell => {
+  handleMouseEnterCell = (cell) => {
     let { placingChar, placingCircle } = { ...this.state };
     if (placingChar) {
       placingChar.topLeftRow = cell.row;
@@ -397,7 +403,7 @@ class App extends Component {
     }
   };
 
-  handleCharacterCreation = stateData => {
+  handleCharacterCreation = (stateData) => {
     const { characterName, height, width, avatarImage } = stateData;
     let newChar = {
       name: characterName,
@@ -405,24 +411,24 @@ class App extends Component {
       topLeftRow: null,
       topLeftCol: null,
       heightCells: height,
-      widthCells: width
+      widthCells: width,
     };
     const characters = [...this.state.characters];
     characters.push(newChar);
     this.setState({
       characters,
       placingChar: { ...newChar },
-      selectedChar: newChar
+      selectedChar: newChar,
     });
   };
 
   toggleCharacterCreatorPopup = () => {
     this.setState({
-      showCharacterCreatorPopup: !this.state.showCharacterCreatorPopup
+      showCharacterCreatorPopup: !this.state.showCharacterCreatorPopup,
     });
   };
 
-  handleSpellCircleCreation = stateData => {
+  handleSpellCircleCreation = (stateData) => {
     const { spellName, ownerName, radius, color } = stateData;
     const newCircle = {
       name: spellName,
@@ -430,14 +436,14 @@ class App extends Component {
       radius,
       row: null,
       col: null,
-      color
+      color,
     };
     const spellCircles = [...this.state.spellCircles];
     spellCircles.push(newCircle);
     this.setState({
       spellCircles,
       placingCircle: { ...newCircle },
-      selectedCircle: newCircle
+      selectedCircle: newCircle,
     });
   };
 
@@ -447,7 +453,7 @@ class App extends Component {
       this.setState({
         selectedChar: null,
         placingChar: null,
-        characters: this.getCharsArrWithoutSelection()
+        characters: this.getCharsArrWithoutSelection(),
       }); // Cancel character selection
     }
     this.setState({ itemDeletionModeOn: !itemDeletionModeOn });
@@ -455,12 +461,62 @@ class App extends Component {
 
   toggleSpellCircleCreatorPopup = () => {
     this.setState({
-      showSpellCircleCreatorPopup: !this.state.showSpellCircleCreatorPopup
+      showSpellCircleCreatorPopup: !this.state.showSpellCircleCreatorPopup,
     });
   };
 
   handleSaveGame = () => {
     console.log("handleSaveGame called");
+    const {
+      authToken,
+      rowCount,
+      colCount,
+      walls,
+      cellSize,
+      borderWidth,
+      selectedChar,
+      placingChar,
+      selectedCircle,
+      placingCircle,
+      spellCircles,
+      characters,
+    } = this.state;
+    CallEraseGameDataAPI(authToken);
+    const gameStateToSave = {
+      rowCount,
+      colCount,
+      walls,
+      cellSize,
+      borderWidth,
+      selectedChar,
+      placingChar,
+      selectedCircle,
+      placingCircle,
+      spellCircles,
+      characters,
+    };
+    const promise = CallSaveGameAPI(JSON.stringify(gameStateToSave), authToken);
+    promise.then((res) => {
+      if (!res) return;
+      if (res.error) {
+        console.log(res.error.message);
+      } else {
+        console.log(res);
+      }
+    });
+  };
+
+  handleStartNewGame = (authToken) => {
+    this.setState({ authToken });
+    const promise = CallEraseGameDataAPI(authToken);
+    promise.then((res) => {
+      if (!res) return;
+      if (res.error) {
+        console.log(res.error.message);
+      } else {
+        console.log(res);
+      }
+    });
   };
 
   render() {
@@ -478,7 +534,7 @@ class App extends Component {
       placingChar,
       itemDeletionModeOn,
       placingCircle,
-      loggedIn
+      authToken,
     } = this.state;
     return (
       <div className="row h-100 w-100">
@@ -538,15 +594,11 @@ class App extends Component {
               />
             </ErrorBoundary>
           ) : null}
-          {loggedIn ? (
-            console.log(loggedIn)
-          ) : (
+          {!authToken ? (
             <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
-              <WelcomeScreen
-                closePopup={() => this.setState({ loggedIn: true })}
-              />
+              <WelcomeScreen onNewGame={this.handleStartNewGame} />
             </ErrorBoundary>
-          )}
+          ) : null}
         </div>
       </div>
     );

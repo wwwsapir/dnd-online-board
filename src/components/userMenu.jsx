@@ -1,7 +1,16 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { CallGetGameDataAPI } from "../constants";
 
 class UserMenu extends Component {
+  state = {
+    gameDataExists: false,
+  };
+
+  componentWillMount() {
+    this.isGameDataExistsForUser();
+  }
+
   handleContinueGameClick = () => {
     console.log("handleContinueGameClick called");
     this.props.onContinueLastGame();
@@ -12,12 +21,21 @@ class UserMenu extends Component {
     this.props.onStartANewGame();
   };
 
+  isGameDataExistsForUser() {
+    const promise = CallGetGameDataAPI(this.props.authToken);
+    promise.then((res) => {
+      if (!res) return;
+      this.setState({ gameDataExists: !res.error });
+    });
+  }
+
   handleLogOutClick = () => {
     this.props.onLogOut();
   };
 
   render() {
     const { userName } = this.props;
+    const { gameDataExists } = this.state;
     return (
       <ul
         className="nav nav-tabs flex-column text-white bg-dark row w-100"
@@ -30,6 +48,7 @@ class UserMenu extends Component {
           <button
             onClick={this.handleContinueGameClick}
             className="btn btn-primary form-control mt-3 col"
+            disabled={!gameDataExists}
           >
             Continue Game
           </button>

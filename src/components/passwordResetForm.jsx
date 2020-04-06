@@ -5,7 +5,7 @@ import { API_URL } from "../constants";
 class PasswordResetForm extends Component {
   state = {
     email: "",
-    validationErrMessage: ""
+    validationErrMessage: "",
   };
 
   callPasswordResetAPI(email) {
@@ -16,9 +16,7 @@ class PasswordResetForm extends Component {
     const { email } = this.state;
     const res = this.callPasswordResetAPI(email);
     if (!res) return;
-    if (res.error) {
-      this.setState({ validationErrMessage: res.error });
-    }
+    this.setState({ validationErrMessage: res.error });
   };
 
   render() {
@@ -39,7 +37,7 @@ class PasswordResetForm extends Component {
             value={email}
             placeholder="Email Address"
             required
-            onChange={event => this.setState({ email: event.target.value })}
+            onChange={(event) => this.setState({ email: event.target.value })}
           />
         </li>
         <li className="nav-item">

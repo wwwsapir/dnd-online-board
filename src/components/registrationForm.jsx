@@ -1,26 +1,21 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { SendRequest } from "../constants";
+import { CallSaveGameAPI } from "../constants";
 
 class RegistrationForm extends Component {
   state = {
     userName: "",
     email: "",
     password: "",
-    errorMessage: ""
+    errorMessage: "",
   };
-
-  callRegisterAPI(userData) {
-    return SendRequest("/auth/register/", "POST", userData);
-  }
 
   handleRegisterButtonClick = () => {
     const { userName, email, password } = this.state;
     const { onRegistered } = this.props;
-    const promise = this.callRegisterAPI({ userName, email, password });
+    const promise = CallSaveGameAPI({ userName, email, password });
 
-    promise.then(res => {
-      console.log(res);
+    promise.then((res) => {
       if (!res) return;
       if (res.error) {
         this.setState({ errorMessage: res.error.message });
@@ -48,7 +43,9 @@ class RegistrationForm extends Component {
             value={userName}
             placeholder="User Name"
             required
-            onChange={event => this.setState({ userName: event.target.value })}
+            onChange={(event) =>
+              this.setState({ userName: event.target.value })
+            }
           />
         </li>
         <li className="nav-item">
@@ -58,7 +55,7 @@ class RegistrationForm extends Component {
             value={email}
             placeholder="Email Address"
             required
-            onChange={event => this.setState({ email: event.target.value })}
+            onChange={(event) => this.setState({ email: event.target.value })}
           />
         </li>
         <li className="nav-item">
@@ -69,7 +66,9 @@ class RegistrationForm extends Component {
             value={password}
             placeholder="Password"
             required
-            onChange={event => this.setState({ password: event.target.value })}
+            onChange={(event) =>
+              this.setState({ password: event.target.value })
+            }
           />
         </li>
         <li className="nav-item">

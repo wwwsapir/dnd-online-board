@@ -11,7 +11,7 @@ export const AVATAR_IMAGE_URLS = {
   scorbat: imageBaseUrl + "1R4CXRmvvWFQwSWH5blj71R9si4q_ePHb",
   dragon: imageBaseUrl + "13hzS-a0ZeHNe9f1lkWpfTVrj3prDAs0U",
   beetle: imageBaseUrl + "1Iy7IJvd4PT7ImBPjSJRrf7Ytc7ZYiOgs",
-  balrog: imageBaseUrl + "1-ShPk6rbliyWzEd7yEFqrJoOZwn1awAM"
+  balrog: imageBaseUrl + "1-ShPk6rbliyWzEd7yEFqrJoOZwn1awAM",
 };
 
 export const MIN_CHARACTER_SIZE_SQUARES = 1;
@@ -44,13 +44,22 @@ export const CreateRequest = (method, bodyObject) => {
   return {
     method: method,
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(bodyObject)
+    body: JSON.stringify(bodyObject),
   };
 };
 
-export const SendRequest = async (urlEnd, method, bodyObject) => {
+const sendRequest = async (
+  urlEnd,
+  method,
+  bodyObject = undefined,
+  authToken = null
+) => {
   const url = API_URL + urlEnd;
   const req = CreateRequest(method, bodyObject);
+  if (authToken) {
+    req.headers["auth-token"] = authToken;
+  }
+  console.info("sending: ", req);
   try {
     const response = await fetch(url, req);
     return response.json();
@@ -58,7 +67,28 @@ export const SendRequest = async (urlEnd, method, bodyObject) => {
     console.error(
       "Error with request " + method + " to url " + url,
       "body:",
-      bodyObject
+      bodyObject,
+      err.message
     );
   }
+};
+
+export const CallLoginAPI = (loginData) => {
+  return sendRequest("/auth/login/", "POST", loginData);
+};
+
+export const CallRegisterAPI = (userData) => {
+  return sendRequest("/auth/register/", "POST", userData);
+};
+
+export const CallEraseGameDataAPI = (authToken) => {
+  return sendRequest("/gameData/delete", "DELETE", undefined, authToken);
+};
+
+export const CallGetGameDataAPI = (authToken) => {
+  return sendRequest("/gameData", "GET", undefined, authToken);
+};
+
+export const CallSaveGameAPI = (gameState, authToken) => {
+  return sendRequest("/gameData", "POST", gameState, authToken);
 };

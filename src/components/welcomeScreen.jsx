@@ -11,7 +11,7 @@ class WelcomeScreen extends Component {
     authToken: "",
     userName: "",
     forgotPassword: false,
-    showRegister: false
+    showRegister: false,
   };
 
   handleLogOut = () => {
@@ -22,14 +22,12 @@ class WelcomeScreen extends Component {
     this.setState({ userName, authToken });
   };
 
-  handleContinueLastGame = () => {
-    console.log("handleContinueLastGame called");
-    this.props.closePopup();
+  handleContinueLastGameClick = () => {
+    console.log("handleContinueLastGameClick called");
   };
 
-  handleStartANewGame = () => {
-    console.log("handleStartANewGame called");
-    this.props.closePopup();
+  handleStartANewGameClick = () => {
+    this.props.onNewGame(this.state.authToken);
   };
 
   toggleForgotPassword = () => {
@@ -57,10 +55,11 @@ class WelcomeScreen extends Component {
         <div className="LoginScreenContent">
           {authToken ? (
             <UserMenu
-              onContinueLastGame={this.handleContinueLastGame}
-              onStartANewGame={this.handleStartANewGame}
+              onContinueLastGame={this.handleContinueLastGameClick}
+              onStartANewGame={this.handleStartANewGameClick}
               onLogOut={this.handleLogOut}
               userName={userName}
+              authToken={authToken}
             />
           ) : forgotPassword ? (
             <PasswordResetForm onBackToLoginPage={this.toggleForgotPassword} />

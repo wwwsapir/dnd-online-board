@@ -1,24 +1,20 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { SendRequest } from "../constants";
+import { CallLoginAPI } from "../constants";
 
 class LoginForm extends Component {
   state = {
-    email: "",
-    password: "",
-    errorMessage: ""
+    email: "wwwsapir@gmail.com",
+    password: "Xphr091189",
+    errorMessage: "",
   };
-
-  callLoginAPI(loginData) {
-    return SendRequest("/auth/login/", "POST", loginData);
-  }
 
   handleLoginButtonClick = () => {
     const { email, password } = this.state;
     const { onLogin } = this.props;
-    const promise = this.callLoginAPI({ email, password });
+    const promise = CallLoginAPI({ email, password });
 
-    promise.then(res => {
+    promise.then((res) => {
       if (!res) return;
       if (res.error) {
         this.setState({ errorMessage: res.error.message });
@@ -46,7 +42,7 @@ class LoginForm extends Component {
             value={email}
             placeholder="Email Address"
             required
-            onChange={event => this.setState({ email: event.target.value })}
+            onChange={(event) => this.setState({ email: event.target.value })}
           />
         </li>
         <li className="nav-item">
@@ -57,7 +53,9 @@ class LoginForm extends Component {
             value={password}
             placeholder="Password"
             required
-            onChange={event => this.setState({ password: event.target.value })}
+            onChange={(event) =>
+              this.setState({ password: event.target.value })
+            }
           />
         </li>
         <li className="nav-item">
