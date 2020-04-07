@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CallLoginAPI } from "../constants";
+import { CallLoginAPI } from "../apiUtils";
 
 class LoginForm extends Component {
   state = {

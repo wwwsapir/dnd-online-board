@@ -1,15 +1,25 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { API_URL } from "../constants";
+import { CallResetPasswordAPI } from "../apiUtils";
 
 class PasswordResetForm extends Component {
   state = {
     email: "",
-    validationErrMessage: "",
+    errMessage: "",
   };
 
   callPasswordResetAPI(email) {
     console.log("callPasswordResetAPI called", email);
+    const promise = CallResetPasswordAPI({ email: email });
+
+    promise.then((res) => {
+      if (!res) return;
+      if (res.error) {
+        this.setState({ errorMessage: res.error.message });
+      } else {
+        console.debug("Reset password email sent successfully!");
+      }
+    });
   }
 
   handleSendButtonClick = () => {
@@ -20,7 +30,7 @@ class PasswordResetForm extends Component {
   };
 
   render() {
-    const { email, validationErrMessage } = this.state;
+    const { email, errMessage } = this.state;
     const { onBackToLoginPage } = this.props;
     return (
       <ul
@@ -59,10 +69,10 @@ class PasswordResetForm extends Component {
             Cancel and back to login
           </a>
         </li>
-        {validationErrMessage ? (
+        {errMessage ? (
           <li className="nav-item col">
             <h4>
-              <span className="badge badge-danger">{validationErrMessage}</span>
+              <span className="badge badge-danger">{errMessage}</span>
             </h4>
           </li>
         ) : null}

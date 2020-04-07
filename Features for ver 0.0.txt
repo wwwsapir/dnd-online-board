@@ -1,14 +1,17 @@
 Version 0.0:
 1. Characters creation toolbar. + Roll dice. - Done
 2. The abiliy to move characters. - Done
-2.5. The abiliy to place characters on the map. - Done
-3. Example maps.
-4. Maps uploading.
-5. Larger characters option. - Done
-6. character deletion option. - Done
-7. Server and user name and url that all players can use.
-8. partially transperant mouse circle with customized radius that can be placed, choose color and text that will apear while hovering (also can delete it). - Done
-10. Add characters movement with arrow keys. - Done but deprectaed.
+3. The abiliy to place characters on the map. - Done
+4. Larger characters option. - Done
+5. character deletion option. - Done
+6. Server and user name and url that all players can use. - Done
+7. partially transperant mouse circle with customized radius that can be placed, choose color and text that will apear while hovering (also can delete it). - Done
+8. Add characters movement with arrow keys. - Done but deprectaed.
+9. Reset password option
+
+Version 0.1:
+1. Example maps.
+2. Maps uploading.
 
 Further versions:
 -1. Characters list (turns) - when hover over character in the list, the character will be marked with a colorful border.

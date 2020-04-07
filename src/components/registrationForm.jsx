@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CallRegisterAPI } from "../constants";
+import { CallRegisterAPI } from "../apiUtils";
 
 class RegistrationForm extends Component {
   state = {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CallGetGameDataAPI } from "../constants";
+import { CallGetGameDataAPI } from "../apiUtils";
 
 class UserMenu extends Component {
   state = {

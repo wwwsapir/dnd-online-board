@@ -7,13 +7,13 @@ import CharacterCreatorPopUp from "./CharacterCreatorPopUp";
 import ActionsMenu from "./actionsMenu";
 import CloneDeep from "lodash/cloneDeep";
 import ErrorBoundary from "react-error-boundary";
+import { DefaultFallbackComponent } from "../constants";
 import {
-  DefaultFallbackComponent,
   CallEraseGameDataAPI,
   CallGetGameDataAPI,
   CallSaveNewGameDataAPI,
   CallUpdateGameDataAPI,
-} from "../constants";
+} from "../apiUtils";
 import SpellCircleCreatorPopUp from "./spellCircleCreatorPopUp";
 import WelcomeScreen from "./welcomeScreen";
 import TempMessage from "./tempMessage";
