@@ -40,6 +40,11 @@ class WelcomeScreen extends Component {
     }
   };
 
+  handleRegistered = () => {
+    this.props.onRegisteredNewUser();
+    this.toggleRegistration();
+  };
+
   render() {
     const { authToken, userName, forgotPassword, registration } = this.state;
     const { onNewGame, onContinueSavedGame } = this.props;
@@ -58,7 +63,7 @@ class WelcomeScreen extends Component {
             <PasswordResetForm onBackToLoginPage={this.toggleForgotPassword} />
           ) : registration ? (
             <RegistrationForm
-              onRegistered={this.toggleRegistration}
+              onRegistered={this.handleRegistered}
               onBackToLoginPage={this.toggleRegistration}
             />
           ) : (

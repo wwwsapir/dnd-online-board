@@ -35,7 +35,8 @@ class App extends Component {
     selectedCircle: null,
     placingCircle: null,
     itemDeletionModeOn: false,
-    showGameSavedMessage: false,
+    showTempMessage: false,
+    tempMessageText: "",
     mapImage: {
       url: this.props.bgImageLink,
       file: null,
@@ -471,16 +472,26 @@ class App extends Component {
         if (resPost.error) {
           console.error(resPost.error.message);
         } else {
-          this.showGameSavedMessage();
+          this.showTempMessage("Game Saved Sucessfully!", 1500);
         }
       });
     });
   }
 
-  showGameSavedMessage() {
-    this.setState({ showGameSavedMessage: true });
-    setTimeout(() => this.setState({ showGameSavedMessage: false }), 1500);
+  showTempMessage(messageText, timeoutMs) {
+    this.setState({ tempMessageText: messageText }, () => {
+      this.setState({ showTempMessage: true }, () => {
+        setTimeout(
+          () => this.setState({ showTempMessage: false, tempMessageText: "" }),
+          timeoutMs
+        );
+      });
+    });
   }
+
+  handleRegisteredNewUser = () => {
+    this.showTempMessage("User registered successfully!", 1500);
+  };
 
   handleStartNewGame = (authToken) => {
     this.setState({ authToken });
@@ -522,7 +533,8 @@ class App extends Component {
       itemDeletionModeOn,
       placingCircle,
       mapImage,
-      showGameSavedMessage,
+      showTempMessage,
+      tempMessageText,
       authToken,
     } = this.state;
     return (
@@ -589,12 +601,11 @@ class App extends Component {
               <WelcomeScreen
                 onNewGame={this.handleStartNewGame}
                 onContinueSavedGame={this.handleContinueSavedGame}
+                onRegisteredNewUser={this.handleRegisteredNewUser}
               />
             </ErrorBoundary>
           ) : null}
-          {showGameSavedMessage ? (
-            <TempMessage message="Game Saved Sucessfully!" />
-          ) : null}
+          {showTempMessage ? <TempMessage message={tempMessageText} /> : null}
         </div>
       </div>
     );
