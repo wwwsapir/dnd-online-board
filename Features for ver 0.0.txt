@@ -1,3 +1,5 @@
+Continue: Figure out how to send back the response from sending the mail so that the message will be changed to green!
+
 Version 0.0:
 1. Characters creation toolbar. + Roll dice. - Done
 2. The abiliy to move characters. - Done

@@ -6,31 +6,28 @@ class PasswordResetForm extends Component {
   state = {
     email: "",
     errMessage: "",
+    emailSent: false,
   };
 
   callPasswordResetAPI(email) {
-    console.log("callPasswordResetAPI called", email);
     const promise = CallResetPasswordAPI({ email: email });
-
     promise.then((res) => {
       if (!res) return;
       if (res.error) {
-        this.setState({ errorMessage: res.error.message });
+        this.setState({ errMessage: res.error.message });
       } else {
-        console.debug("Reset password email sent successfully!");
+        this.setState({ emailSent: true });
       }
     });
   }
 
   handleSendButtonClick = () => {
     const { email } = this.state;
-    const res = this.callPasswordResetAPI(email);
-    if (!res) return;
-    this.setState({ validationErrMessage: res.error });
+    this.callPasswordResetAPI(email);
   };
 
   render() {
-    const { email, errMessage } = this.state;
+    const { email, errMessage, emailSent } = this.state;
     const { onBackToLoginPage } = this.props;
     return (
       <ul
@@ -51,10 +48,16 @@ class PasswordResetForm extends Component {
           />
         </li>
         <li className="nav-item">
-          <label className="col">
-            A message with a link to reset your password will be sent to this
-            email address.
-          </label>
+          {emailSent ? (
+            <label className="col" style={{ color: "green" }}>
+              Message sent to email address!
+            </label>
+          ) : (
+            <label className="col">
+              A message with a link to reset your password will be sent to this
+              email address.
+            </label>
+          )}
         </li>
         <li className="nav-item">
           <button
@@ -66,7 +69,7 @@ class PasswordResetForm extends Component {
         </li>
         <li className="nav-item mt-2">
           <a className="float-right" href="#" onClick={onBackToLoginPage}>
-            Cancel and back to login
+            Back to login form
           </a>
         </li>
         {errMessage ? (
