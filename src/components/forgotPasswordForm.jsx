@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CallResetPasswordAPI } from "../apiUtils";
+import { CallResetPasswordSendAPI } from "../apiUtils";
 
-class PasswordResetForm extends Component {
+class ForgotPasswordForm extends Component {
   state = {
     email: "",
     errMessage: "",
     emailSent: false,
   };
 
-  callPasswordResetAPI(email) {
-    const promise = CallResetPasswordAPI({ email: email });
+  callResetPasswordSendAPI(email) {
+    const promise = CallResetPasswordSendAPI({ email: email });
     promise.then((res) => {
       if (!res) return;
       if (res.error) {
@@ -23,7 +23,7 @@ class PasswordResetForm extends Component {
 
   handleSendButtonClick = () => {
     const { email } = this.state;
-    this.callPasswordResetAPI(email);
+    this.callResetPasswordSendAPI(email);
   };
 
   render() {
@@ -84,4 +84,4 @@ class PasswordResetForm extends Component {
   }
 }
 
-export default PasswordResetForm;
+export default ForgotPasswordForm;

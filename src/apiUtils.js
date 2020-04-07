@@ -6,8 +6,12 @@ export const CallRegisterAPI = (userData) => {
   return sendRequest("/auth/register/", "POST", userData);
 };
 
-export const CallResetPasswordAPI = (resetData) => {
+export const CallResetPasswordSendAPI = (resetData) => {
   return sendRequest("/auth/reset_password/send", "POST", resetData);
+};
+
+export const CallResetPasswordResetAPI = (resetData) => {
+  return sendRequest("/auth/reset_password/reset", "POST", resetData);
 };
 
 export const CallEraseGameDataAPI = (authToken) => {

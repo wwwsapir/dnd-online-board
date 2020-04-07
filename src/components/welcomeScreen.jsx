@@ -3,7 +3,7 @@ import "./login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginForm from "./loginForm";
 import UserMenu from "./userMenu";
-import PasswordResetForm from "./passwordResetForm";
+import ForgotPasswordForm from "./forgotPasswordForm";
 import RegistrationForm from "./registrationForm";
 
 class WelcomeScreen extends Component {
@@ -60,7 +60,7 @@ class WelcomeScreen extends Component {
               authToken={authToken}
             />
           ) : forgotPassword ? (
-            <PasswordResetForm onBackToLoginPage={this.toggleForgotPassword} />
+            <ForgotPasswordForm onBackToLoginPage={this.toggleForgotPassword} />
           ) : registration ? (
             <RegistrationForm
               onRegistered={this.handleRegistered}
