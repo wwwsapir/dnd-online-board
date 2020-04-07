@@ -4,8 +4,8 @@ import { CallLoginAPI } from "../constants";
 
 class LoginForm extends Component {
   state = {
-    email: "wwwsapir@gmail.com",
-    password: "Xphr091189",
+    email: "",
+    password: "",
     errorMessage: "",
   };
 
