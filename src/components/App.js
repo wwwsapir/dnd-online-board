@@ -16,6 +16,7 @@ import {
 } from "../constants";
 import SpellCircleCreatorPopUp from "./spellCircleCreatorPopUp";
 import WelcomeScreen from "./welcomeScreen";
+import TempMessage from "./tempMessage";
 
 class App extends Component {
   state = {
@@ -34,6 +35,7 @@ class App extends Component {
     selectedCircle: null,
     placingCircle: null,
     itemDeletionModeOn: false,
+    showGameSavedMessage: false,
     mapImage: {
       url: this.props.bgImageLink,
       file: null,
@@ -53,7 +55,6 @@ class App extends Component {
   }
 
   setStateFromSavedGameData(savedGameData) {
-    console.log("setStateFromSavedGameData", savedGameData);
     const matrix = this.createMatrix(
       savedGameData.rowCount,
       savedGameData.colCount
@@ -469,9 +470,16 @@ class App extends Component {
         if (!resPost) return;
         if (resPost.error) {
           console.error(resPost.error.message);
+        } else {
+          this.showGameSavedMessage();
         }
       });
     });
+  }
+
+  showGameSavedMessage() {
+    this.setState({ showGameSavedMessage: true });
+    setTimeout(() => this.setState({ showGameSavedMessage: false }), 1500);
   }
 
   handleStartNewGame = (authToken) => {
@@ -514,6 +522,7 @@ class App extends Component {
       itemDeletionModeOn,
       placingCircle,
       mapImage,
+      showGameSavedMessage,
       authToken,
     } = this.state;
     return (
@@ -582,6 +591,9 @@ class App extends Component {
                 onContinueSavedGame={this.handleContinueSavedGame}
               />
             </ErrorBoundary>
+          ) : null}
+          {showGameSavedMessage ? (
+            <TempMessage message="Game Saved Sucessfully!" />
           ) : null}
         </div>
       </div>
