@@ -34,58 +34,12 @@ class App extends Component {
     selectedCircle: null,
     placingCircle: null,
     itemDeletionModeOn: false,
-    spellCircles: [
-      {
-        name: "Fireball",
-        owner: "Warlock",
-        radius: 10,
-        row: 3,
-        col: 3,
-        color: { r: 51, g: 204, b: 255, a: 1 },
-      },
-    ],
-    characters: [
-      {
-        name: "Ranger",
-        imgSrc: this.props.imageLinks.ranger,
-        topLeftRow: 1,
-        topLeftCol: 7,
-        widthCells: 1,
-        heightCells: 1,
-      },
-      {
-        name: "Dragon",
-        imgSrc: this.props.imageLinks.dragon,
-        topLeftRow: 1,
-        topLeftCol: 4,
-        widthCells: 2,
-        heightCells: 2,
-      },
-      {
-        name: "Warlock",
-        imgSrc: this.props.imageLinks.warlock,
-        topLeftRow: 4,
-        topLeftCol: 9,
-        widthCells: 1,
-        heightCells: 1,
-      },
-      {
-        name: "Fighter",
-        imgSrc: this.props.imageLinks.fighter,
-        topLeftRow: 3,
-        topLeftCol: 6,
-        widthCells: 1,
-        heightCells: 1,
-      },
-      {
-        name: "Beetle",
-        imgSrc: this.props.imageLinks.beetle,
-        topLeftRow: 6,
-        topLeftCol: 5,
-        widthCells: 1,
-        heightCells: 1,
-      },
-    ],
+    mapImage: {
+      url: this.props.bgImageLink,
+      file: null,
+    },
+    spellCircles: [],
+    characters: [],
   };
 
   constructor(props) {
@@ -96,6 +50,20 @@ class App extends Component {
     );
     this.state.showCharacterCreatorPopup = false;
     this.state.showSpellCircleCreatorPopup = false;
+  }
+
+  setStateFromSavedGameData(savedGameData) {
+    console.log("setStateFromSavedGameData", savedGameData);
+    const matrix = this.createMatrix(
+      savedGameData.rowCount,
+      savedGameData.colCount
+    );
+    const borderWidth = Math.ceil(savedGameData.cellSize * 0.02);
+    this.setState({
+      ...savedGameData,
+      matrix,
+      borderWidth,
+    });
   }
 
   createMatrix(rowCount, colCount) {
@@ -408,7 +376,7 @@ class App extends Component {
     const { characterName, height, width, avatarImage } = stateData;
     let newChar = {
       name: characterName,
-      imgSrc: avatarImage,
+      image: { url: avatarImage, file: null },
       topLeftRow: null,
       topLeftCol: null,
       heightCells: height,
@@ -473,26 +441,18 @@ class App extends Component {
       colCount,
       walls,
       cellSize,
-      borderWidth,
-      selectedChar,
-      placingChar,
-      selectedCircle,
-      placingCircle,
       spellCircles,
       characters,
+      mapImage,
     } = this.state;
     const gameStateToSave = {
       rowCount,
       colCount,
       walls,
       cellSize,
-      borderWidth,
-      selectedChar,
-      placingChar,
-      selectedCircle,
-      placingCircle,
       spellCircles,
       characters,
+      mapImage,
     };
     this.createOrUpdateGameState({ gameState: gameStateToSave }, authToken);
   };
@@ -525,6 +485,19 @@ class App extends Component {
     });
   };
 
+  handleContinueSavedGame = (authToken) => {
+    this.setState({ authToken });
+    const promise = CallGetGameDataAPI(authToken);
+    promise.then((res) => {
+      if (!res) return;
+      if (res.error) {
+        console.error(res.error.message);
+      } else {
+        this.setStateFromSavedGameData(res.gameState);
+      }
+    });
+  };
+
   render() {
     const {
       rowCount,
@@ -540,6 +513,7 @@ class App extends Component {
       placingChar,
       itemDeletionModeOn,
       placingCircle,
+      mapImage,
       authToken,
     } = this.state;
     return (
@@ -566,6 +540,7 @@ class App extends Component {
               itemDeletionModeOn={itemDeletionModeOn}
               onSpellCircleClick={this.handleSpellCircleClick}
               placingCircle={placingCircle}
+              mapImage={mapImage}
             ></MapCanvas>
           </ErrorBoundary>
         </div>
@@ -602,7 +577,10 @@ class App extends Component {
           ) : null}
           {!authToken ? (
             <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
-              <WelcomeScreen onNewGame={this.handleStartNewGame} />
+              <WelcomeScreen
+                onNewGame={this.handleStartNewGame}
+                onContinueSavedGame={this.handleContinueSavedGame}
+              />
             </ErrorBoundary>
           ) : null}
         </div>

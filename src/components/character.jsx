@@ -8,7 +8,7 @@ class Character extends Component {
       borderWidth,
       transparent,
       itemDeletionModeOn,
-      clickable
+      clickable,
     } = this.props;
     let borderStyle = selected || itemDeletionModeOn ? "solid red" : "none";
     borderStyle += " " + borderWidth + "px";
@@ -22,7 +22,7 @@ class Character extends Component {
       border: borderStyle,
       cursor: clickable ? "pointer" : "move",
       opacity,
-      pointerEvents: clickable ? "auto" : "none"
+      pointerEvents: clickable ? "auto" : "none",
     };
   }
 
@@ -31,10 +31,12 @@ class Character extends Component {
     if (!character) {
       return "";
     }
+    const { image } = this.props.character;
+    const imageSrc = image.url ? image.url : image.file;
 
     return (
       <img
-        src={character.imgSrc}
+        src={imageSrc}
         alt={character.name}
         style={this.getStyle()}
         onClick={() => onClick(character)}

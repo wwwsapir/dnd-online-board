@@ -22,14 +22,6 @@ class WelcomeScreen extends Component {
     this.setState({ userName, authToken });
   };
 
-  handleContinueLastGameClick = () => {
-    console.log("handleContinueLastGameClick called");
-  };
-
-  handleStartANewGameClick = () => {
-    this.props.onNewGame(this.state.authToken);
-  };
-
   toggleForgotPassword = () => {
     const { forgotPassword, authToken } = this.state;
     if (!authToken) {
@@ -50,13 +42,14 @@ class WelcomeScreen extends Component {
 
   render() {
     const { authToken, userName, forgotPassword, registration } = this.state;
+    const { onNewGame, onContinueSavedGame } = this.props;
     return (
       <div className="LoginScreen">
         <div className="LoginScreenContent">
           {authToken ? (
             <UserMenu
-              onContinueLastGame={this.handleContinueLastGameClick}
-              onStartANewGame={this.handleStartANewGameClick}
+              onContinueSavedGame={() => onContinueSavedGame(authToken)}
+              onStartANewGame={() => onNewGame(authToken)}
               onLogOut={this.handleLogOut}
               userName={userName}
               authToken={authToken}

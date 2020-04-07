@@ -11,14 +11,6 @@ class UserMenu extends Component {
     this.isGameDataExistsForUser();
   }
 
-  handleContinueGameClick = () => {
-    this.props.onContinueLastGame();
-  };
-
-  handleStartANewGameClick = () => {
-    this.props.onStartANewGame();
-  };
-
   isGameDataExistsForUser() {
     const promise = CallGetGameDataAPI(this.props.authToken);
     promise.then((res) => {
@@ -32,7 +24,7 @@ class UserMenu extends Component {
   };
 
   render() {
-    const { userName } = this.props;
+    const { userName, onContinueSavedGame, onStartANewGame } = this.props;
     const { gameDataExists } = this.state;
     return (
       <ul
@@ -44,7 +36,7 @@ class UserMenu extends Component {
         </h4>
         <li className="nav-item">
           <button
-            onClick={this.handleContinueGameClick}
+            onClick={onContinueSavedGame}
             className="btn btn-primary form-control mt-3 col"
             disabled={!gameDataExists}
           >
@@ -53,7 +45,7 @@ class UserMenu extends Component {
         </li>
         <li className="nav-item">
           <button
-            onClick={this.handleStartANewGameClick}
+            onClick={onStartANewGame}
             className="btn btn-primary form-control mt-3 col"
           >
             Start a New Game

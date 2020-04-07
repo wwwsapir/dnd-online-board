@@ -14,6 +14,7 @@ ReactDOM.render(
         rowCount={15}
         colCount={15}
         imageLinks={AVATAR_IMAGE_URLS}
+        bgImageLink="https://dicegrimorium.com/wp-content/uploads/2019/07/ForestPathPublic-1024x1024.jpg"
       />
     </div>
   </React.StrictMode>,

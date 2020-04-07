@@ -10,16 +10,21 @@ class MapCanvas extends Component {
     super(props);
     this.state = {
       scale: 2,
-      translation: { x: 0, y: 0 }
+      translation: { x: 0, y: 0 },
     };
   }
 
   getStyle() {
+    const { mapImage } = this.props;
+    const backgroundImage = mapImage.url
+      ? "url(" + mapImage.url + ")"
+      : mapImage.file;
     return {
       mapBgImg: {
         height: this.props.cellSize * this.props.rowCount,
-        width: this.props.cellSize * this.props.colCount
-      }
+        width: this.props.cellSize * this.props.colCount,
+        backgroundImage,
+      },
     };
   }
 
@@ -42,7 +47,7 @@ class MapCanvas extends Component {
       onSpellCircleClick,
       onCalcSpellCirclePosition,
       placingCircle,
-      selectedCircle
+      selectedCircle,
     } = this.props;
     const { scale, translation } = this.state;
 
