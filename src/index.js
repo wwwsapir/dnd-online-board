@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { AVATAR_IMAGE_URLS } from "./constants";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,7 +12,6 @@ ReactDOM.render(
         cellSize={45}
         rowCount={15}
         colCount={15}
-        imageLinks={AVATAR_IMAGE_URLS}
         bgImageLink="https://dicegrimorium.com/wp-content/uploads/2019/07/ForestPathPublic-1024x1024.jpg"
       />
     </div>

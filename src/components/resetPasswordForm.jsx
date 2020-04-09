@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CallResetPasswordResetAPI } from "../apiUtils";
+import {
+  CallResetPasswordResetAPI,
+  CallCheckPasswordTokenMatches,
+} from "../apiUtils";
 
 class ResetPasswordForm extends Component {
   state = {
@@ -14,17 +17,33 @@ class ResetPasswordForm extends Component {
   constructor(props) {
     super(props);
     this.state.authToken = this.getAuthTokenFromParams();
+  }
+
+  componentDidMount() {
     if (this.state.authToken) {
-      this.state.tokenValid = this.isTokenMatchesUSer(this.state.authToken);
+      this.isTokenMatchesUSer();
     }
   }
 
   getAuthTokenFromParams() {
-    console.error("getAuthTokenFromParams Not implemented");
+    // console.error("getAuthTokenFromParams Not implemented");
+    const hrefParts = window.location.href.split("/");
+    const authToken = hrefParts[hrefParts.length - 1];
+    // this.setState({ authToken });
+    return authToken;
   }
 
   isTokenMatchesUSer() {
-    console.error("isTokenMatchesUSer Not implemented");
+    // console.error("isTokenMatchesUSer Not implemented");
+    const promise = CallCheckPasswordTokenMatches(this.state.authToken);
+    promise.then((res) => {
+      if (!res) return;
+      if (res.error) {
+        this.setState({ errorMessage: res.error.message });
+      } else {
+        this.setState({ tokenValid: true });
+      }
+    });
   }
 
   handleChangePasswordFormSubmit = (e) => {
@@ -103,14 +122,16 @@ class ResetPasswordForm extends Component {
         </form>
       );
     } else {
-      <ul
-        className="nav nav-tabs flex-column text-white bg-dark row w-100"
-        style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
-      >
-        <h4 className="col mb-5">
-          <span className="creatorHeader">Private page. Access denied.</span>
-        </h4>
-      </ul>;
+      return (
+        <ul
+          className="nav nav-tabs flex-column text-white bg-dark row w-100"
+          style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
+        >
+          <h4 className="col mb-5">
+            <span className="creatorHeader">Private page. Access denied.</span>
+          </h4>
+        </ul>
+      );
     }
   }
 }

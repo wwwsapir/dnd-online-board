@@ -10,6 +10,10 @@ export const CallResetPasswordSendAPI = (resetData) => {
   return sendRequest("/auth/reset_password/send", "POST", resetData);
 };
 
+export const CallCheckPasswordTokenMatches = (authToken) => {
+  return sendRequest("/auth/user/" + authToken, "GET");
+};
+
 export const CallResetPasswordResetAPI = (resetData) => {
   return sendRequest("/auth/reset_password/reset", "POST", resetData);
 };

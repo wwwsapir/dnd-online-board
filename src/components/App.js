@@ -17,6 +17,7 @@ import {
 import SpellCircleCreatorPopUp from "./spellCircleCreatorPopUp";
 import WelcomeScreen from "./welcomeScreen";
 import TempMessage from "./tempMessage";
+import ResetPasswordForm from "./resetPasswordForm";
 
 class App extends Component {
   state = {
@@ -41,6 +42,7 @@ class App extends Component {
       url: this.props.bgImageLink,
       file: null,
     },
+    resetPasswordScreen: false,
     spellCircles: [],
     characters: [],
   };
@@ -517,7 +519,21 @@ class App extends Component {
     });
   };
 
+  componentDidMount() {
+    if (window.location.href.split("/").includes("reset")) {
+      this.setState({ resetPasswordScreen: true });
+    }
+  }
+
   render() {
+    if (this.state.resetPasswordScreen) {
+      return <ResetPasswordForm />;
+    } else {
+      return this.renderApp();
+    }
+  }
+
+  renderApp() {
     const {
       rowCount,
       colCount,
