@@ -522,6 +522,11 @@ class App extends Component {
     });
   };
 
+  handlePasswordResetComplete = () => {
+    this.setState({ resetPasswordScreen: false });
+    this.showTempMessage("Password changed successfully!", 2000);
+  };
+
   renderWelcomeMenu() {
     return (
       <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
@@ -530,18 +535,11 @@ class App extends Component {
           onContinueSavedGame={this.handleContinueSavedGame}
           onRegisteredNewUser={this.handleRegisteredNewUser}
         />
+        {this.state.showTempMessage ? (
+          <TempMessage message={this.state.tempMessageText} />
+        ) : null}
       </ErrorBoundary>
     );
-  }
-
-  render() {
-    if (this.state.resetPasswordScreen) {
-      return <ResetPasswordForm />;
-    } else if (this.state.authToken) {
-      return this.renderApp();
-    } else {
-      return this.renderWelcomeMenu();
-    }
   }
 
   renderApp() {
@@ -562,7 +560,6 @@ class App extends Component {
       mapImage,
       showTempMessage,
       tempMessageText,
-      authToken,
     } = this.state;
     return (
       <div className="row h-100 w-100">
@@ -627,6 +624,25 @@ class App extends Component {
         </div>
       </div>
     );
+  }
+
+  render() {
+    if (this.state.resetPasswordScreen) {
+      return (
+        <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
+          <ResetPasswordForm
+            onPasswordReset={this.handlePasswordResetComplete}
+          />
+          {this.state.showTempMessage ? (
+            <TempMessage message={this.state.tempMessageText} />
+          ) : null}
+        </ErrorBoundary>
+      );
+    } else if (this.state.authToken) {
+      return this.renderApp();
+    } else {
+      return this.renderWelcomeMenu();
+    }
   }
 }
 

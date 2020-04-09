@@ -26,12 +26,12 @@ class SpellCircle extends Component {
       borderRadius: position.radius,
       cursor: clickable ? "pointer" : "move",
       border: borderStyle,
-      pointerEvents: clickable ? "auto" : "none"
+      pointerEvents: clickable ? "auto" : "none",
     };
   }
 
   render() {
-    const { spellCircle, onClick, position, cursorHover } = this.props;
+    const { spellCircle, onClick } = this.props;
     if (!spellCircle) {
       return "";
     }

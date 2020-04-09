@@ -5,7 +5,6 @@ import { SketchPicker } from "react-color";
 import {
   MIN_SPELL_CIRCLE_RADIUS_FEET,
   MAX_SPELL_CIRCLE_RADIUS_FEET,
-  MIN_CHARACTER_SIZE_SQUARES
 } from "../constants";
 
 class CharacterCreator extends Component {
@@ -17,10 +16,10 @@ class CharacterCreator extends Component {
       r: "241",
       g: "112",
       b: "19",
-      a: "1"
+      a: "1",
     },
     missingFields: false,
-    isRadiusValid: true
+    isRadiusValid: true,
   };
 
   initiateState() {
@@ -32,10 +31,10 @@ class CharacterCreator extends Component {
         r: "241",
         g: "112",
         b: "19",
-        a: "1"
+        a: "1",
       },
       missingFields: false,
-      isRadiusValid: true
+      isRadiusValid: true,
     });
   }
 
@@ -73,7 +72,7 @@ class CharacterCreator extends Component {
       radius,
       color,
       isRadiusValid,
-      missingFields
+      missingFields,
     } = this.state;
     return (
       <ul
@@ -92,7 +91,7 @@ class CharacterCreator extends Component {
                 value={spellName}
                 placeholder="Spell name"
                 required
-                onChange={event =>
+                onChange={(event) =>
                   this.setState({ spellName: event.target.value })
                 }
               />
@@ -103,7 +102,7 @@ class CharacterCreator extends Component {
                 id="ownerName"
                 value={ownerName}
                 placeholder="Owner name (optional)"
-                onChange={event =>
+                onChange={(event) =>
                   this.setState({ ownerName: event.target.value })
                 }
               />
@@ -121,7 +120,7 @@ class CharacterCreator extends Component {
                 max={MAX_SPELL_CIRCLE_RADIUS_FEET}
                 value={radius}
                 required
-                onChange={event => this.onChangeRadius(event, false)}
+                onChange={(event) => this.onChangeRadius(event, false)}
               />
             </li>
           </span>
@@ -129,7 +128,7 @@ class CharacterCreator extends Component {
             <label>Choose color for the circle:</label>
             <SketchPicker
               color={color}
-              onChange={color => this.setState({ color: color.rgb })}
+              onChange={(color) => this.setState({ color: color.rgb })}
             />
           </li>
         </span>
