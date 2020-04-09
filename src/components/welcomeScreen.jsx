@@ -8,23 +8,24 @@ import RegistrationForm from "./registrationForm";
 
 class WelcomeScreen extends Component {
   state = {
-    authToken: "",
     userName: "",
     forgotPassword: false,
     showRegister: false,
   };
 
   handleLogOut = () => {
-    this.setState({ userName: "", authToken: "" });
+    this.setState({ userName: "" });
+    this.props.onLogOut();
   };
 
   handleLogIn = (userName, authToken) => {
-    this.setState({ userName, authToken });
+    this.setState({ userName });
+    this.props.onLogIn(authToken);
   };
 
   toggleForgotPassword = () => {
-    const { forgotPassword, authToken } = this.state;
-    if (!authToken) {
+    const { forgotPassword } = this.state;
+    if (!this.props.authToken) {
       this.setState({ forgotPassword: !forgotPassword });
     } else {
       console.error("Try to reset password while logged in");
@@ -32,8 +33,8 @@ class WelcomeScreen extends Component {
   };
 
   toggleRegistration = () => {
-    const { registration, authToken } = this.state;
-    if (!authToken) {
+    const { registration } = this.state;
+    if (!this.props.authToken) {
       this.setState({ registration: !registration });
     } else {
       console.error("Try to cancel registration while already logged in");
@@ -46,15 +47,15 @@ class WelcomeScreen extends Component {
   };
 
   render() {
-    const { authToken, userName, forgotPassword, registration } = this.state;
-    const { onNewGame, onContinueSavedGame } = this.props;
+    const { userName, forgotPassword, registration } = this.state;
+    const { onNewGame, onContinueSavedGame, authToken } = this.props;
     return (
       <div className="LoginScreen">
         <div className="LoginScreenContent">
           {authToken ? (
             <UserMenu
-              onContinueSavedGame={() => onContinueSavedGame(authToken)}
-              onStartANewGame={() => onNewGame(authToken)}
+              onContinueSavedGame={onContinueSavedGame}
+              onStartANewGame={onNewGame}
               onLogOut={this.handleLogOut}
               userName={userName}
               authToken={authToken}

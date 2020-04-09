@@ -11,7 +11,8 @@ class ActionsMenu extends Component {
       onGameSave,
       enableDeletion,
       itemDeletionModeOn,
-      onFinishDeletion
+      onFinishDeletion,
+      onExitToMenu,
     } = this.props;
     return (
       <ul
@@ -64,6 +65,14 @@ class ActionsMenu extends Component {
                 className="btn btn-primary form-control mt-3"
               >
                 Save the Game
+              </button>
+            </li>
+            <li className="nav-item col">
+              <button
+                onClick={onExitToMenu}
+                className="btn btn-primary form-control mt-3"
+              >
+                Exit to Menu
               </button>
             </li>
           </span>

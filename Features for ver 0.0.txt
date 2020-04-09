@@ -7,7 +7,8 @@ Version 0.0:
 6. Server and user name and url that all players can use. - Done
 7. partially transperant mouse circle with customized radius that can be placed, choose color and text that will apear while hovering (also can delete it). - Done
 8. Add characters movement with arrow keys. - Done but deprectaed.
-9. Reset password option
+9. Reset password option - Done
+10. Keep session alive while browser not closed
 
 Version 0.1:
 1. Example maps.
@@ -27,7 +28,3 @@ Further versions:
 9. For large maps - the option to zoo, out on all of it.
 10. Handle flying characters (character above character in the same position).
 11. Enable spell circle centered in the center of a character and not a cell (different when the character is large).
-
-      {this.props.match.params.resetPasswordToken ? (
-        <ResetPasswordForm />
-      ) : (

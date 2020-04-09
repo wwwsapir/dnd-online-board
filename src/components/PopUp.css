@@ -28,6 +28,15 @@
   margin: auto;
 }
 
+.ExitWarningPopUpInner {
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  top: 30%;
+  bottom: 50%;
+  margin: auto;
+}
+
 .TempMessageInner {
   position: absolute;
   left: 30%;

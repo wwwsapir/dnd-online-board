@@ -18,6 +18,7 @@ import SpellCircleCreatorPopUp from "./spellCircleCreatorPopUp";
 import WelcomeScreen from "./welcomeScreen";
 import TempMessage from "./tempMessage";
 import ResetPasswordForm from "./resetPasswordForm";
+import ExitWarningPopUp from "./exitWarningPopUp";
 
 class App extends Component {
   state = {
@@ -45,6 +46,10 @@ class App extends Component {
     resetPasswordScreen: false,
     spellCircles: [],
     characters: [],
+    showCharacterCreatorPopup: false,
+    showSpellCircleCreatorPopup: false,
+    showExitWarningPopUp: false,
+    showUserMenu: true,
   };
 
   constructor(props) {
@@ -53,11 +58,13 @@ class App extends Component {
       this.props.rowCount,
       this.props.colCount
     );
-    this.state.showCharacterCreatorPopup = false;
-    this.state.showSpellCircleCreatorPopup = false;
     if (window.location.href.split("/").includes("reset")) {
       this.state.resetPasswordScreen = true;
     }
+  }
+
+  initiateGame() {
+    this.setState({ walls: [], spellCircles: [], characters: [] });
   }
 
   setStateFromSavedGameData(savedGameData) {
@@ -441,6 +448,11 @@ class App extends Component {
     });
   };
 
+  toggleExitWarningPopUp = () => {
+    const { showExitWarningPopUp } = { ...this.state };
+    this.setState({ showExitWarningPopUp: !showExitWarningPopUp });
+  };
+
   handleSaveGame = () => {
     const {
       authToken,
@@ -498,9 +510,10 @@ class App extends Component {
     this.showTempMessage("User registered successfully!", 1500);
   };
 
-  handleStartNewGame = (authToken) => {
-    this.setState({ authToken });
-    const promise = CallEraseGameDataAPI(authToken);
+  handleStartNewGame = () => {
+    this.setState({ showUserMenu: false });
+    this.initiateGame();
+    const promise = CallEraseGameDataAPI(this.state.authToken);
     promise.then((res) => {
       if (!res) return;
       if (res.error) {
@@ -509,9 +522,9 @@ class App extends Component {
     });
   };
 
-  handleContinueSavedGame = (authToken) => {
-    this.setState({ authToken });
-    const promise = CallGetGameDataAPI(authToken);
+  handleContinueSavedGame = () => {
+    this.setState({ showUserMenu: false });
+    const promise = CallGetGameDataAPI(this.state.authToken);
     promise.then((res) => {
       if (!res) return;
       if (res.error) {
@@ -527,6 +540,10 @@ class App extends Component {
     this.showTempMessage("Password changed successfully!", 2000);
   };
 
+  handleExitToMenu = () => {
+    this.setState({ showUserMenu: true });
+  };
+
   renderWelcomeMenu() {
     return (
       <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
@@ -534,6 +551,9 @@ class App extends Component {
           onNewGame={this.handleStartNewGame}
           onContinueSavedGame={this.handleContinueSavedGame}
           onRegisteredNewUser={this.handleRegisteredNewUser}
+          authToken={this.state.authToken}
+          onLogOut={() => this.setState({ authToken: null })}
+          onLogIn={(authToken) => this.setState({ authToken: authToken })}
         />
         {this.state.showTempMessage ? (
           <TempMessage message={this.state.tempMessageText} />
@@ -599,6 +619,7 @@ class App extends Component {
               enableDeletion={characters.length > 0 || spellCircles.length > 0}
               itemDeletionModeOn={itemDeletionModeOn}
               onFinishDeletion={this.toggleItemDeletionMode}
+              onExitToMenu={this.toggleExitWarningPopUp}
             />
           </ErrorBoundary>
           <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
@@ -620,6 +641,22 @@ class App extends Component {
               />
             </ErrorBoundary>
           ) : null}
+          {this.state.showSpellCircleCreatorPopup ? (
+            <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
+              <SpellCircleCreatorPopUp
+                closePopup={this.toggleSpellCircleCreatorPopup}
+                onSpellCircleCreation={this.handleSpellCircleCreation}
+              />
+            </ErrorBoundary>
+          ) : null}
+          {this.state.showExitWarningPopUp ? (
+            <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
+              <ExitWarningPopUp
+                closePopup={this.toggleExitWarningPopUp}
+                onExitToMenu={this.handleExitToMenu}
+              />
+            </ErrorBoundary>
+          ) : null}
           {showTempMessage ? <TempMessage message={tempMessageText} /> : null}
         </div>
       </div>
@@ -638,7 +675,7 @@ class App extends Component {
           ) : null}
         </ErrorBoundary>
       );
-    } else if (this.state.authToken) {
+    } else if (this.state.authToken && !this.state.showUserMenu) {
       return this.renderApp();
     } else {
       return this.renderWelcomeMenu();
