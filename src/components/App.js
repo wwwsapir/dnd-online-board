@@ -522,11 +522,25 @@ class App extends Component {
     });
   };
 
+  renderWelcomeMenu() {
+    return (
+      <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
+        <WelcomeScreen
+          onNewGame={this.handleStartNewGame}
+          onContinueSavedGame={this.handleContinueSavedGame}
+          onRegisteredNewUser={this.handleRegisteredNewUser}
+        />
+      </ErrorBoundary>
+    );
+  }
+
   render() {
     if (this.state.resetPasswordScreen) {
       return <ResetPasswordForm />;
-    } else {
+    } else if (this.state.authToken) {
       return this.renderApp();
+    } else {
+      return this.renderWelcomeMenu();
     }
   }
 
@@ -606,15 +620,6 @@ class App extends Component {
               <SpellCircleCreatorPopUp
                 closePopup={this.toggleSpellCircleCreatorPopup}
                 onSpellCircleCreation={this.handleSpellCircleCreation}
-              />
-            </ErrorBoundary>
-          ) : null}
-          {!authToken ? (
-            <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
-              <WelcomeScreen
-                onNewGame={this.handleStartNewGame}
-                onContinueSavedGame={this.handleContinueSavedGame}
-                onRegisteredNewUser={this.handleRegisteredNewUser}
               />
             </ErrorBoundary>
           ) : null}
