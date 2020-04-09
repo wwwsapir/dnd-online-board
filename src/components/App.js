@@ -55,6 +55,9 @@ class App extends Component {
     );
     this.state.showCharacterCreatorPopup = false;
     this.state.showSpellCircleCreatorPopup = false;
+    if (window.location.href.split("/").includes("reset")) {
+      this.state.resetPasswordScreen = true;
+    }
   }
 
   setStateFromSavedGameData(savedGameData) {
@@ -518,12 +521,6 @@ class App extends Component {
       }
     });
   };
-
-  componentDidMount() {
-    if (window.location.href.split("/").includes("reset")) {
-      this.setState({ resetPasswordScreen: true });
-    }
-  }
 
   render() {
     if (this.state.resetPasswordScreen) {

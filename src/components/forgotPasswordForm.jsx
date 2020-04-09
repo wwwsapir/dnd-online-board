@@ -6,7 +6,8 @@ class ForgotPasswordForm extends Component {
   state = {
     email: "",
     errMessage: "",
-    emailSent: false,
+    messageUnderBox:
+      "A message with a link to reset your password will be sent to this email address.",
   };
 
   callResetPasswordSendAPI(email) {
@@ -14,20 +15,27 @@ class ForgotPasswordForm extends Component {
     promise.then((res) => {
       if (!res) return;
       if (res.error) {
-        this.setState({ errMessage: res.error.message });
+        this.setState({
+          errMessage: res.error.message,
+          messageUnderBox: "An error has occured",
+        });
       } else {
-        this.setState({ emailSent: true });
+        this.setState({
+          emailSent: true,
+          messageUnderBox: "Reset message sent to email address!",
+        });
       }
     });
   }
 
   handleSendButtonClick = () => {
     const { email } = this.state;
+    this.setState({ messageUnderBox: "Please wait..." });
     this.callResetPasswordSendAPI(email);
   };
 
   render() {
-    const { email, errMessage, emailSent } = this.state;
+    const { email, errMessage, messageUnderBox } = this.state;
     const { onBackToLoginPage } = this.props;
     return (
       <ul
@@ -48,16 +56,7 @@ class ForgotPasswordForm extends Component {
           />
         </li>
         <li className="nav-item">
-          {emailSent ? (
-            <label className="col" style={{ color: "green" }}>
-              Message sent to email address!
-            </label>
-          ) : (
-            <label className="col">
-              A message with a link to reset your password will be sent to this
-              email address.
-            </label>
-          )}
+          <label className="col">{messageUnderBox}</label>
         </li>
         <li className="nav-item">
           <button
