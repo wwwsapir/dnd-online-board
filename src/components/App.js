@@ -513,13 +513,6 @@ class App extends Component {
   handleStartNewGame = () => {
     this.setState({ showUserMenu: false });
     this.initiateGame();
-    const promise = CallEraseGameDataAPI(this.state.authToken);
-    promise.then((res) => {
-      if (!res) return;
-      if (res.error) {
-        console.debug(res.error.message);
-      }
-    });
   };
 
   handleContinueSavedGame = () => {
@@ -582,8 +575,8 @@ class App extends Component {
       tempMessageText,
     } = this.state;
     return (
-      <div className="row h-100 w-100">
-        <div className="MapArea col-9 h-100">
+      <div className="row h-100 w-100 p-0">
+        <div className="MapArea col-9 h-100 p-0">
           <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
             <MapCanvas
               rowCount={rowCount}

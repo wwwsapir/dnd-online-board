@@ -99,7 +99,7 @@ class ResetPasswordForm extends Component {
           <h5>
             If you're trying to reset your password, this link may be an old
             password reset link.<br></br> Please look for the latest one in your
-            inbox/spam folder or request a new one one.
+            inbox/spam folder or request a new one.
           </h5>
         </li>
       </ul>
