@@ -60,6 +60,7 @@ class App extends Component {
       this.props.colCount
     );
     if (window.location.href.split("/").includes("reset")) {
+      localStorage.removeItem("dnd-app");
       this.state.resetPasswordScreen = true;
     }
   }
@@ -530,6 +531,8 @@ class App extends Component {
   };
 
   handlePasswordResetComplete = () => {
+    const currHref = window.location.href;
+    window.location.href = currHref.split("reset")[0];
     this.setState({ resetPasswordScreen: false });
     this.showTempMessage("Password changed successfully!", 2000);
   };
@@ -539,7 +542,7 @@ class App extends Component {
     this.setState({ showUserMenu: true });
   };
 
-  renderWelcomeMenu() {
+  renderWelcomeScreen() {
     return (
       <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
         <WelcomeScreen
@@ -571,7 +574,30 @@ class App extends Component {
     );
   }
 
-  renderApp() {
+  renderSideBar() {
+    const { characters, spellCircles, itemDeletionModeOn } = this.state;
+    return (
+      <div className="SideBar col-3 bg-primary">
+        <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
+          <ActionsMenu
+            onCharacterCreation={this.toggleCharacterCreatorPopup}
+            onSpellCircleCreation={this.toggleSpellCircleCreatorPopup}
+            onCharacterCircleDelete={this.toggleItemDeletionMode}
+            onGameSave={this.handleSaveGame}
+            enableDeletion={characters.length > 0 || spellCircles.length > 0}
+            itemDeletionModeOn={itemDeletionModeOn}
+            onFinishDeletion={this.toggleItemDeletionMode}
+            onExitToMenu={this.toggleExitWarningPopUp}
+          />
+        </ErrorBoundary>
+        <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
+          <DiceRoller />
+        </ErrorBoundary>
+      </div>
+    );
+  }
+
+  renderMapArea() {
     const {
       rowCount,
       colCount,
@@ -587,87 +613,82 @@ class App extends Component {
       itemDeletionModeOn,
       placingCircle,
       mapImage,
-      showTempMessage,
-      tempMessageText,
     } = this.state;
     return (
-      <div className="row h-100 w-100 p-0">
-        <div className="MapArea col-9 h-100 p-0">
+      <div className="MapArea col-9 h-100 p-0">
+        <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
+          <MapCanvas
+            rowCount={rowCount}
+            colCount={colCount}
+            walls={walls}
+            cellSize={cellSize}
+            borderWidth={borderWidth}
+            selectedChar={selectedChar}
+            characters={characters}
+            selectedCircle={selectedCircle}
+            spellCircles={spellCircles}
+            matrix={matrix}
+            onCellClick={this.handleCellClick}
+            onCharClick={this.handleCharClick}
+            onCalcCharPosition={this.calcCharPosition}
+            onCalcSpellCirclePosition={this.calcSpellCirclePosition}
+            onMouseEnterCell={this.handleMouseEnterCell}
+            placingChar={placingChar}
+            itemDeletionModeOn={itemDeletionModeOn}
+            onSpellCircleClick={this.handleSpellCircleClick}
+            placingCircle={placingCircle}
+            mapImage={mapImage}
+          ></MapCanvas>
+        </ErrorBoundary>
+      </div>
+    );
+  }
+
+  renderPopUps() {
+    const {
+      showTempMessage,
+      tempMessageText,
+      showCharacterCreatorPopup,
+      showSpellCircleCreatorPopup,
+      showExitWarningPopUp,
+    } = this.state;
+    return (
+      <Fragment>
+        {showCharacterCreatorPopup ? (
           <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
-            <MapCanvas
-              rowCount={rowCount}
-              colCount={colCount}
-              walls={walls}
-              cellSize={cellSize}
-              borderWidth={borderWidth}
-              selectedChar={selectedChar}
-              characters={characters}
-              selectedCircle={selectedCircle}
-              spellCircles={spellCircles}
-              matrix={matrix}
-              onCellClick={this.handleCellClick}
-              onCharClick={this.handleCharClick}
-              onCalcCharPosition={this.calcCharPosition}
-              onCalcSpellCirclePosition={this.calcSpellCirclePosition}
-              onMouseEnterCell={this.handleMouseEnterCell}
-              placingChar={placingChar}
-              itemDeletionModeOn={itemDeletionModeOn}
-              onSpellCircleClick={this.handleSpellCircleClick}
-              placingCircle={placingCircle}
-              mapImage={mapImage}
-            ></MapCanvas>
-          </ErrorBoundary>
-        </div>
-        <div className="SideBar col-3 bg-primary">
-          <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
-            <ActionsMenu
-              onCharacterCreation={this.toggleCharacterCreatorPopup}
-              onSpellCircleCreation={this.toggleSpellCircleCreatorPopup}
-              onCharacterCircleDelete={this.toggleItemDeletionMode}
-              onGameSave={this.handleSaveGame}
-              enableDeletion={characters.length > 0 || spellCircles.length > 0}
-              itemDeletionModeOn={itemDeletionModeOn}
-              onFinishDeletion={this.toggleItemDeletionMode}
-              onExitToMenu={this.toggleExitWarningPopUp}
+            <CharacterCreatorPopUp
+              closePopup={this.toggleCharacterCreatorPopup}
+              onCharacterCreation={this.handleCharacterCreation}
             />
           </ErrorBoundary>
+        ) : null}
+        {showSpellCircleCreatorPopup ? (
           <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
-            <DiceRoller />
+            <SpellCircleCreatorPopUp
+              closePopup={this.toggleSpellCircleCreatorPopup}
+              onSpellCircleCreation={this.handleSpellCircleCreation}
+            />
           </ErrorBoundary>
-          {this.state.showCharacterCreatorPopup ? (
-            <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
-              <CharacterCreatorPopUp
-                closePopup={this.toggleCharacterCreatorPopup}
-                onCharacterCreation={this.handleCharacterCreation}
-              />
-            </ErrorBoundary>
-          ) : null}
-          {this.state.showSpellCircleCreatorPopup ? (
-            <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
-              <SpellCircleCreatorPopUp
-                closePopup={this.toggleSpellCircleCreatorPopup}
-                onSpellCircleCreation={this.handleSpellCircleCreation}
-              />
-            </ErrorBoundary>
-          ) : null}
-          {this.state.showSpellCircleCreatorPopup ? (
-            <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
-              <SpellCircleCreatorPopUp
-                closePopup={this.toggleSpellCircleCreatorPopup}
-                onSpellCircleCreation={this.handleSpellCircleCreation}
-              />
-            </ErrorBoundary>
-          ) : null}
-          {this.state.showExitWarningPopUp ? (
-            <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
-              <ExitWarningPopUp
-                closePopup={this.toggleExitWarningPopUp}
-                onExitToMenu={this.handleExitToMenu}
-              />
-            </ErrorBoundary>
-          ) : null}
-          {showTempMessage ? <TempMessage message={tempMessageText} /> : null}
-        </div>
+        ) : null}
+        {showExitWarningPopUp ? (
+          <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
+            <ExitWarningPopUp
+              closePopup={this.toggleExitWarningPopUp}
+              onExitToMenu={this.handleExitToMenu}
+            />
+          </ErrorBoundary>
+        ) : null}
+        {showTempMessage ? <TempMessage message={tempMessageText} /> : null}
+      </Fragment>
+    );
+  }
+
+  renderMapMainScreen() {
+    return (
+      <div className="row h-100 w-100 p-0">
+        {this.renderMapArea()}
+        {this.renderSideBar()}
+        {this.renderPopUps()}
       </div>
     );
   }
@@ -678,8 +699,8 @@ class App extends Component {
         {this.state.resetPasswordScreen
           ? this.renderPasswordResetScreen()
           : this.state.authToken && !this.state.showUserMenu
-          ? this.renderApp()
-          : this.renderWelcomeMenu()}
+          ? this.renderMapMainScreen()
+          : this.renderWelcomeScreen()}
         <Persist
           name="dnd-app"
           data={this.state}
