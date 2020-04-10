@@ -8,19 +8,16 @@ import RegistrationForm from "./registrationForm";
 
 class WelcomeScreen extends Component {
   state = {
-    userName: "",
     forgotPassword: false,
     showRegister: false,
   };
 
   handleLogOut = () => {
-    this.setState({ userName: "" });
     this.props.onLogOut();
   };
 
   handleLogIn = (userName, authToken) => {
-    this.setState({ userName });
-    this.props.onLogIn(authToken);
+    this.props.onLogIn(userName, authToken);
   };
 
   toggleForgotPassword = () => {
@@ -47,8 +44,8 @@ class WelcomeScreen extends Component {
   };
 
   render() {
-    const { userName, forgotPassword, registration } = this.state;
-    const { onNewGame, onContinueSavedGame, authToken } = this.props;
+    const { forgotPassword, registration } = this.state;
+    const { onNewGame, onContinueSavedGame, authToken, userName } = this.props;
     return (
       <div className="LoginScreen">
         <div className="LoginScreenContent">

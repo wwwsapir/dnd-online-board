@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import "./App.css";
 import DiceRoller from "./diceRoller";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,7 +9,6 @@ import CloneDeep from "lodash/cloneDeep";
 import ErrorBoundary from "react-error-boundary";
 import { DefaultFallbackComponent } from "../constants";
 import {
-  CallEraseGameDataAPI,
   CallGetGameDataAPI,
   CallSaveNewGameDataAPI,
   CallUpdateGameDataAPI,
@@ -19,10 +18,12 @@ import WelcomeScreen from "./welcomeScreen";
 import TempMessage from "./tempMessage";
 import ResetPasswordForm from "./resetPasswordForm";
 import ExitWarningPopUp from "./exitWarningPopUp";
+import { Persist } from "react-persist";
 
 class App extends Component {
   state = {
     authToken: null,
+    userName: "",
     rowCount: this.props.rowCount,
     colCount: this.props.colCount,
     walls: [
@@ -534,6 +535,7 @@ class App extends Component {
   };
 
   handleExitToMenu = () => {
+    this.initiateGame();
     this.setState({ showUserMenu: true });
   };
 
@@ -545,9 +547,23 @@ class App extends Component {
           onContinueSavedGame={this.handleContinueSavedGame}
           onRegisteredNewUser={this.handleRegisteredNewUser}
           authToken={this.state.authToken}
-          onLogOut={() => this.setState({ authToken: null })}
-          onLogIn={(authToken) => this.setState({ authToken: authToken })}
+          userName={this.state.userName}
+          onLogOut={() => this.setState({ authToken: null, userName: "" })}
+          onLogIn={(userName, authToken) =>
+            this.setState({ authToken, userName })
+          }
         />
+        {this.state.showTempMessage ? (
+          <TempMessage message={this.state.tempMessageText} />
+        ) : null}
+      </ErrorBoundary>
+    );
+  }
+
+  renderPasswordResetScreen() {
+    return (
+      <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
+        <ResetPasswordForm onPasswordReset={this.handlePasswordResetComplete} />
         {this.state.showTempMessage ? (
           <TempMessage message={this.state.tempMessageText} />
         ) : null}
@@ -657,22 +673,21 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.resetPasswordScreen) {
-      return (
-        <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
-          <ResetPasswordForm
-            onPasswordReset={this.handlePasswordResetComplete}
-          />
-          {this.state.showTempMessage ? (
-            <TempMessage message={this.state.tempMessageText} />
-          ) : null}
-        </ErrorBoundary>
-      );
-    } else if (this.state.authToken && !this.state.showUserMenu) {
-      return this.renderApp();
-    } else {
-      return this.renderWelcomeMenu();
-    }
+    return (
+      <Fragment>
+        {this.state.resetPasswordScreen
+          ? this.renderPasswordResetScreen()
+          : this.state.authToken && !this.state.showUserMenu
+          ? this.renderApp()
+          : this.renderWelcomeMenu()}
+        <Persist
+          name="dnd-app"
+          data={this.state}
+          debounce={500}
+          onMount={(data) => this.setState(data)}
+        />
+      </Fragment>
+    );
   }
 }
 
