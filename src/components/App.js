@@ -710,9 +710,6 @@ class App extends Component {
           <Route path="/reset">{this.renderPasswordResetScreen()}</Route>
           <Route path="/map">{this.renderMapMainScreen()}</Route>
           <Route path="/home">{this.renderWelcomeScreen()}</Route>
-          {/* <Route path="/reset" component={this.renderPasswordResetScreen} />
-          <Route path="/map" component={this.renderMapMainScreen} />
-          <Route path="/home" component={this.renderWelcomeScreen} /> */}
           <Persist
             name="dnd-app"
             data={this.state}
