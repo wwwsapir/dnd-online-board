@@ -373,14 +373,11 @@ class App extends Component {
   componentDidMount() {
     document.addEventListener("keyup", this.handleKeyUp, false);
     if (localStorage.getItem("dnd-app")) {
-      this.setState({ firstTime: false });
     }
-    console.log("App is mounted!");
   }
 
   componentWillUnmount() {
     document.removeEventListener("keyup", this.handleKeyUp, false);
-    console.error("Oh no app will unmount!");
   }
 
   handleMouseEnterCell = (cell) => {
@@ -562,6 +559,7 @@ class App extends Component {
           userName={this.state.userName}
           onLogOut={() => this.setState({ authToken: null, userName: "" })}
           onLogIn={this.handleLogIn}
+          toUserMenu={this.toUserMenu}
         />
         {this.state.showTempMessage ? (
           <TempMessage message={this.state.tempMessageText} />
@@ -709,7 +707,7 @@ class App extends Component {
           <Route path="/map">{this.renderMapMainScreen()}</Route>
           <Route path="/home">{this.renderWelcomeScreen()}</Route>
         </Switch>
-        {this.state.toUserMenu ? <Redirect to="home/userMenu" /> : null}
+        {this.state.toUserMenu ? <Redirect to="/home/userMenu" /> : null}
         <Persist
           name="dnd-app"
           data={this.state}

@@ -1,3 +1,7 @@
+Continue: Solve 2 bugs:
+1. Don't enable userMenu without a user - this can happen when "Back" is pressed.
+2. On refresh user menu, the game data existence is not checked again. It should.
+
 Version 0.0:
 1. Characters creation toolbar. + Roll dice. - Done
 2. The abiliy to move characters. - Done
@@ -8,8 +12,8 @@ Version 0.0:
 7. partially transperant mouse circle with customized radius that can be placed, choose color and text that will apear while hovering (also can delete it). - Done
 8. Add characters movement with arrow keys. - Done but deprectaed.
 9. Reset password option - Done
-10. Save app state on refresh/close and open browser.
-11. Make back and forward buttons work. Handle paths system.
+10. Save app state on refresh/close and open browser. - Done
+11. Make back and forward buttons work. Handle paths system. - Done
 
 Version 0.1:
 1. Example maps.

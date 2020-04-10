@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CallGetGameDataAPI } from "../apiUtils";
 import { Redirect } from "react-router-dom";
 
 class UserMenu extends Component {
