@@ -538,9 +538,6 @@ class App extends Component {
   };
 
   handlePasswordResetComplete = () => {
-    const currHref = window.location.href;
-    window.location.href = currHref.split("reset")[0];
-    this.setState({ resetPasswordScreen: false });
     this.showTempMessage("Password changed successfully!", 2000);
   };
 

@@ -70,8 +70,8 @@ class ResetPasswordForm extends Component {
       if (res.error) {
         this.setState({ errorMessage: res.error.message });
       } else {
-        onPasswordReset(); // TODO: Remove this by using route correctly
         this.setState({ toLogin: true });
+        onPasswordReset();
       }
     });
   };
@@ -113,7 +113,7 @@ class ResetPasswordForm extends Component {
     const { newPassword, confirmPassword, errorMessage, toLogin } = this.state;
 
     if (toLogin) {
-      return <Redirect push to="/menu/login" />;
+      return <Redirect push to="/home/login" />;
     }
 
     return (
