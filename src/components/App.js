@@ -19,6 +19,7 @@ import TempMessage from "./tempMessage";
 import ResetPasswordForm from "./resetPasswordForm";
 import ExitWarningPopUp from "./exitWarningPopUp";
 import { Persist } from "react-persist";
+import { BrowserRouter, Route } from "react-router-dom";
 
 class App extends Component {
   state = {
@@ -695,19 +696,20 @@ class App extends Component {
 
   render() {
     return (
-      <Fragment>
-        {this.state.resetPasswordScreen
-          ? this.renderPasswordResetScreen()
-          : this.state.authToken && !this.state.showUserMenu
-          ? this.renderMapMainScreen()
-          : this.renderWelcomeScreen()}
+      <BrowserRouter>
+        <Route
+          path="/reset"
+          component={() => this.renderPasswordResetScreen()}
+        />
+        <Route path="/map" component={() => this.renderMapMainScreen()} />
+        <Route path="/menu" component={() => this.renderWelcomeScreen()} />
         <Persist
           name="dnd-app"
           data={this.state}
           debounce={500}
           onMount={(data) => this.setState(data)}
         />
-      </Fragment>
+      </BrowserRouter>
     );
   }
 }
