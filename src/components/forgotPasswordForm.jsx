@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { CallResetPasswordSendAPI } from "../apiUtils";
+import { Link } from "react-router-dom";
 
 class ForgotPasswordForm extends Component {
   state = {
@@ -36,7 +37,6 @@ class ForgotPasswordForm extends Component {
 
   render() {
     const { email, errMessage, messageUnderBox } = this.state;
-    const { onBackToLoginPage } = this.props;
     return (
       <ul
         className="nav nav-tabs flex-column text-white bg-dark row w-100"
@@ -67,9 +67,9 @@ class ForgotPasswordForm extends Component {
           </button>
         </li>
         <li className="nav-item mt-2">
-          <a className="float-right" href="#" onClick={onBackToLoginPage}>
+          <Link className="float-right" to="/menu/login">
             Back to login form
-          </a>
+          </Link>
         </li>
         {errMessage ? (
           <li className="nav-item col">

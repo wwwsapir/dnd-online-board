@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { CallRegisterAPI } from "../apiUtils";
+import { Redirect, Link } from "react-router-dom";
 
 class RegistrationForm extends Component {
   state = {
@@ -8,6 +9,7 @@ class RegistrationForm extends Component {
     email: "",
     password: "",
     errorMessage: "",
+    toLogin: false,
   };
 
   handleRegisterFormSubmit = (e) => {
@@ -21,14 +23,19 @@ class RegistrationForm extends Component {
       if (res.error) {
         this.setState({ errorMessage: res.error.message });
       } else {
+        this.setState({ toLogin: true });
         onRegistered();
       }
     });
   };
 
   render() {
-    const { userName, email, password, errorMessage } = this.state;
-    const { onBackToLoginPage } = this.props;
+    const { userName, email, password, errorMessage, toLogin } = this.state;
+
+    if (toLogin) {
+      return <Redirect push to="/menu/login" />;
+    }
+
     return (
       <form onSubmit={this.handleRegisterFormSubmit}>
         <ul
@@ -82,9 +89,9 @@ class RegistrationForm extends Component {
             </button>
           </li>
           <li className="nav-item mt-2">
-            <a className="float-right" href="#" onClick={onBackToLoginPage}>
+            <Link className="float-right" to="/menu/login">
               Cancel and back to login
-            </a>
+            </Link>
           </li>
           {errorMessage ? (
             <li className="nav-item col">

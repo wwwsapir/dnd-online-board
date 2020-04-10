@@ -5,12 +5,13 @@ import LoginForm from "./loginForm";
 import UserMenu from "./userMenu";
 import ForgotPasswordForm from "./forgotPasswordForm";
 import RegistrationForm from "./registrationForm";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
 class WelcomeScreen extends Component {
   state = {
     forgotPassword: false,
     showRegister: false,
+    loggedIn: this.props.authToken ? true : false,
   };
 
   handleLogOut = () => {
@@ -21,32 +22,15 @@ class WelcomeScreen extends Component {
     this.props.onLogIn(userName, authToken);
   };
 
-  toggleForgotPassword = () => {
-    const { forgotPassword } = this.state;
-    if (!this.props.authToken) {
-      this.setState({ forgotPassword: !forgotPassword });
-    } else {
-      console.error("Try to reset password while logged in");
-    }
-  };
-
-  toggleRegistration = () => {
-    const { registration } = this.state;
-    if (!this.props.authToken) {
-      this.setState({ registration: !registration });
-    } else {
-      console.error("Try to cancel registration while already logged in");
-    }
-  };
-
-  handleRegistered = () => {
-    this.props.onRegisteredNewUser();
-    this.toggleRegistration();
-  };
-
   render() {
-    const { forgotPassword, registration } = this.state;
-    const { onNewGame, onContinueSavedGame, authToken, userName } = this.props;
+    const {
+      onNewGame,
+      onContinueSavedGame,
+      authToken,
+      userName,
+      onRegisteredNewUser,
+    } = this.props;
+
     return (
       <div className="LoginScreen">
         <div className="LoginScreenContent">
@@ -64,30 +48,17 @@ class WelcomeScreen extends Component {
           />
           <Route
             path="/menu/forgotPassword"
-            component={() => (
-              <ForgotPasswordForm
-                onBackToLoginPage={this.toggleForgotPassword}
-              />
-            )}
+            component={() => <ForgotPasswordForm />}
           />
           <Route
             path="/menu/register"
             component={() => (
-              <RegistrationForm
-                onRegistered={this.handleRegistered}
-                onBackToLoginPage={this.toggleRegistration}
-              />
+              <RegistrationForm onRegistered={onRegisteredNewUser} />
             )}
           />
           <Route
             path="/menu/login"
-            component={() => (
-              <LoginForm
-                onLogin={this.handleLogIn}
-                onForgotPassword={this.toggleForgotPassword}
-                onRegistration={this.toggleRegistration}
-              />
-            )}
+            component={() => <LoginForm onLogin={this.handleLogIn} />}
           />
         </div>
       </div>

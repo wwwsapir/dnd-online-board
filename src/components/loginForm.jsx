@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { CallLoginAPI } from "../apiUtils";
+import { Redirect, Link } from "react-router-dom";
 
 class LoginForm extends Component {
   state = {
     email: "",
     password: "",
     errorMessage: "",
+    toUserMenu: false,
   };
 
   handleLoginFormSubmit = (e) => {
@@ -21,13 +23,18 @@ class LoginForm extends Component {
         this.setState({ errorMessage: res.error.message });
       } else {
         onLogin(res.userName, res.authToken);
+        this.setState({ toUserMenu: true });
       }
     });
   };
 
   render() {
-    const { email, password, errorMessage } = this.state;
-    const { onForgotPassword, onRegistration } = this.props;
+    const { email, password, errorMessage, toUserMenu } = this.state;
+
+    if (toUserMenu) {
+      return <Redirect to="/menu/userMenu" />;
+    }
+
     return (
       <form onSubmit={this.handleLoginFormSubmit}>
         <ul
@@ -69,12 +76,10 @@ class LoginForm extends Component {
             </button>
           </li>
           <li className="nav-item mt-2">
-            <a className="float-right" href="#" onClick={onForgotPassword}>
+            <Link className="float-right" to="/menu/forgotPassword">
               Forgot password?
-            </a>
-            <a href="#" onClick={onRegistration}>
-              New user?
-            </a>
+            </Link>
+            <Link to="/menu/register">New user?</Link>
           </li>
           {errorMessage ? (
             <li className="nav-item col">

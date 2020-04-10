@@ -4,6 +4,7 @@ import {
   CallResetPasswordResetAPI,
   CallCheckPasswordTokenMatches,
 } from "../apiUtils";
+import { Redirect } from "react-router-dom";
 
 class ResetPasswordForm extends Component {
   state = {
@@ -13,6 +14,7 @@ class ResetPasswordForm extends Component {
     authToken: null,
     tokenValid: false,
     isLoading: true,
+    toLogin: false,
   };
 
   constructor(props) {
@@ -68,7 +70,8 @@ class ResetPasswordForm extends Component {
       if (res.error) {
         this.setState({ errorMessage: res.error.message });
       } else {
-        onPasswordReset();
+        onPasswordReset(); // TODO: Remove this by using route correctly
+        this.setState({ toLogin: true });
       }
     });
   };
@@ -107,7 +110,12 @@ class ResetPasswordForm extends Component {
   }
 
   renderPasswordResetPage() {
-    const { newPassword, confirmPassword, errorMessage } = this.state;
+    const { newPassword, confirmPassword, errorMessage, toLogin } = this.state;
+
+    if (toLogin) {
+      return <Redirect push to="/menu/login" />;
+    }
+
     return (
       <form
         onSubmit={this.handleChangePasswordFormSubmit}

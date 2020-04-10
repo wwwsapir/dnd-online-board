@@ -19,7 +19,7 @@ import TempMessage from "./tempMessage";
 import ResetPasswordForm from "./resetPasswordForm";
 import ExitWarningPopUp from "./exitWarningPopUp";
 import { Persist } from "react-persist";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, useHistory } from "react-router-dom";
 
 class App extends Component {
   state = {
@@ -543,6 +543,12 @@ class App extends Component {
     this.setState({ showUserMenu: true });
   };
 
+  handleLogIn = (userName, authToken) => {
+    this.setState({ authToken, userName });
+    // const history = useHistory();
+    // history.push("/menu/userMenu");
+  };
+
   renderWelcomeScreen() {
     return (
       <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
@@ -553,9 +559,7 @@ class App extends Component {
           authToken={this.state.authToken}
           userName={this.state.userName}
           onLogOut={() => this.setState({ authToken: null, userName: "" })}
-          onLogIn={(userName, authToken) =>
-            this.setState({ authToken, userName })
-          }
+          onLogIn={this.handleLogIn}
         />
         {this.state.showTempMessage ? (
           <TempMessage message={this.state.tempMessageText} />
