@@ -9,6 +9,10 @@ class UserMenu extends Component {
     toMap: false,
   };
 
+  componentWillMount() {
+    this.props.checkGameDataExists();
+  }
+
   handleLogOutClick = () => {
     this.setState({ toLogin: true });
     this.props.onLogOut();

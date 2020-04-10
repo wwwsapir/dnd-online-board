@@ -15,6 +15,10 @@ class WelcomeScreen extends Component {
 
   handleLogIn = (userName, authToken) => {
     this.props.onLogIn(userName, authToken);
+    this.checkForExistingGameData();
+  };
+
+  checkForExistingGameData = () => {
     const promise = CallGetGameDataAPI(this.props.authToken);
     promise.then((res) => {
       if (!res) return;
@@ -45,43 +49,18 @@ class WelcomeScreen extends Component {
                 userName={userName}
                 authToken={authToken}
                 gameDataExists={this.state.gameDataExists}
+                checkGameDataExists={this.checkForExistingGameData}
               />
             </Route>
-            {/* <Route
-              path="/home/userMenu"
-              component={() => (
-                <UserMenu
-                  onContinueSavedGame={onContinueSavedGame}
-                  onStartANewGame={onNewGame}
-                  onLogOut={onLogOut}
-                  userName={userName}
-                  authToken={authToken}
-                />
-              )}
-            /> */}
             <Route path="/home/forgotPassword">
               <ForgotPasswordForm />
             </Route>
-            {/* <Route
-              path="/home/forgotPassword"
-              component={() => <ForgotPasswordForm />}
-            /> */}
             <Route path="/home/register">
               <RegistrationForm onRegistered={onRegisteredNewUser} />
             </Route>
-            {/* <Route
-              path="/home/register"
-              component={() => (
-                <RegistrationForm onRegistered={onRegisteredNewUser} />
-              )}
-            /> */}
             <Route path="/home/login">
               <LoginForm onLogin={this.handleLogIn} />
             </Route>
-            {/* <Route
-              path="/home/login"
-              component={() => <LoginForm onLogin={this.handleLogIn} />}
-            /> */}
           </Switch>
         </div>
       </div>

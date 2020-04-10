@@ -52,6 +52,7 @@ class App extends Component {
     showSpellCircleCreatorPopup: false,
     showExitWarningPopUp: false,
     showUserMenu: true,
+    toUserMenu: false,
   };
 
   constructor(props) {
@@ -542,8 +543,8 @@ class App extends Component {
   };
 
   handleExitToMenu = () => {
+    this.setState({ toUserMenu: true });
     this.initiateGame();
-    this.setState({ showUserMenu: true });
   };
 
   handleLogIn = (userName, authToken) => {
@@ -707,13 +708,14 @@ class App extends Component {
           <Route path="/reset">{this.renderPasswordResetScreen()}</Route>
           <Route path="/map">{this.renderMapMainScreen()}</Route>
           <Route path="/home">{this.renderWelcomeScreen()}</Route>
-          <Persist
-            name="dnd-app"
-            data={this.state}
-            debounce={500}
-            onMount={(data) => this.setState(data)}
-          />
         </Switch>
+        {this.state.toUserMenu ? <Redirect to="home/userMenu" /> : null}
+        <Persist
+          name="dnd-app"
+          data={this.state}
+          debounce={500}
+          onMount={(data) => this.setState(data)}
+        />
       </Fragment>
     );
   }
