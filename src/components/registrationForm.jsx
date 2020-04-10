@@ -33,7 +33,7 @@ class RegistrationForm extends Component {
     const { userName, email, password, errorMessage, toLogin } = this.state;
 
     if (toLogin) {
-      return <Redirect push to="/menu/login" />;
+      return <Redirect push to="/home/login" />;
     }
 
     return (
@@ -89,7 +89,7 @@ class RegistrationForm extends Component {
             </button>
           </li>
           <li className="nav-item mt-2">
-            <Link className="float-right" to="/menu/login">
+            <Link className="float-right" to="/home/login">
               Cancel and back to login
             </Link>
           </li>

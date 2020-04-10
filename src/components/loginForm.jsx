@@ -22,8 +22,8 @@ class LoginForm extends Component {
       if (res.error) {
         this.setState({ errorMessage: res.error.message });
       } else {
-        onLogin(res.userName, res.authToken);
         this.setState({ toUserMenu: true });
+        onLogin(res.userName, res.authToken);
       }
     });
   };
@@ -32,7 +32,7 @@ class LoginForm extends Component {
     const { email, password, errorMessage, toUserMenu } = this.state;
 
     if (toUserMenu) {
-      return <Redirect to="/menu/userMenu" />;
+      return <Redirect to="/home/userMenu" />;
     }
 
     return (
@@ -76,10 +76,10 @@ class LoginForm extends Component {
             </button>
           </li>
           <li className="nav-item mt-2">
-            <Link className="float-right" to="/menu/forgotPassword">
+            <Link className="float-right" to="/home/forgotPassword">
               Forgot password?
             </Link>
-            <Link to="/menu/register">New user?</Link>
+            <Link to="/home/register">New user?</Link>
           </li>
           {errorMessage ? (
             <li className="nav-item col">

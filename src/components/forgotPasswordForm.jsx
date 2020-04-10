@@ -67,7 +67,7 @@ class ForgotPasswordForm extends Component {
           </button>
         </li>
         <li className="nav-item mt-2">
-          <Link className="float-right" to="/menu/login">
+          <Link className="float-right" to="/home/login">
             Back to login form
           </Link>
         </li>

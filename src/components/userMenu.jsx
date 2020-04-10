@@ -1,25 +1,16 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { CallGetGameDataAPI } from "../apiUtils";
+import { Redirect } from "react-router-dom";
 
 class UserMenu extends Component {
   state = {
-    gameDataExists: false,
+    toLogin: false,
+    toMap: false,
   };
 
-  componentWillMount() {
-    this.isGameDataExistsForUser();
-  }
-
-  isGameDataExistsForUser() {
-    const promise = CallGetGameDataAPI(this.props.authToken);
-    promise.then((res) => {
-      if (!res) return;
-      this.setState({ gameDataExists: !res.error });
-    });
-  }
-
   handleLogOutClick = () => {
+    this.setState({ toLogin: true });
     this.props.onLogOut();
   };
 
@@ -27,13 +18,30 @@ class UserMenu extends Component {
     if (this.state.gameDataExists) {
       this.setState({ showWarning: true });
     } else {
-      this.props.onStartANewGame();
+      this.beginNewGame();
     }
   };
 
+  beginNewGame() {
+    this.setState({ toMap: true });
+    this.props.onStartANewGame();
+  }
+
+  handleContinueGameClick = () => {
+    this.setState({ toMap: true });
+    this.props.onContinueSavedGame();
+  };
+
   render() {
-    const { userName, onContinueSavedGame, onStartANewGame } = this.props;
-    const { gameDataExists, showWarning } = this.state;
+    const { userName, gameDataExists } = this.props;
+    const { showWarning, toLogin, toMap } = this.state;
+
+    if (toLogin) {
+      return <Redirect push to="/home/login" />;
+    } else if (toMap) {
+      return <Redirect push to="/map" />;
+    }
+
     return (
       <ul
         className="nav nav-tabs flex-column text-white bg-dark row w-100"
@@ -44,7 +52,7 @@ class UserMenu extends Component {
         </h4>
         <li className="nav-item">
           <button
-            onClick={onContinueSavedGame}
+            onClick={this.handleContinueGameClick}
             className="btn btn-primary form-control mt-3 col"
             disabled={!gameDataExists}
           >
@@ -73,7 +81,7 @@ class UserMenu extends Component {
             </li>
             <span className="inline-form">
               <button
-                onClick={onStartANewGame}
+                onClick={this.beginNewGame}
                 className="btn btn-danger form-control ml-3 mt-3 col-7 d-inline"
               >
                 Yes - Delete my saved game

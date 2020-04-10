@@ -5,21 +5,21 @@ import LoginForm from "./loginForm";
 import UserMenu from "./userMenu";
 import ForgotPasswordForm from "./forgotPasswordForm";
 import RegistrationForm from "./registrationForm";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
+import { CallGetGameDataAPI } from "../apiUtils";
 
 class WelcomeScreen extends Component {
   state = {
-    forgotPassword: false,
-    showRegister: false,
-    loggedIn: this.props.authToken ? true : false,
-  };
-
-  handleLogOut = () => {
-    this.props.onLogOut();
+    gameDataExists: false,
   };
 
   handleLogIn = (userName, authToken) => {
     this.props.onLogIn(userName, authToken);
+    const promise = CallGetGameDataAPI(this.props.authToken);
+    promise.then((res) => {
+      if (!res) return;
+      this.setState({ gameDataExists: !res.error });
+    });
   };
 
   render() {
@@ -29,37 +29,60 @@ class WelcomeScreen extends Component {
       authToken,
       userName,
       onRegisteredNewUser,
+      onLogOut,
     } = this.props;
 
     return (
       <div className="LoginScreen">
         <div className="LoginScreenContent">
-          <Route
-            path="/menu/userMenu"
-            component={() => (
+          <Switch>
+            <Redirect exact from="/home" to="/home/login" />
+            <Route path="/home/userMenu">
               <UserMenu
                 onContinueSavedGame={onContinueSavedGame}
                 onStartANewGame={onNewGame}
-                onLogOut={this.handleLogOut}
+                onLogOut={onLogOut}
                 userName={userName}
                 authToken={authToken}
+                gameDataExists={this.state.gameDataExists}
               />
-            )}
-          />
-          <Route
-            path="/menu/forgotPassword"
-            component={() => <ForgotPasswordForm />}
-          />
-          <Route
-            path="/menu/register"
-            component={() => (
+            </Route>
+            {/* <Route
+              path="/home/userMenu"
+              component={() => (
+                <UserMenu
+                  onContinueSavedGame={onContinueSavedGame}
+                  onStartANewGame={onNewGame}
+                  onLogOut={onLogOut}
+                  userName={userName}
+                  authToken={authToken}
+                />
+              )}
+            /> */}
+            <Route path="/home/forgotPassword">
+              <ForgotPasswordForm />
+            </Route>
+            {/* <Route
+              path="/home/forgotPassword"
+              component={() => <ForgotPasswordForm />}
+            /> */}
+            <Route path="/home/register">
               <RegistrationForm onRegistered={onRegisteredNewUser} />
-            )}
-          />
-          <Route
-            path="/menu/login"
-            component={() => <LoginForm onLogin={this.handleLogIn} />}
-          />
+            </Route>
+            {/* <Route
+              path="/home/register"
+              component={() => (
+                <RegistrationForm onRegistered={onRegisteredNewUser} />
+              )}
+            /> */}
+            <Route path="/home/login">
+              <LoginForm onLogin={this.handleLogIn} />
+            </Route>
+            {/* <Route
+              path="/home/login"
+              component={() => <LoginForm onLogin={this.handleLogIn} />}
+            /> */}
+          </Switch>
         </div>
       </div>
     );

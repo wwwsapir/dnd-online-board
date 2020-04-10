@@ -19,7 +19,7 @@ import TempMessage from "./tempMessage";
 import ResetPasswordForm from "./resetPasswordForm";
 import ExitWarningPopUp from "./exitWarningPopUp";
 import { Persist } from "react-persist";
-import { BrowserRouter, Route, useHistory } from "react-router-dom";
+import { Route, Redirect, Switch, Router } from "react-router-dom";
 
 class App extends Component {
   state = {
@@ -371,9 +371,15 @@ class App extends Component {
 
   componentDidMount() {
     document.addEventListener("keyup", this.handleKeyUp, false);
+    if (localStorage.getItem("dnd-app")) {
+      this.setState({ firstTime: false });
+    }
+    console.log("App is mounted!");
   }
+
   componentWillUnmount() {
     document.removeEventListener("keyup", this.handleKeyUp, false);
+    console.error("Oh no app will unmount!");
   }
 
   handleMouseEnterCell = (cell) => {
@@ -514,12 +520,12 @@ class App extends Component {
   };
 
   handleStartNewGame = () => {
-    this.setState({ showUserMenu: false });
+    this.setState({ showUserMenu: false, toUserMenu: false });
     this.initiateGame();
   };
 
   handleContinueSavedGame = () => {
-    this.setState({ showUserMenu: false });
+    this.setState({ showUserMenu: false, toUserMenu: false });
     const promise = CallGetGameDataAPI(this.state.authToken);
     promise.then((res) => {
       if (!res) return;
@@ -545,8 +551,6 @@ class App extends Component {
 
   handleLogIn = (userName, authToken) => {
     this.setState({ authToken, userName });
-    // const history = useHistory();
-    // history.push("/menu/userMenu");
   };
 
   renderWelcomeScreen() {
@@ -700,20 +704,23 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <Route
-          path="/reset"
-          component={() => this.renderPasswordResetScreen()}
-        />
-        <Route path="/map" component={() => this.renderMapMainScreen()} />
-        <Route path="/menu" component={() => this.renderWelcomeScreen()} />
-        <Persist
-          name="dnd-app"
-          data={this.state}
-          debounce={500}
-          onMount={(data) => this.setState(data)}
-        />
-      </BrowserRouter>
+      <Fragment>
+        <Switch>
+          <Redirect exact from="/" to="/home" />
+          <Route path="/reset">{this.renderPasswordResetScreen()}</Route>
+          <Route path="/map">{this.renderMapMainScreen()}</Route>
+          <Route path="/home">{this.renderWelcomeScreen()}</Route>
+          {/* <Route path="/reset" component={this.renderPasswordResetScreen} />
+          <Route path="/map" component={this.renderMapMainScreen} />
+          <Route path="/home" component={this.renderWelcomeScreen} /> */}
+          <Persist
+            name="dnd-app"
+            data={this.state}
+            debounce={500}
+            onMount={(data) => this.setState(data)}
+          />
+        </Switch>
+      </Fragment>
     );
   }
 }
