@@ -6,26 +6,8 @@ import UserMenu from "./userMenu";
 import ForgotPasswordForm from "./forgotPasswordForm";
 import RegistrationForm from "./registrationForm";
 import { Route, Redirect, Switch } from "react-router-dom";
-import { CallGetGameDataAPI } from "../apiUtils";
 
 class WelcomeScreen extends Component {
-  state = {
-    gameDataExists: false,
-  };
-
-  handleLogIn = (userName, authToken) => {
-    this.props.onLogIn(userName, authToken);
-    this.checkForExistingGameData();
-  };
-
-  checkForExistingGameData = () => {
-    const promise = CallGetGameDataAPI(this.props.authToken);
-    promise.then((res) => {
-      if (!res) return;
-      this.setState({ gameDataExists: !res.error });
-    });
-  };
-
   render() {
     const {
       onNewGame,
@@ -34,7 +16,8 @@ class WelcomeScreen extends Component {
       userName,
       onRegisteredNewUser,
       onLogOut,
-      cancelRedirectFromMap
+      cancelRedirectFromMap,
+      onLogIn,
     } = this.props;
 
     return (
@@ -53,8 +36,6 @@ class WelcomeScreen extends Component {
                 onLogOut={onLogOut}
                 userName={userName}
                 authToken={authToken}
-                gameDataExists={this.state.gameDataExists}
-                checkGameDataExists={this.checkForExistingGameData}
                 cancelRedirectFromMap={cancelRedirectFromMap}
               />
             </Route>
@@ -65,7 +46,7 @@ class WelcomeScreen extends Component {
               <RegistrationForm onRegistered={onRegisteredNewUser} />
             </Route>
             <Route path="/home/login">
-              <LoginForm onLogin={this.handleLogIn} />
+              <LoginForm onLogin={onLogIn} />
             </Route>
           </Switch>
         </div>

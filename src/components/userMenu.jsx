@@ -1,16 +1,56 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Redirect } from "react-router-dom";
+import { CallGetGameDataAPI } from "../apiUtils";
+
+let _userMenuMounted = false;
 
 class UserMenu extends Component {
   state = {
     toLogin: false,
     toMap: false,
+    gameDataExists: false,
+    continueGameText: "",
   };
 
   componentWillMount() {
-    this.props.checkGameDataExists();
-    this.props.cancelRedirectFromMap();
+    this.props.cancelRedirectFromMap(); // We only want to redirect once from map, without unmounting map compponent (this allows back button press)
+  }
+
+  componentDidMount() {
+    _userMenuMounted = true;
+    this.checkForExistingGameData(this.props.authToken);
+  }
+
+  componentWillUnmount() {
+    _userMenuMounted = false;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (_userMenuMounted) {
+      if (this.props.authToken !== nextProps.authToken) {
+        this.checkForExistingGameData(nextProps.authToken);
+      }
+    }
+  }
+
+  checkForExistingGameData(authToken) {
+    this.setState({ continueGameText: "Collecting game data from server..." });
+    const promise = CallGetGameDataAPI(authToken);
+    promise.then((res) => {
+      if (!res || !_userMenuMounted) return;
+      if (res.error) {
+        this.setState({
+          gameDataExists: false,
+          continueGameText: "No Saved Game",
+        });
+      } else {
+        this.setState({
+          gameDataExists: true,
+          continueGameText: "Continue Last Saved Game",
+        });
+      }
+    });
   }
 
   handleLogOutClick = () => {
@@ -19,7 +59,7 @@ class UserMenu extends Component {
   };
 
   handleStartNewGameButtonClick = () => {
-    if (this.state.gameDataExists) {
+    if (this.props.gameDataExists) {
       this.setState({ showWarning: true });
     } else {
       this.beginNewGame();
@@ -37,8 +77,14 @@ class UserMenu extends Component {
   };
 
   render() {
-    const { userName, gameDataExists } = this.props;
-    const { showWarning, toLogin, toMap } = this.state;
+    const { userName } = this.props;
+    const {
+      showWarning,
+      toLogin,
+      toMap,
+      gameDataExists,
+      continueGameText,
+    } = this.state;
 
     if (toLogin) {
       return <Redirect push to="/home/login" />;
@@ -60,7 +106,7 @@ class UserMenu extends Component {
             className="btn btn-primary form-control mt-3 col"
             disabled={!gameDataExists}
           >
-            Continue Game
+            {continueGameText}
           </button>
         </li>
         <li className="nav-item">

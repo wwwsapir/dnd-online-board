@@ -19,7 +19,7 @@ import TempMessage from "./tempMessage";
 import ResetPasswordForm from "./resetPasswordForm";
 import ExitWarningPopUp from "./exitWarningPopUp";
 import { Persist } from "react-persist";
-import { Route, Redirect, Switch, Router } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 
 class App extends Component {
   state = {
