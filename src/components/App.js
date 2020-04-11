@@ -19,7 +19,8 @@ import TempMessage from "./tempMessage";
 import ResetPasswordForm from "./resetPasswordForm";
 import ExitWarningPopUp from "./exitWarningPopUp";
 import { Persist } from "react-persist";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Redirect, Switch, Link } from "react-router-dom";
+import "./login.css";
 
 class App extends Component {
   state = {
@@ -690,14 +691,43 @@ class App extends Component {
     );
   }
 
-  renderMapMainScreen() {
+  renderNotLoggedInError() {
     return (
-      <div className="row h-100 w-100 p-0">
-        {this.renderMapArea()}
-        {this.renderSideBar()}
-        {this.renderPopUps()}
+      <div className="LoginScreen">
+        <div className="LoginScreenContent">
+          <div
+            className="nav nav-tabs flex-column text-white bg-dark row w-100"
+            style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
+          >
+            <h4 className="col mb-4">
+              <span className="creatorHeader">Hey... unknown user!</span>
+              <br></br>
+              <br></br>
+              Oops! You can't see the game map if you're not logged in :)
+              <br></br>
+              Please log in to play.
+            </h4>
+            <Link to="/home/login" className="col">
+              Login Here
+            </Link>
+          </div>
+        </div>
       </div>
     );
+  }
+
+  renderMapMainScreen() {
+    if (this.state.authToken) {
+      return (
+        <div className="row h-100 w-100 p-0">
+          {this.renderMapArea()}
+          {this.renderSideBar()}
+          {this.renderPopUps()})
+        </div>
+      );
+    } else {
+      return this.renderNotLoggedInError();
+    }
   }
 
   render() {

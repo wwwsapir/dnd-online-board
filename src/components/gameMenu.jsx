@@ -136,7 +136,7 @@ class GameMenu extends Component {
     return (
       <Fragment>
         <h4 className="col mb-4">
-          <span className="creatorHeader">Hey... unknoun user!</span>
+          <span className="creatorHeader">Hey... unknown user!</span>
           <br></br>
           <br></br>
           Oops! You can't see the game menu if you're not logged in :) <br></br>
