@@ -541,11 +541,14 @@ class App extends Component {
 
   handleExitToMenu = () => {
     this.setState({ toUserMenu: true });
-    this.initiateGame();
   };
 
   handleLogIn = (userName, authToken) => {
     this.setState({ authToken, userName });
+  };
+
+  cancelRedirectFromMap = () => {
+    this.setState({ toUserMenu: false });
   };
 
   renderWelcomeScreen() {
@@ -559,7 +562,7 @@ class App extends Component {
           userName={this.state.userName}
           onLogOut={() => this.setState({ authToken: null, userName: "" })}
           onLogIn={this.handleLogIn}
-          toUserMenu={this.toUserMenu}
+          cancelRedirectFromMap={this.cancelRedirectFromMap}
         />
         {this.state.showTempMessage ? (
           <TempMessage message={this.state.tempMessageText} />
@@ -703,11 +706,13 @@ class App extends Component {
       <Fragment>
         <Switch>
           <Redirect exact from="/" to="/home" />
+          {this.state.toUserMenu ? (
+            <Redirect exact push from="/map" to="/home" />
+          ) : null}
           <Route path="/reset">{this.renderPasswordResetScreen()}</Route>
           <Route path="/map">{this.renderMapMainScreen()}</Route>
           <Route path="/home">{this.renderWelcomeScreen()}</Route>
         </Switch>
-        {this.state.toUserMenu ? <Redirect to="/home/userMenu" /> : null}
         <Persist
           name="dnd-app"
           data={this.state}

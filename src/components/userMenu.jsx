@@ -10,6 +10,7 @@ class UserMenu extends Component {
 
   componentWillMount() {
     this.props.checkGameDataExists();
+    this.props.cancelRedirectFromMap();
   }
 
   handleLogOutClick = () => {

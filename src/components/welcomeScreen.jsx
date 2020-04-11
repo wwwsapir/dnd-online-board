@@ -34,13 +34,18 @@ class WelcomeScreen extends Component {
       userName,
       onRegisteredNewUser,
       onLogOut,
+      cancelRedirectFromMap
     } = this.props;
 
     return (
       <div className="LoginScreen">
         <div className="LoginScreenContent">
           <Switch>
-            <Redirect exact from="/home" to="/home/login" />
+            <Redirect
+              exact
+              from="/home"
+              to={authToken ? "/home/userMenu" : "/home/login"}
+            />
             <Route path="/home/userMenu">
               <UserMenu
                 onContinueSavedGame={onContinueSavedGame}
@@ -50,6 +55,7 @@ class WelcomeScreen extends Component {
                 authToken={authToken}
                 gameDataExists={this.state.gameDataExists}
                 checkGameDataExists={this.checkForExistingGameData}
+                cancelRedirectFromMap={cancelRedirectFromMap}
               />
             </Route>
             <Route path="/home/forgotPassword">
