@@ -1,20 +1,18 @@
 import React from "react";
 
-const imageBaseUrl = "https://drive.google.com/uc?id=";
+const CHARACTER_IMAGES_PATH = process.env.PUBLIC_URL + "/images/characters/";
 
 export const AVATAR_IMAGE_URLS = {
-  ranger: imageBaseUrl + "1MIyJ4ATQToPI_RN7RfiFQPDmuKBWHz_j",
-  rogue: imageBaseUrl + "1bRC8T6ywHD6f23cdLnp2WmWaIImY7YXM",
-  sorcerer: imageBaseUrl + "1TK0i8R3td1vj0Xlo1kZmS0Zu7H2c90kK",
-  warlock: imageBaseUrl + "1PMrMr1T9WVBa8x5FDqV2ZIOK6Uam_Hw5",
-  fighter: imageBaseUrl + "1HJxgNpcvnkyH2Bx36ynbQgIhmBPK1XfA",
-  scorbat: imageBaseUrl + "1R4CXRmvvWFQwSWH5blj71R9si4q_ePHb",
-  dragon: imageBaseUrl + "13hzS-a0ZeHNe9f1lkWpfTVrj3prDAs0U",
-  beetle: imageBaseUrl + "1Iy7IJvd4PT7ImBPjSJRrf7Ytc7ZYiOgs",
-  balrog: imageBaseUrl + "1-ShPk6rbliyWzEd7yEFqrJoOZwn1awAM",
+  ranger: CHARACTER_IMAGES_PATH + "ranger.png",
+  rogue: CHARACTER_IMAGES_PATH + "rogue.png",
+  sorcerer: CHARACTER_IMAGES_PATH + "sorcerer.png",
+  warlock: CHARACTER_IMAGES_PATH + "warlock.png",
+  fighter: CHARACTER_IMAGES_PATH + "fighter.png",
+  scorbat: CHARACTER_IMAGES_PATH + "scorbat.png",
+  dragon: CHARACTER_IMAGES_PATH + "dragon.png",
+  beetle: CHARACTER_IMAGES_PATH + "beetle.png",
+  balrog: CHARACTER_IMAGES_PATH + "balrog.png",
 };
-
-const PUBLIC_URL = ""
 
 export const MIN_CHARACTER_SIZE_SQUARES = 1;
 export const MAX_CHARACTER_SIZE_SQUARES = 6;

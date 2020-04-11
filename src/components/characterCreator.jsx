@@ -6,7 +6,7 @@ import "react-image-picker/dist/index.css";
 import {
   AVATAR_IMAGE_URLS,
   MIN_CHARACTER_SIZE_SQUARES,
-  MAX_CHARACTER_SIZE_SQUARES
+  MAX_CHARACTER_SIZE_SQUARES,
 } from "../constants";
 
 const avatarsList = Object.values(AVATAR_IMAGE_URLS);
@@ -17,7 +17,7 @@ class CharacterCreator extends Component {
     height: 1,
     width: 1,
     avatarImage: null,
-    missingFields: false
+    missingFields: false,
   };
 
   initiateState() {
@@ -28,7 +28,7 @@ class CharacterCreator extends Component {
       avatarImage: null,
       //   type: null,
       //   avatar: "Choose File"
-      missingFields: false
+      missingFields: false,
     });
   }
 
@@ -42,7 +42,7 @@ class CharacterCreator extends Component {
       : this.setState({ width: newVal });
   }
 
-  onPickAvatar = avatarImage => {
+  onPickAvatar = (avatarImage) => {
     this.setState({ avatarImage });
   };
 
@@ -85,7 +85,7 @@ class CharacterCreator extends Component {
             value={characterName}
             placeholder="Character name"
             required
-            onChange={event =>
+            onChange={(event) =>
               this.setState({ characterName: event.target.value })
             }
           />
@@ -106,7 +106,7 @@ class CharacterCreator extends Component {
                 max={MAX_CHARACTER_SIZE_SQUARES}
                 value={width}
                 required
-                onChange={event => this.onChangeSize(event, false)}
+                onChange={(event) => this.onChangeSize(event, false)}
               />
             </span>
             <span className="form-group">
@@ -123,7 +123,7 @@ class CharacterCreator extends Component {
                 max={MAX_CHARACTER_SIZE_SQUARES}
                 value={height}
                 required
-                onChange={event => this.onChangeSize(event, true)}
+                onChange={(event) => this.onChangeSize(event, true)}
               />
             </span>
           </span>
@@ -135,7 +135,7 @@ class CharacterCreator extends Component {
               <ImagePicker
                 images={avatarsList.map((avatar, i) => ({
                   src: avatar,
-                  value: i
+                  value: i,
                 }))}
                 onPick={this.onPickAvatar}
               />

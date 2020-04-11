@@ -19,6 +19,8 @@
 .env.production.local
 *.txt
 .env
+/images
+/raw_photos
 
 npm-debug.log*
 yarn-debug.log*
