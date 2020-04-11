@@ -1,7 +1,7 @@
-Continue: Solve 2 bugs:
-1. Change response checks to checking status rather than if res.error exists.
+Continue: Solve 1 bug:
+1. Photos location - change because google drive sharing is not stable.
 
-Version 0.0:
+Version 0.0 - Done!
 1. Characters creation toolbar. + Roll dice. - Done
 2. The abiliy to move characters. - Done
 3. The abiliy to place characters on the map. - Done
