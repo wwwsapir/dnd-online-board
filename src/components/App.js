@@ -51,8 +51,8 @@ class App extends Component {
     showCharacterCreatorPopup: false,
     showSpellCircleCreatorPopup: false,
     showExitWarningPopUp: false,
-    showUserMenu: true,
-    toUserMenu: false,
+    showGameMenu: true,
+    toGameMenu: false,
   };
 
   constructor(props) {
@@ -518,12 +518,12 @@ class App extends Component {
   };
 
   handleStartNewGame = () => {
-    this.setState({ showUserMenu: false, toUserMenu: false });
+    this.setState({ showGameMenu: false, toGameMenu: false });
     this.initiateGame();
   };
 
   handleContinueSavedGame = () => {
-    this.setState({ showUserMenu: false, toUserMenu: false });
+    this.setState({ showGameMenu: false, toGameMenu: false });
     const promise = CallGetGameDataAPI(this.state.authToken);
     promise.then((res) => {
       if (!res) return;
@@ -540,7 +540,7 @@ class App extends Component {
   };
 
   handleExitToMenu = () => {
-    this.setState({ toUserMenu: true });
+    this.setState({ toGameMenu: true });
   };
 
   handleLogIn = (userName, authToken) => {
@@ -548,7 +548,7 @@ class App extends Component {
   };
 
   cancelRedirectFromMap = () => {
-    this.setState({ toUserMenu: false });
+    this.setState({ toGameMenu: false });
   };
 
   renderWelcomeScreen() {
@@ -706,7 +706,7 @@ class App extends Component {
       <Fragment>
         <Switch>
           <Redirect exact from="/" to="/home" />
-          {this.state.toUserMenu ? (
+          {this.state.toGameMenu ? (
             <Redirect exact push from="/map" to="/home" />
           ) : null}
           <Route path="/reset">{this.renderPasswordResetScreen()}</Route>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginForm from "./loginForm";
-import UserMenu from "./userMenu";
+import GameMenu from "./gameMenu";
 import ForgotPasswordForm from "./forgotPasswordForm";
 import RegistrationForm from "./registrationForm";
 import { Route, Redirect, Switch } from "react-router-dom";
@@ -27,10 +27,10 @@ class WelcomeScreen extends Component {
             <Redirect
               exact
               from="/home"
-              to={authToken ? "/home/userMenu" : "/home/login"}
+              to={authToken ? "/home/game_menu" : "/home/login"}
             />
-            <Route path="/home/userMenu">
-              <UserMenu
+            <Route path="/home/game_menu">
+              <GameMenu
                 onContinueSavedGame={onContinueSavedGame}
                 onStartANewGame={onNewGame}
                 onLogOut={onLogOut}
@@ -39,7 +39,7 @@ class WelcomeScreen extends Component {
                 cancelRedirectFromMap={cancelRedirectFromMap}
               />
             </Route>
-            <Route path="/home/forgotPassword">
+            <Route path="/home/forgot_password">
               <ForgotPasswordForm />
             </Route>
             <Route path="/home/register">

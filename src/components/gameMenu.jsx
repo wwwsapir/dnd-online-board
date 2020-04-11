@@ -3,9 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Redirect, Link } from "react-router-dom";
 import { CallGetGameDataAPI } from "../apiUtils";
 
-let _userMenuMounted = false;
+let _gameMenuMounted = false;
 
-class UserMenu extends Component {
+class GameMenu extends Component {
   state = {
     toLogin: false,
     toMap: false,
@@ -18,16 +18,16 @@ class UserMenu extends Component {
   }
 
   componentDidMount() {
-    _userMenuMounted = true;
+    _gameMenuMounted = true;
     this.checkForExistingGameData(this.props.authToken);
   }
 
   componentWillUnmount() {
-    _userMenuMounted = false;
+    _gameMenuMounted = false;
   }
 
   componentWillReceiveProps(nextProps) {
-    if (_userMenuMounted) {
+    if (_gameMenuMounted) {
       if (this.props.authToken !== nextProps.authToken) {
         this.checkForExistingGameData(nextProps.authToken);
       }
@@ -38,7 +38,7 @@ class UserMenu extends Component {
     this.setState({ continueGameText: "Collecting game data from server..." });
     const promise = CallGetGameDataAPI(authToken);
     promise.then((res) => {
-      if (!res || !_userMenuMounted) return;
+      if (!res || !_gameMenuMounted) return;
       if (res.error) {
         this.setState({
           gameDataExists: false,
@@ -76,7 +76,7 @@ class UserMenu extends Component {
     this.props.onContinueSavedGame();
   };
 
-  renderUserMenu() {
+  renderGameMenu() {
     const { userName } = this.props;
     const { showWarning, gameDataExists, continueGameText } = this.state;
     return (
@@ -165,10 +165,10 @@ class UserMenu extends Component {
         className="nav nav-tabs flex-column text-white bg-dark row w-100"
         style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
       >
-        {authToken ? this.renderUserMenu() : this.renderNotLoggedInError()}
+        {authToken ? this.renderGameMenu() : this.renderNotLoggedInError()}
       </ul>
     );
   }
 }
 
-export default UserMenu;
+export default GameMenu;

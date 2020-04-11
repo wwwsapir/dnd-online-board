@@ -8,7 +8,7 @@ class LoginForm extends Component {
     email: "",
     password: "",
     errorMessage: "",
-    toUserMenu: false,
+    toGameMenu: false,
   };
 
   handleLoginFormSubmit = (e) => {
@@ -22,17 +22,17 @@ class LoginForm extends Component {
       if (res.error) {
         this.setState({ errorMessage: res.error.message });
       } else {
-        this.setState({ toUserMenu: true });
+        this.setState({ toGameMenu: true });
         onLogin(res.userName, res.authToken);
       }
     });
   };
 
   render() {
-    const { email, password, errorMessage, toUserMenu } = this.state;
+    const { email, password, errorMessage, toGameMenu } = this.state;
 
-    if (toUserMenu) {
-      return <Redirect to="/home/userMenu" />;
+    if (toGameMenu) {
+      return <Redirect to="/home/game_menu" />;
     }
 
     return (
@@ -76,7 +76,7 @@ class LoginForm extends Component {
             </button>
           </li>
           <li className="nav-item mt-2">
-            <Link className="float-right" to="/home/forgotPassword">
+            <Link className="float-right" to="/home/forgot_password">
               Forgot password?
             </Link>
             <Link to="/home/register">New user?</Link>
