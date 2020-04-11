@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { CallGetGameDataAPI } from "../apiUtils";
 
 let _userMenuMounted = false;
@@ -76,27 +76,11 @@ class UserMenu extends Component {
     this.props.onContinueSavedGame();
   };
 
-  render() {
+  renderUserMenu() {
     const { userName } = this.props;
-    const {
-      showWarning,
-      toLogin,
-      toMap,
-      gameDataExists,
-      continueGameText,
-    } = this.state;
-
-    if (toLogin) {
-      return <Redirect push to="/home/login" />;
-    } else if (toMap) {
-      return <Redirect push to="/map" />;
-    }
-
+    const { showWarning, gameDataExists, continueGameText } = this.state;
     return (
-      <ul
-        className="nav nav-tabs flex-column text-white bg-dark row w-100"
-        style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
-      >
+      <Fragment>
         <h4 className="col mb-4">
           <span className="creatorHeader">Hi, {userName}! Ready to play?</span>
         </h4>
@@ -145,6 +129,43 @@ class UserMenu extends Component {
             </span>
           </span>
         ) : null}
+      </Fragment>
+    );
+  }
+
+  renderNotLoggedInError() {
+    return (
+      <Fragment>
+        <h4 className="col mb-4">
+          <span className="creatorHeader">Hey... unknoun user!</span>
+          <br></br>
+          <br></br>
+          Oops! You can't see the game menu if you're not logged in :) <br></br>
+          Please log in to play.
+        </h4>
+        <Link to="/home/login" className="col">
+          Login Here
+        </Link>
+      </Fragment>
+    );
+  }
+
+  render() {
+    const { authToken } = this.props;
+    const { toLogin, toMap } = this.state;
+
+    if (toLogin) {
+      return <Redirect push to="/home/login" />;
+    } else if (toMap) {
+      return <Redirect push to="/map" />;
+    }
+
+    return (
+      <ul
+        className="nav nav-tabs flex-column text-white bg-dark row w-100"
+        style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
+      >
+        {authToken ? this.renderUserMenu() : this.renderNotLoggedInError()}
       </ul>
     );
   }
