@@ -41,7 +41,6 @@ class GameMenu extends Component {
       if (!res || !_gameMenuMounted) return;
       if (res.error) {
         this.setState({
-          gameDataExists: false,
           continueGameText: "No Saved Game",
         });
       } else {
