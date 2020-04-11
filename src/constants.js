@@ -14,6 +14,8 @@ export const AVATAR_IMAGE_URLS = {
   balrog: imageBaseUrl + "1-ShPk6rbliyWzEd7yEFqrJoOZwn1awAM",
 };
 
+const PUBLIC_URL = ""
+
 export const MIN_CHARACTER_SIZE_SQUARES = 1;
 export const MAX_CHARACTER_SIZE_SQUARES = 6;
 export const MIN_SPELL_CIRCLE_RADIUS_FEET = 5;
