@@ -15,9 +15,9 @@ class ForgotPasswordForm extends Component {
     const promise = CallResetPasswordSendAPI({ email: email });
     promise.then((res) => {
       if (!res) return;
-      if (res.error) {
+      if (res.status !== 200) {
         this.setState({
-          errMessage: res.error.message,
+          errMessage: res.body.error.message,
           messageUnderBox: "An error has occured",
         });
       } else {

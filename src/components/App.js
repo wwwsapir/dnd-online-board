@@ -487,14 +487,13 @@ class App extends Component {
     const promiseGet = CallGetGameDataAPI(authToken);
     promiseGet.then((resGet) => {
       if (!resGet) return;
-      const apiCall = resGet.error
-        ? CallSaveNewGameDataAPI
-        : CallUpdateGameDataAPI;
+      const apiCall =
+        resGet.status !== 200 ? CallSaveNewGameDataAPI : CallUpdateGameDataAPI;
       const promisePost = apiCall(body_object, authToken);
       promisePost.then((resPost) => {
         if (!resPost) return;
-        if (resPost.error) {
-          console.error(resPost.error.message);
+        if (resPost.status !== 200) {
+          console.error(resPost.body.error.message);
         } else {
           this.showTempMessage("Game Saved Sucessfully!", 1500);
         }
@@ -527,10 +526,10 @@ class App extends Component {
     const promise = CallGetGameDataAPI(this.state.authToken);
     promise.then((res) => {
       if (!res) return;
-      if (res.error) {
-        console.error(res.error.message);
+      if (res.status !== 200) {
+        console.error(res.body.error.message);
       } else {
-        this.setStateFromSavedGameData(res.gameState);
+        this.setStateFromSavedGameData(res.body.gameState);
       }
     });
   };

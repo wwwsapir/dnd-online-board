@@ -55,10 +55,12 @@ const sendRequest = async (
   if (authToken) {
     req.headers["auth-token"] = authToken;
   }
-  console.debug("sending: ", req);
+  console.debug("sending: ", req, url);
   try {
-    const response = await fetch(url, req);
-    return response.json();
+    const res = await fetch(url, req);
+    const data = await res.json();
+    console.log({ status: res.status, body: data });
+    return { status: res.status, body: data };
   } catch (err) {
     console.error(
       "Error with request " + method + " to url " + url,

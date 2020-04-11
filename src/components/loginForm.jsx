@@ -19,11 +19,11 @@ class LoginForm extends Component {
 
     promise.then((res) => {
       if (!res) return;
-      if (res.error) {
-        this.setState({ errorMessage: res.error.message });
+      if (res.status !== 200) {
+        this.setState({ errorMessage: res.body.error.message });
       } else {
         this.setState({ toGameMenu: true });
-        onLogin(res.userName, res.authToken);
+        onLogin(res.body.userName, res.body.authToken);
       }
     });
   };

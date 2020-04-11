@@ -1,6 +1,5 @@
 Continue: Solve 2 bugs:
-1. Don't enable userMenu without a user - this can happen when "Back" is pressed.
-2. Change response checks to checking status rather than if res.error exists.
+1. Change response checks to checking status rather than if res.error exists.
 
 Version 0.0:
 1. Characters creation toolbar. + Roll dice. - Done

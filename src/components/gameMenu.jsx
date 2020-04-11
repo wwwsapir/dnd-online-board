@@ -39,7 +39,7 @@ class GameMenu extends Component {
     const promise = CallGetGameDataAPI(authToken);
     promise.then((res) => {
       if (!res || !_gameMenuMounted) return;
-      if (res.error) {
+      if (res.status !== 200) {
         this.setState({
           continueGameText: "No Saved Game",
         });

@@ -20,8 +20,8 @@ class RegistrationForm extends Component {
 
     promise.then((res) => {
       if (!res) return;
-      if (res.error) {
-        this.setState({ errorMessage: res.error.message });
+      if (res.status !== 200) {
+        this.setState({ errorMessage: res.body.error.message });
       } else {
         this.setState({ toLogin: true });
         onRegistered();

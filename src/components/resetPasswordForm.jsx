@@ -38,8 +38,11 @@ class ResetPasswordForm extends Component {
     const promise = CallCheckPasswordTokenMatches(this.state.authToken);
     promise.then((res) => {
       if (!res) return;
-      if (res.error) {
-        this.setState({ errorMessage: res.error.message, isLoading: false });
+      if (res.status !== 200) {
+        this.setState({
+          errorMessage: res.body.error.message,
+          isLoading: false,
+        });
       } else {
         this.setState({ tokenValid: true, isLoading: false });
       }
@@ -67,8 +70,8 @@ class ResetPasswordForm extends Component {
 
     promise.then((res) => {
       if (!res) return;
-      if (res.error) {
-        this.setState({ errorMessage: res.error.message });
+      if (res.status !== 200) {
+        this.setState({ errorMessage: res.body.error.message });
       } else {
         this.setState({ toLogin: true });
         onPasswordReset();
