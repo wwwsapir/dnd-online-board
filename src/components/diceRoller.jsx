@@ -6,7 +6,7 @@ class DiceRoller extends Component {
   state = {
     diceType: 4,
     diceCount: 1,
-    resultSum: undefined
+    resultSum: undefined,
   };
 
   handleRoll = () => {
@@ -21,14 +21,11 @@ class DiceRoller extends Component {
   render() {
     const { diceCount, resultSum } = this.state;
     return (
-      <ul
-        className="nav nav-tabs flex-column text-white bg-dark row w-100"
-        style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
-      >
-        <h4 className="col mb-4">
+      <ul className="nav nav-tabs flex-column bg-dark row w-100 MenuUl">
+        <h4 className="mb-4">
           <span className="creatorHeader">Roll Dice</span>
         </h4>
-        <li className="nav-item col">
+        <li className="nav-item">
           <label className="mr-3 mb-2 radio control-label">Dice type:</label>
           <span>
             <label className="ml-1 mr-2 radio control-label" htmlFor="d-4">
@@ -39,7 +36,7 @@ class DiceRoller extends Component {
                 value={4}
                 id="d-4"
                 defaultChecked
-                onChange={event =>
+                onChange={(event) =>
                   this.setState({ diceType: event.target.value })
                 }
               />
@@ -52,7 +49,7 @@ class DiceRoller extends Component {
                 name="DieType"
                 value={6}
                 id="d-6"
-                onChange={event =>
+                onChange={(event) =>
                   this.setState({ diceType: event.target.value })
                 }
               />
@@ -65,7 +62,7 @@ class DiceRoller extends Component {
                 name="DieType"
                 value={8}
                 id="d-8"
-                onChange={event =>
+                onChange={(event) =>
                   this.setState({ diceType: event.target.value })
                 }
               />
@@ -78,7 +75,7 @@ class DiceRoller extends Component {
                 name="DieType"
                 value={10}
                 id="d-10"
-                onChange={event =>
+                onChange={(event) =>
                   this.setState({ diceType: event.target.value })
                 }
               />
@@ -91,7 +88,7 @@ class DiceRoller extends Component {
                 name="DieType"
                 value={12}
                 id="d-12"
-                onChange={event =>
+                onChange={(event) =>
                   this.setState({ diceType: event.target.value })
                 }
               />
@@ -104,7 +101,7 @@ class DiceRoller extends Component {
                 name="DieType"
                 value={20}
                 id="d-20"
-                onChange={event =>
+                onChange={(event) =>
                   this.setState({ diceType: event.target.value })
                 }
               />
@@ -117,7 +114,7 @@ class DiceRoller extends Component {
                 name="DieType"
                 value={100}
                 id="d-100"
-                onChange={event =>
+                onChange={(event) =>
                   this.setState({ diceType: event.target.value })
                 }
               />
@@ -126,21 +123,21 @@ class DiceRoller extends Component {
           </span>
         </li>
         <li className="nav-item">
-          <label className="mr-1 col-md-5">How many dice? </label>
+          <label className="mr-1 col-md-5 p-0">How many dice? </label>
           <input
-            className="input-group-sm mb-3 form-control col-md-5 d-inline"
+            className="input-group-sm mb-3 form-control col-md-5 d-inline mt-2"
             id="diceCount"
             type="number"
             step={1}
             min={1}
             max={200}
             value={diceCount}
-            onChange={event =>
+            onChange={(event) =>
               this.setState({ diceCount: event.target.value.replace(/\D/, "") })
             }
           />
         </li>
-        <li className="nav-item col">
+        <li className="nav-item">
           <button
             onClick={this.handleRoll}
             className="btn btn-primary form-control mt-1 col-md-3"
