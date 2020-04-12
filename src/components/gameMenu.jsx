@@ -101,7 +101,7 @@ class GameMenu extends Component {
             Start a New Game
           </button>
         </li>
-        <li className="mt-2">
+        <li className="mt-2 mb-3">
           <a className="float-right" href="#" onClick={this.handleLogOutClick}>
             Log Out
           </a>
