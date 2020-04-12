@@ -20,7 +20,7 @@ import ResetPasswordForm from "./resetPasswordForm";
 import ExitWarningPopUp from "./exitWarningPopUp";
 import { Persist } from "react-persist";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
-import "./login.css";
+import "./home.css";
 
 class App extends Component {
   state = {
@@ -693,13 +693,10 @@ class App extends Component {
 
   renderNotLoggedInError() {
     return (
-      <div className="LoginScreen">
-        <div className="LoginScreenContent">
-          <div
-            className="nav nav-tabs flex-column text-white bg-dark row w-100"
-            style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
-          >
-            <h4 className="col mb-4">
+      <div className="HomeBg">
+        <div className="HomeBgContent">
+          <ul className="MenuUl bg-dark w-100">
+            <h4 className="mb-4">
               <span className="creatorHeader">Hey... unknown user!</span>
               <br></br>
               <br></br>
@@ -707,10 +704,8 @@ class App extends Component {
               <br></br>
               Please log in to play.
             </h4>
-            <Link to="/home/login" className="col">
-              Login Here
-            </Link>
-          </div>
+            <Link to="/home/login">Login Here</Link>
+          </ul>
         </div>
       </div>
     );

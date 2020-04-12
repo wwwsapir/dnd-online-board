@@ -1,5 +1,5 @@
 Continue:
-1. Add "what is dnd online board" page to the welcome screen.
+1. Refactor menus css design.
 
 Version 0.0 - Done!
 1. Characters creation toolbar. + Roll dice. - Done

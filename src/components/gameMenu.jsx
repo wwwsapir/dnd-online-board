@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Redirect, Link } from "react-router-dom";
 import { CallGetGameDataAPI } from "../apiUtils";
-import "./login.css";
+import "./home.css";
 
 let _gameMenuMounted = false;
 
@@ -59,17 +59,17 @@ class GameMenu extends Component {
   };
 
   handleStartNewGameButtonClick = () => {
-    if (this.props.gameDataExists) {
+    if (this.state.gameDataExists) {
       this.setState({ showWarning: true });
     } else {
       this.beginNewGame();
     }
   };
 
-  beginNewGame() {
+  beginNewGame = () => {
     this.setState({ toMap: true });
     this.props.onStartANewGame();
-  }
+  };
 
   handleContinueGameClick = () => {
     this.setState({ toMap: true });
@@ -81,39 +81,39 @@ class GameMenu extends Component {
     const { showWarning, gameDataExists, continueGameText } = this.state;
     return (
       <Fragment>
-        <h4 className="col mb-4">
+        <h4 className="mb-4">
           <span className="creatorHeader">Hi, {userName}! Ready to play?</span>
         </h4>
-        <li className="nav-item">
+        <li>
           <button
             onClick={this.handleContinueGameClick}
-            className="btn btn-primary form-control mt-3 col"
+            className="btn btn-primary form-control mt-3"
             disabled={!gameDataExists}
           >
             {continueGameText}
           </button>
         </li>
-        <li className="nav-item">
+        <li>
           <button
             onClick={this.handleStartNewGameButtonClick}
-            className="btn btn-primary form-control mt-3 col"
+            className="btn btn-primary form-control mt-3"
           >
             Start a New Game
           </button>
         </li>
-        <li className="nav-item mt-2">
+        <li className="mt-2">
           <a className="float-right" href="#" onClick={this.handleLogOutClick}>
             Log Out
           </a>
         </li>
         {showWarning ? (
           <span>
-            <li className="nav-item mt-2">
+            <li className="mt-2">
               <h6>
                 Starting a new game will erase the last saved game, continue?
               </h6>
             </li>
-            <span className="inline-form">
+            <span className="inline-form row">
               <button
                 onClick={this.beginNewGame}
                 className="btn btn-danger form-control ml-3 mt-3 col-7 d-inline"
@@ -136,16 +136,14 @@ class GameMenu extends Component {
   renderNotLoggedInError() {
     return (
       <Fragment>
-        <h4 className="col mb-4">
+        <h4 className="mb-4">
           <span className="creatorHeader">Hey... unknown user!</span>
           <br></br>
           <br></br>
           Oops! You can't see the game menu if you're not logged in :) <br></br>
           Please log in to play.
         </h4>
-        <Link to="/home/login" className="col">
-          Login Here
-        </Link>
+        <Link to="/home/login">Login Here</Link>
       </Fragment>
     );
   }
@@ -161,11 +159,8 @@ class GameMenu extends Component {
     }
 
     return (
-      <div className="LoginScreenContent">
-        <ul
-          className="nav nav-tabs flex-column text-white bg-dark row w-100"
-          style={{ border: "8px double blue", fontSize: 15, padding: 25 }}
-        >
+      <div className="HomeBgContent">
+        <ul className="MenuUl bg-dark w-100">
           {authToken ? this.renderGameMenu() : this.renderNotLoggedInError()}
         </ul>
       </div>

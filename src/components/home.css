@@ -1,4 +1,4 @@
-.LoginScreen {
+.HomeBg {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -11,19 +11,10 @@
   background-size: cover;
 }
 
-.LoginScreenContent {
+.HomeBgContent {
   position: absolute;
   left: 30%;
   right: 30%;
-  top: 20%;
-  bottom: 20%;
-  margin: auto;
-}
-
-.UserAreaContent {
-  position: absolute;
-  left: 35%;
-  right: 35%;
   top: 20%;
   bottom: 20%;
   margin: auto;
@@ -36,4 +27,13 @@
   top: 5%;
   bottom: 20%;
   margin: auto;
+}
+
+.MenuUl {
+  border: 8px double blue;
+  font-size: 15;
+  padding: 25;
+  color: white;
+  list-style-type: none;
+  padding: 30px;
 }

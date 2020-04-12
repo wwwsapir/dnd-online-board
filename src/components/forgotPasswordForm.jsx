@@ -38,17 +38,14 @@ class ForgotPasswordForm extends Component {
   render() {
     const { email, errMessage, messageUnderBox } = this.state;
     return (
-      <div className="LoginScreenContent">
-        <ul
-          className="nav nav-tabs flex-column text-white bg-dark row w-100"
-          style={{ border: "8px double blue", fontSize: 15, padding: 25 }}
-        >
-          <h4 className="col mb-5">
+      <div className="HomeBgContent">
+        <ul className="MenuUl bg-dark w-100">
+          <h4 className="mb-5">
             <span className="creatorHeader">Reset Password</span>
           </h4>
-          <li className="nav-item">
+          <li>
             <input
-              className="input-group-sm form-control col"
+              className="input-group-sm form-control"
               id="email"
               value={email}
               placeholder="Email Address"
@@ -56,24 +53,24 @@ class ForgotPasswordForm extends Component {
               onChange={(event) => this.setState({ email: event.target.value })}
             />
           </li>
-          <li className="nav-item">
-            <label className="col">{messageUnderBox}</label>
+          <li>
+            <label>{messageUnderBox}</label>
           </li>
-          <li className="nav-item">
+          <li>
             <button
               onClick={this.handleSendButtonClick}
-              className="btn btn-primary form-control mt-3 col"
+              className="btn btn-primary form-control mt-3"
             >
               Send
             </button>
           </li>
-          <li className="nav-item mt-2">
+          <li className="mt-2 mb-4">
             <Link className="float-right" to="/home/login">
-              Back to login form
+              Back to log in
             </Link>
           </li>
           {errMessage ? (
-            <li className="nav-item col">
+            <li>
               <h4>
                 <span className="badge badge-danger">{errMessage}</span>
               </h4>

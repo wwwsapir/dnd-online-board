@@ -37,18 +37,15 @@ class RegistrationForm extends Component {
     }
 
     return (
-      <div className="LoginScreenContent">
+      <div className="HomeBgContent">
         <form onSubmit={this.handleRegisterFormSubmit}>
-          <ul
-            className="nav nav-tabs flex-column text-white bg-dark row w-100"
-            style={{ border: "8px double blue", fontSize: 15, padding: 25 }}
-          >
-            <h4 className="col mb-5">
+          <ul className="MenuUl bg-dark w-100">
+            <h4 className="mb-5">
               <span className="creatorHeader">New User Registration</span>
             </h4>
-            <li className="nav-item">
+            <li>
               <input
-                className="input-group-sm form-control col"
+                className="input-group-sm form-control"
                 id="userName"
                 value={userName}
                 placeholder="User Name"
@@ -58,9 +55,9 @@ class RegistrationForm extends Component {
                 }
               />
             </li>
-            <li className="nav-item">
+            <li>
               <input
-                className="input-group-sm form-control col mt-3"
+                className="input-group-sm form-control mt-3"
                 id="email"
                 value={email}
                 placeholder="Email Address"
@@ -70,9 +67,9 @@ class RegistrationForm extends Component {
                 }
               />
             </li>
-            <li className="nav-item">
+            <li>
               <input
-                className="input-group-sm form-control col mt-3"
+                className="input-group-sm form-control mt-3"
                 type="password"
                 id="password"
                 value={password}
@@ -83,21 +80,21 @@ class RegistrationForm extends Component {
                 }
               />
             </li>
-            <li className="nav-item">
+            <li>
               <button
                 type="submit"
-                className="btn btn-primary form-control mt-3 col"
+                className="btn btn-primary form-control mt-3"
               >
                 Register
               </button>
             </li>
-            <li className="nav-item mt-2">
+            <li className="mt-2 mb-4">
               <Link className="float-right" to="/home/login">
-                Cancel and back to login
+                Already registered? log in
               </Link>
             </li>
             {errorMessage ? (
-              <li className="nav-item col">
+              <li>
                 <h4>
                   <span className="badge badge-danger">{errorMessage}</span>
                 </h4>

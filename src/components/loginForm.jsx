@@ -36,25 +36,22 @@ class LoginForm extends Component {
     }
 
     return (
-      <div className="LoginScreenContent">
+      <div className="HomeBgContent">
         <form onSubmit={this.handleLoginFormSubmit}>
-          <ul
-            className="nav nav-tabs flex-column text-white bg-dark row w-100"
-            style={{ border: "8px double blue", fontSize: 15, padding: 25 }}
-          >
-            <h4 className="col mb-4">
+          <ul className="MenuUl bg-dark w-100">
+            <h4 className="mb-4">
               <span className="creatorHeader">
                 Welcome to D&amp;D Online Map
               </span>
             </h4>
-            <li className="nav-item mb-3">
+            <li className="mb-3">
               <Link to="/home/about">
                 <h5>What is D&amp;D Online Map?</h5>
               </Link>
             </li>
-            <li className="nav-item">
+            <li>
               <input
-                className="input-group-sm form-control col"
+                className="input-group-sm form-control"
                 id="email"
                 value={email}
                 placeholder="Email Address"
@@ -64,9 +61,9 @@ class LoginForm extends Component {
                 }
               />
             </li>
-            <li className="nav-item">
+            <li>
               <input
-                className="input-group-sm form-control col mt-3"
+                className="input-group-sm form-control mt-3"
                 type="password"
                 id="password"
                 value={password}
@@ -77,22 +74,22 @@ class LoginForm extends Component {
                 }
               />
             </li>
-            <li className="nav-item">
+            <li>
               <button
                 type="submit"
-                className="btn btn-primary form-control mt-3 col"
+                className="btn btn-primary form-control mt-3"
               >
-                Login
+                Log In
               </button>
             </li>
-            <li className="nav-item mt-2">
+            <li className="mt-2">
+              <Link to="/home/register">New user?</Link>
               <Link className="float-right" to="/home/forgot_password">
                 Forgot password?
               </Link>
-              <Link to="/home/register">New user?</Link>
             </li>
             {errorMessage ? (
-              <li className="nav-item col">
+              <li>
                 <h4>
                   <span className="badge badge-danger">{errorMessage}</span>
                 </h4>

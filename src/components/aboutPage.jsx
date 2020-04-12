@@ -7,14 +7,11 @@ class AboutPage extends Component {
   render() {
     return (
       <div className="AboutScreenContent">
-        <ul
-          className="nav nav-tabs flex-column text-white bg-dark row w-100"
-          style={{ border: "8px double blue", fontSize: 15, padding: 25 }}
-        >
-          <h4 className="col mb-5">
+        <ul className="MenuUl bg-dark w-100">
+          <h4 className="mb-5">
             <span className="creatorHeader">What is D&amp;D Online Map?</span>
           </h4>
-          <p className="col p-0">
+          <p>
             <h4>What is D&amp;D?</h4>
             <label>
               D&amp;D stands for Dungeons &amp; Dragons. It's a fantasy tabletop
@@ -27,11 +24,11 @@ class AboutPage extends Component {
               and which fail.
             </label>
           </p>
-          <p className="col p-0">
+          <p>
             <h4>What is a D&amp;D Map?</h4>
             <label>
               When a fight happens, there's a strict system that determines
-              which character goes first, how far is can walk in one turn, and
+              which character goes first, how far it can walk in one turn, and
               if the actions succeed. This is done with the help of a map in
               which every square is 5 feet long, and different types of dice to
               determine which attacks succeed and how much damage is done.
@@ -48,7 +45,7 @@ class AboutPage extends Component {
                 and use our online map site to view the same world and take
                 character actions.
               </label>
-              <ul className="pl-3">
+              <ul className="pl-3 mt-2">
                 <h5 className="font-weight-bold">The game includes:</h5>
                 <li>
                   Chacacters and monsters that can be placed and move on the
@@ -68,14 +65,14 @@ class AboutPage extends Component {
                 </li>
                 <br></br>
                 <Link to="/home/register">
-                  <h5>This sounds so cool! I want to play!</h5>
+                  <h4>This sounds so cool! I want to play!</h4>
                 </Link>
               </ul>
             </p>
             <div className="col-6">
               <img
                 src={GAMEPLAY_IMG_PATH}
-                alt="gameplay image"
+                alt="gameplay"
                 style={{
                   width: "100%",
                   height: "auto",
