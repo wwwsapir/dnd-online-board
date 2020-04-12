@@ -75,10 +75,7 @@ class CharacterCreator extends Component {
       missingFields,
     } = this.state;
     return (
-      <ul
-        className="nav nav-tabs flex-column text-white bg-dark row w-100"
-        style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
-      >
+      <ul className="nav nav-tabs flex-column bg-dark row w-100 MenuUl p-20">
         <h4 className="col mb-5">
           <span className="creatorHeader">Add a Spell Circle</span>
         </h4>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./PopUp.css";
+import "./popUp.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class TempMessage extends Component {

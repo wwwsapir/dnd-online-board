@@ -72,15 +72,14 @@ class CharacterCreator extends Component {
     const { characterName, height, width, avatarFile } = this.state;
     return (
       <ul
-        className="nav nav-tabs flex-column text-white bg-dark row w-100"
-        style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
+        className="nav nav-tabs flex-column bg-dark row w-100 p-20 MenuUl"
       >
-        <h4 className="col mb-4">
-          <span className="creatorHeader">Add a New Character</span>
+        <h4 className="mb-4">
+          <span className="creatorHeader ml-2">Add a New Character</span>
         </h4>
         <li className="nav-item">
           <input
-            className="input-group-sm form-control col-11 mb-3"
+            className="input-group-sm form-control col-11 mb-3 ml-2"
             id="characterName"
             value={characterName}
             placeholder="Character name"
@@ -98,7 +97,7 @@ class CharacterCreator extends Component {
               </label>
               <input
                 className="input-group-sm form-control col-4 d-inline"
-                style={{ maxWidth: "264px" }}
+                style={{ maxWidth: "254px" }}
                 id="width"
                 type="number"
                 step={MIN_CHARACTER_SIZE_SQUARES}
@@ -115,7 +114,7 @@ class CharacterCreator extends Component {
               </label>
               <input
                 className="input-group-sm form-control col-4 d-inline"
-                style={{ maxWidth: "264px" }}
+                style={{ maxWidth: "254px" }}
                 id="height"
                 type="number"
                 step={MIN_CHARACTER_SIZE_SQUARES}
@@ -202,7 +201,7 @@ class CharacterCreator extends Component {
           <span className="inline-form">
             <button
               onClick={this.handleCreateButtonClick}
-              className="btn btn-primary form-control mt-3 col-8 d-inline"
+              className="btn btn-primary form-control mt-3 col-8 d-inline ml-2"
             >
               Create!
             </button>

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import SpellCircleCreator from "./spellCircleCreator";
-import "./PopUp.css";
+import "./popUp.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class SpellCircleCreatorPopUp extends Component {
-  handleSpellCircleCreationClick = stateData => {
+  handleSpellCircleCreationClick = (stateData) => {
     this.props.closePopup();
     this.props.onSpellCircleCreation(stateData);
   };

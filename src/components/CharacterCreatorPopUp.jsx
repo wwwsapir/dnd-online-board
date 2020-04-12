@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import CharacterCreator from "./characterCreator";
-import "./PopUp.css";
+import "./popUp.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class CharacterCreatorPopUp extends Component {
-  handleCharacterCreationClick = stateData => {
+  handleCharacterCreationClick = (stateData) => {
     this.props.closePopup();
     this.props.onCharacterCreation(stateData);
   };
