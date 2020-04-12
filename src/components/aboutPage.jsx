@@ -45,7 +45,7 @@ class AboutPage extends Component {
               <label>
                 Instead of driving and physically meeting, you can play online
                 with your friends. Just connect to an online conversation app,
-                and use our online map site to view the same world and make
+                and use our online map site to view the same world and take
                 character actions.
               </label>
               <ul className="pl-3">
