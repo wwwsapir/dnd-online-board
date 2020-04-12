@@ -1,6 +1,3 @@
-Continue:
-1. Refactor menus css design.
-
 Version 0.0 - Done!
 1. Characters creation toolbar. + Roll dice. - Done
 2. The abiliy to move characters. - Done
@@ -13,6 +10,7 @@ Version 0.0 - Done!
 9. Reset password option - Done
 10. Save app state on refresh/close and open browser. - Done
 11. Make back and forward buttons work. Handle paths system. - Done
+12. Deploy!
 
 Version 0.1:
 1. Example maps.
@@ -33,3 +31,5 @@ Further versions:
 9. For large maps - the option to zoo, out on all of it.
 10. Handle flying characters (character above character in the same position).
 11. Enable spell circle centered in the center of a character and not a cell (different when the character is large).
+
+"build": "react-scripts build",
