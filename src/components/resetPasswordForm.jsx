@@ -5,6 +5,7 @@ import {
   CallCheckPasswordTokenMatches,
 } from "../apiUtils";
 import { Redirect } from "react-router-dom";
+import "./home.css";
 
 class ResetPasswordForm extends Component {
   state = {
@@ -81,11 +82,8 @@ class ResetPasswordForm extends Component {
 
   renderLoadingPage() {
     return (
-      <ul
-        className="nav nav-tabs flex-column text-white bg-dark row w-100 h-100"
-        style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
-      >
-        <h4 className="col mb-5">
+      <ul className="MenuUl bg-dark w-100 h-100 row">
+        <h4 className="mb-5">
           <span className="creatorHeader">Page loading...</span>
         </h4>
       </ul>
@@ -94,11 +92,8 @@ class ResetPasswordForm extends Component {
 
   renderAccessDeniedPage() {
     return (
-      <ul
-        className="nav nav-tabs flex-column text-white align-text-top bg-dark row h-100 w-100"
-        style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
-      >
-        <li className="col md-5">
+      <ul className="MenuUl bg-dark w-100 h-100 row">
+        <li className="md-5">
           <h3 className="mb-5">
             <span className="creatorHeader">Access denied</span>
           </h3>
@@ -120,63 +115,59 @@ class ResetPasswordForm extends Component {
     }
 
     return (
-      <form
-        onSubmit={this.handleChangePasswordFormSubmit}
-        className="row bg-dark h-100"
-      >
-        <ul
-          className="nav nav-tabs flex-column text-white bg-dark col w-100 align-top"
-          style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
-        >
-          <h4 className="mb-5">
-            <span className="creatorHeader">D&amp;D Online Board</span>
-          </h4>
-          <h4>Reset Password</h4>
-          <span className="col-4 p-0">
-            <li className="nav-item">
-              <input
-                className="input-group-sm form-control mt-3"
-                type="password"
-                id="newPassword"
-                value={newPassword}
-                placeholder="New Password"
-                required
-                onChange={(event) =>
-                  this.setState({ newPassword: event.target.value })
-                }
-              />
-            </li>
-            <li className="nav-item">
-              <input
-                className="input-group-sm form-control mt-3"
-                type="password"
-                id="confirmPassword"
-                value={confirmPassword}
-                placeholder="Confirm Password"
-                required
-                onChange={(event) =>
-                  this.setState({ confirmPassword: event.target.value })
-                }
-              />
-            </li>
-            <li className="nav-item">
-              <button
-                type="submit"
-                className="btn btn-primary form-control mt-3"
-              >
-                Submit
-              </button>
-            </li>
-            {errorMessage ? (
-              <li className="nav-item col mt-4">
-                <h4>
-                  <span className="badge badge-danger">{errorMessage}</span>
-                </h4>
+      <div className="HomeBg">
+        <div className="HomeBgContent">
+          <form onSubmit={this.handleChangePasswordFormSubmit}>
+            <ul className="MenuUl bg-dark w-100">
+              <h4 className="mb-5">
+                <span className="creatorHeader">D&amp;D Online Board</span>
+              </h4>
+              <h4>Reset Password</h4>
+              <li>
+                <input
+                  className="input-group-sm form-control mt-3"
+                  type="password"
+                  id="newPassword"
+                  value={newPassword}
+                  placeholder="New Password"
+                  required
+                  onChange={(event) =>
+                    this.setState({ newPassword: event.target.value })
+                  }
+                />
               </li>
-            ) : null}
-          </span>
-        </ul>
-      </form>
+              <li>
+                <input
+                  className="input-group-sm form-control mt-3"
+                  type="password"
+                  id="confirmPassword"
+                  value={confirmPassword}
+                  placeholder="Confirm Password"
+                  required
+                  onChange={(event) =>
+                    this.setState({ confirmPassword: event.target.value })
+                  }
+                />
+              </li>
+              <li>
+                <button
+                  type="submit"
+                  className="btn btn-primary form-control mt-3"
+                >
+                  Submit
+                </button>
+              </li>
+              {errorMessage ? (
+                <li className="nav-item col mt-4">
+                  <h4>
+                    <span className="badge badge-danger">{errorMessage}</span>
+                  </h4>
+                </li>
+              ) : null}
+            </ul>
+          </form>
+        </div>
+      </div>
     );
   }
 
