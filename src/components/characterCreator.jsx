@@ -4,12 +4,12 @@ import "./sideBar.css";
 import ImagePicker from "react-image-picker";
 import "react-image-picker/dist/index.css";
 import {
-  AVATAR_IMAGE_URLS,
+  AVATAR_IMG_URLS,
   MIN_CHARACTER_SIZE_SQUARES,
   MAX_CHARACTER_SIZE_SQUARES,
 } from "../constants";
 
-const avatarsList = Object.values(AVATAR_IMAGE_URLS);
+const avatarsList = Object.values(AVATAR_IMG_URLS);
 
 class CharacterCreator extends Component {
   state = {

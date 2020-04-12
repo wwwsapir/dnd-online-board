@@ -1,8 +1,10 @@
 import React from "react";
 
 const CHARACTER_IMAGES_PATH = process.env.PUBLIC_URL + "/images/characters/";
+const MAP_IMAGES_PATH = process.env.PUBLIC_URL + "/images/maps/";
+const MISC_IMAGES_PATH = process.env.PUBLIC_URL + "/images/misc/";
 
-export const AVATAR_IMAGE_URLS = {
+export const AVATAR_IMG_URLS = {
   ranger: CHARACTER_IMAGES_PATH + "ranger.png",
   rogue: CHARACTER_IMAGES_PATH + "rogue.png",
   sorcerer: CHARACTER_IMAGES_PATH + "sorcerer.png",
@@ -14,6 +16,9 @@ export const AVATAR_IMAGE_URLS = {
   balrog: CHARACTER_IMAGES_PATH + "balrog.png",
   alligator: CHARACTER_IMAGES_PATH + "alligator.png",
 };
+
+export const GAMEPLAY_IMG_PATH = MISC_IMAGES_PATH + "gameplay.png";
+export const DEFAULT_MAP_IMG_PATH = MAP_IMAGES_PATH + "default.jpg";
 
 export const MIN_CHARACTER_SIZE_SQUARES = 1;
 export const MAX_CHARACTER_SIZE_SQUARES = 6;

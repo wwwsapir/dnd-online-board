@@ -5,6 +5,7 @@ import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Route } from "react-router-dom";
+import { DEFAULT_MAP_IMG_PATH } from "./constants";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +16,7 @@ ReactDOM.render(
             cellSize={45}
             rowCount={15}
             colCount={15}
-            bgImageLink="https://dicegrimorium.com/wp-content/uploads/2019/07/ForestPathPublic-1024x1024.jpg"
+            bgImageLink={DEFAULT_MAP_IMG_PATH}
           />
         </Route>
       </BrowserRouter>
