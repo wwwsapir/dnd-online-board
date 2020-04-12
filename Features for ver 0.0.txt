@@ -1,5 +1,6 @@
-Continue: Solve 1 bug:
-1. Photos location - change because google drive sharing is not stable.
+Continue:
+1. Make map image local as well.
+2. Add "what is dnd online board" page to the welcome screen.
 
 Version 0.0 - Done!
 1. Characters creation toolbar. + Roll dice. - Done

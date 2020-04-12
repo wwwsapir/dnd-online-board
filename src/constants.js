@@ -12,6 +12,7 @@ export const AVATAR_IMAGE_URLS = {
   dragon: CHARACTER_IMAGES_PATH + "dragon.png",
   beetle: CHARACTER_IMAGES_PATH + "beetle.png",
   balrog: CHARACTER_IMAGES_PATH + "balrog.png",
+  alligator: CHARACTER_IMAGES_PATH + "alligator.png",
 };
 
 export const MIN_CHARACTER_SIZE_SQUARES = 1;
