@@ -5,6 +5,7 @@ import LoginForm from "./loginForm";
 import GameMenu from "./gameMenu";
 import ForgotPasswordForm from "./forgotPasswordForm";
 import RegistrationForm from "./registrationForm";
+import AboutPage from "./aboutPage";
 import { Route, Redirect, Switch } from "react-router-dom";
 
 class WelcomeScreen extends Component {
@@ -22,34 +23,35 @@ class WelcomeScreen extends Component {
 
     return (
       <div className="LoginScreen">
-        <div className="LoginScreenContent">
-          <Switch>
-            <Redirect
-              exact
-              from="/home"
-              to={authToken ? "/home/game_menu" : "/home/login"}
+        <Switch>
+          <Redirect
+            exact
+            from="/home"
+            to={authToken ? "/home/game_menu" : "/home/login"}
+          />
+          <Route path="/home/game_menu">
+            <GameMenu
+              onContinueSavedGame={onContinueSavedGame}
+              onStartANewGame={onNewGame}
+              onLogOut={onLogOut}
+              userName={userName}
+              authToken={authToken}
+              cancelRedirectFromMap={cancelRedirectFromMap}
             />
-            <Route path="/home/game_menu">
-              <GameMenu
-                onContinueSavedGame={onContinueSavedGame}
-                onStartANewGame={onNewGame}
-                onLogOut={onLogOut}
-                userName={userName}
-                authToken={authToken}
-                cancelRedirectFromMap={cancelRedirectFromMap}
-              />
-            </Route>
-            <Route path="/home/forgot_password">
-              <ForgotPasswordForm />
-            </Route>
-            <Route path="/home/register">
-              <RegistrationForm onRegistered={onRegisteredNewUser} />
-            </Route>
-            <Route path="/home/login">
-              <LoginForm onLogin={onLogIn} />
-            </Route>
-          </Switch>
-        </div>
+          </Route>
+          <Route path="/home/forgot_password">
+            <ForgotPasswordForm />
+          </Route>
+          <Route path="/home/about">
+            <AboutPage />
+          </Route>
+          <Route path="/home/register">
+            <RegistrationForm onRegistered={onRegisteredNewUser} />
+          </Route>
+          <Route path="/home/login">
+            <LoginForm onLogin={onLogIn} />
+          </Route>
+        </Switch>
       </div>
     );
   }

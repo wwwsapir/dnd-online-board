@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Redirect, Link } from "react-router-dom";
 import { CallGetGameDataAPI } from "../apiUtils";
+import "./login.css";
 
 let _gameMenuMounted = false;
 
@@ -160,12 +161,14 @@ class GameMenu extends Component {
     }
 
     return (
-      <ul
-        className="nav nav-tabs flex-column text-white bg-dark row w-100"
-        style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
-      >
-        {authToken ? this.renderGameMenu() : this.renderNotLoggedInError()}
-      </ul>
+      <div className="LoginScreenContent">
+        <ul
+          className="nav nav-tabs flex-column text-white bg-dark row w-100"
+          style={{ border: "8px double blue", fontSize: 15, padding: 25 }}
+        >
+          {authToken ? this.renderGameMenu() : this.renderNotLoggedInError()}
+        </ul>
+      </div>
     );
   }
 }

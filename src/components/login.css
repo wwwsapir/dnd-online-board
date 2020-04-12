@@ -28,3 +28,12 @@
   bottom: 20%;
   margin: auto;
 }
+
+.AboutScreenContent {
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  top: 5%;
+  bottom: 20%;
+  margin: auto;
+}

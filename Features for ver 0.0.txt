@@ -1,6 +1,5 @@
 Continue:
-1. Make map image local as well.
-2. Add "what is dnd online board" page to the welcome screen.
+1. Add "what is dnd online board" page to the welcome screen.
 
 Version 0.0 - Done!
 1. Characters creation toolbar. + Roll dice. - Done
