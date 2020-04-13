@@ -20,7 +20,9 @@ class GameMenu extends Component {
 
   componentDidMount() {
     _gameMenuMounted = true;
-    this.checkForExistingGameData(this.props.authToken);
+    if (this.state && this.props.authToken) {
+      this.checkForExistingGameData(this.props.authToken);
+    }
   }
 
   componentWillUnmount() {
