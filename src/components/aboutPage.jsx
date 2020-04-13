@@ -25,24 +25,24 @@ class AboutPage extends Component {
             </label>
           </p>
           <p>
-            <h4>What is a D&amp;D Map?</h4>
+            <h4>What is a D&amp;D Board?</h4>
             <label>
               When a fight happens, there's a strict system that determines
               which character goes first, how far it can walk in one turn, and
-              if the actions succeed. This is done with the help of a map in
-              which every square is 5 feet long, and different types of dice to
-              determine which attacks succeed and how much damage is done.
+              if the actions succeed. This is done with the help of a map board
+              in which every square is 5 feet long, and different types of dice
+              to determine which attacks succeed and how much damage is done.
               Usually the map is a physical board with character miniatures as
               pawns, and the participants meet together to play.
             </label>
           </p>
           <div className="row">
             <p className="col-6">
-              <h4>What can I do in D&amp;D Online Map?</h4>
+              <h4>What can I do in D&amp;D Online Board?</h4>
               <label>
                 Instead of driving and physically meeting, you can play online
                 with your friends. Just connect to an online conversation app,
-                and use our online map site to view the same world and take
+                and use our online board site to view the same world and take
                 character actions.
               </label>
               <ul className="pl-3 mt-2">

@@ -41,12 +41,12 @@ class LoginForm extends Component {
           <ul className="MenuUl bg-dark w-100">
             <h4 className="mb-4">
               <span className="creatorHeader">
-                Welcome to D&amp;D Online Map
+                Welcome to D&amp;D Online Board
               </span>
             </h4>
             <li className="mb-3">
               <Link to="/home/about">
-                <h5>What is D&amp;D Online Map?</h5>
+                <h5>What is D&amp;D Online Board?</h5>
               </Link>
             </li>
             <li>
