@@ -16,7 +16,7 @@ class ActionsMenu extends Component {
     } = this.props;
     return (
       <ul
-        className="nav nav-tabs flex-column bg-dark row w-100 MenuUl"
+        className="nav nav-tabs flex-column bg-dark row w-100 MenuUl ml-1"
       >
         <h4 className="mb-3">
           <span className="creatorHeader">Actions</span>

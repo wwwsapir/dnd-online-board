@@ -21,7 +21,7 @@ class DiceRoller extends Component {
   render() {
     const { diceCount, resultSum } = this.state;
     return (
-      <ul className="nav nav-tabs flex-column bg-dark row w-100 MenuUl">
+      <ul className="nav nav-tabs flex-column bg-dark row w-100 MenuUl ml-1">
         <h4 className="mb-4">
           <span className="creatorHeader">Roll Dice</span>
         </h4>

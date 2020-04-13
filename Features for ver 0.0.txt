@@ -16,6 +16,7 @@ Version 0.1:
 1. Example maps.
 2. Maps uploading.
 3. Add option to delete users.
+4. Add "zoom" meter on the side.
 
 Further versions:
 -1. Characters list (turns) - when hover over character in the list, the character will be marked with a colorful border.
