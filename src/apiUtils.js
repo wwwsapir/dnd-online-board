@@ -34,7 +34,8 @@ export const CallUpdateGameDataAPI = (gameState, authToken) => {
   return sendRequest("/gameData", "PATCH", gameState, authToken);
 };
 
-export const API_URL = "http://localhost:9000";
+export const API_URL_DEV = "http://localhost:9000";
+export const API_URL = "https://dnd-online-board.herokuapp.com";
 
 const createRequest = (method, bodyObject) => {
   return {
@@ -58,6 +59,7 @@ const sendRequest = async (
   console.debug("sending: ", req, url);
   try {
     const res = await fetch(url, req);
+    console.log("result:", res);
     const data = await res.json();
     console.debug("response: ", { status: res.status, body: data });
     return { status: res.status, body: data };
@@ -66,7 +68,8 @@ const sendRequest = async (
       "Error with request " + method + " to url " + url,
       "body:",
       bodyObject,
-      err.message
+      err.message,
+      err.stack ? err.stack : null
     );
   }
 };
