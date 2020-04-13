@@ -29,6 +29,15 @@
   margin: auto;
 }
 
+.GameMenuBgContent {
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  top: 20%;
+  bottom: 20%;
+  margin: auto;
+}
+
 .MenuUl {
   border: 8px double blue;
   font-size: 15;

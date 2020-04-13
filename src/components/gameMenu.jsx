@@ -159,7 +159,7 @@ class GameMenu extends Component {
     }
 
     return (
-      <div className="HomeBgContent">
+      <div className="GameMenuBgContent">
         <ul className="MenuUl bg-dark w-100">
           {authToken ? this.renderGameMenu() : this.renderNotLoggedInError()}
         </ul>
