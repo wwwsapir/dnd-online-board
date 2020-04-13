@@ -1,8 +1,8 @@
 {
-  "homepage": "http://wwwsapir.github.io/dnd-online-board",
+  "homepage": ".",
   "name": "dnd-online-board",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "engines": {
     "npm": "6.13.4",
     "node": "12.16.1"
