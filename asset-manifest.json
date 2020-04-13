@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/dnd-online-board/static/css/main.7e0d452b.chunk.css",
+    "main.css": "/dnd-online-board/static/css/main.32f426f1.chunk.css",
     "main.js": "/dnd-online-board/static/js/main.79152911.chunk.js",
     "main.js.map": "/dnd-online-board/static/js/main.79152911.chunk.js.map",
     "runtime-main.js": "/dnd-online-board/static/js/runtime-main.fe086ff1.js",
@@ -9,10 +9,10 @@
     "static/js/2.1c972ba2.chunk.js": "/dnd-online-board/static/js/2.1c972ba2.chunk.js",
     "static/js/2.1c972ba2.chunk.js.map": "/dnd-online-board/static/js/2.1c972ba2.chunk.js.map",
     "index.html": "/dnd-online-board/index.html",
-    "precache-manifest.48afd63ce8dd013050a3929c3a8bb8ad.js": "/dnd-online-board/precache-manifest.48afd63ce8dd013050a3929c3a8bb8ad.js",
+    "precache-manifest.f680552bd3dfbc5d6fdfbf01819f90b9.js": "/dnd-online-board/precache-manifest.f680552bd3dfbc5d6fdfbf01819f90b9.js",
     "service-worker.js": "/dnd-online-board/service-worker.js",
     "static/css/2.86f50a85.chunk.css.map": "/dnd-online-board/static/css/2.86f50a85.chunk.css.map",
-    "static/css/main.7e0d452b.chunk.css.map": "/dnd-online-board/static/css/main.7e0d452b.chunk.css.map",
+    "static/css/main.32f426f1.chunk.css.map": "/dnd-online-board/static/css/main.32f426f1.chunk.css.map",
     "static/js/2.1c972ba2.chunk.js.LICENSE.txt": "/dnd-online-board/static/js/2.1c972ba2.chunk.js.LICENSE.txt",
     "static/media/index.css": "/dnd-online-board/static/media/checkbcd1a436590360ed53ac2f46c76e43e4.bcd1a436.png"
   },
@@ -20,7 +20,7 @@
     "static/js/runtime-main.fe086ff1.js",
     "static/css/2.86f50a85.chunk.css",
     "static/js/2.1c972ba2.chunk.js",
-    "static/css/main.7e0d452b.chunk.css",
+    "static/css/main.32f426f1.chunk.css",
     "static/js/main.79152911.chunk.js"
   ]
 }
