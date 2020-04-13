@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/dnd-online-board/precache-manifest.e0ebf51c891ff8da20b3af8a5fee1e37.js"
+  "/dnd-online-board/precache-manifest.bb50ac47594e9e0aa140fc1cd7acd323.js"
 );
 
 self.addEventListener('message', (event) => {
