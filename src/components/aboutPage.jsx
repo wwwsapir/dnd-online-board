@@ -9,7 +9,7 @@ class AboutPage extends Component {
       <div className="AboutScreenContent">
         <ul className="MenuUl bg-dark w-100">
           <h4 className="mb-5">
-            <span className="creatorHeader">What is D&amp;D Online Map?</span>
+            <span className="creatorHeader">What is D&amp;D Online Board?</span>
           </h4>
           <p>
             <h4>What is D&amp;D?</h4>
