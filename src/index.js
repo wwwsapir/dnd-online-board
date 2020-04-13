@@ -4,13 +4,13 @@ import "./index.css";
 import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Route } from "react-router-dom";
+import { HashRouter, Route } from "react-router-dom";
 import { DEFAULT_MAP_IMG_PATH } from "./constants";
 
 ReactDOM.render(
   <React.StrictMode>
     <div className="container-fluid DNDMapContainer">
-      <BrowserRouter>
+      <HashRouter>
         <Route path="/">
           <App
             cellSize={45}
@@ -19,7 +19,7 @@ ReactDOM.render(
             bgImageLink={DEFAULT_MAP_IMG_PATH}
           />
         </Route>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   </React.StrictMode>,
   document.getElementById("root")
