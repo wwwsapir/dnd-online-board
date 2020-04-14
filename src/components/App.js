@@ -58,6 +58,7 @@ class App extends Component {
     toGameMenu: false,
     updating: false,
     showPlayerLinkPopUp: false,
+    gameMaster: true,
   };
 
   constructor(props) {
@@ -228,10 +229,12 @@ class App extends Component {
   deleteCharacter(charToDelete) {
     let characters = [...this.state.characters];
     characters = characters.filter((char) => char !== charToDelete);
-    this.setState({ characters });
-    if (characters.length === 0 && this.state.spellCircles.length === 0) {
-      this.toggleItemDeletionMode();
-    }
+    this.setState({ characters }, () => {
+      this.handleSaveGame();
+      if (characters.length === 0 && this.state.spellCircles.length === 0) {
+        this.toggleItemDeletionMode();
+      }
+    });
   }
 
   handleCharClick = (char) => {
@@ -265,10 +268,12 @@ class App extends Component {
     spellCircles = spellCircles.filter(
       (spellCircle) => spellCircle !== spellCircleToDelete
     );
-    this.setState({ spellCircles });
-    if (this.state.characters.length === 0 && spellCircles.length === 0) {
-      this.toggleItemDeletionMode();
-    }
+    this.setState({ spellCircles }, () => {
+      this.handleSaveGame();
+      if (this.state.characters.length === 0 && spellCircles.length === 0) {
+        this.toggleItemDeletionMode();
+      }
+    });
   }
 
   getSelectedCharCells(char) {
@@ -386,6 +391,7 @@ class App extends Component {
       window.location.href.split("/").includes("game")
     ) {
       // player mode (/game route)
+      this.setState({ gameMaster: false });
       const authToken = this.getAuthTokenFromParams();
       if (authToken) {
         this.setState({ authToken });
@@ -462,9 +468,6 @@ class App extends Component {
 
   toggleItemDeletionMode = () => {
     const { itemDeletionModeOn, selectedChar } = this.state;
-    if (itemDeletionModeOn) {
-      this.handleSaveGame();
-    }
     if (selectedChar) {
       this.setState({
         selectedChar: null,
@@ -616,7 +619,7 @@ class App extends Component {
     );
   }
 
-  renderSideBar() {
+  renderSideBar(gameMaster = true) {
     const { characters, spellCircles, itemDeletionModeOn } = this.state;
     return (
       <div className="SideBar col-3 bg-primary">
@@ -630,6 +633,7 @@ class App extends Component {
             itemDeletionModeOn={itemDeletionModeOn}
             onFinishDeletion={this.toggleItemDeletionMode}
             onExitToMenu={this.toggleExitWarningPopUp}
+            gameMaster={gameMaster}
           />
         </ErrorBoundary>
         <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
@@ -645,7 +649,7 @@ class App extends Component {
     return authToken;
   }
 
-  renderMapArea(gameMaster = true) {
+  renderMapArea() {
     const {
       rowCount,
       colCount,
@@ -663,9 +667,8 @@ class App extends Component {
       mapImage,
     } = this.state;
 
-    const map_width = gameMaster ? "col-9" : "col";
     return (
-      <div className={"MapArea h-100 p-0 " + map_width}>
+      <div className="MapArea h-100 p-0 col-9">
         <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
           <MapCanvas
             rowCount={rowCount}
@@ -702,6 +705,7 @@ class App extends Component {
       showSpellCircleCreatorPopup,
       showPlayerLinkPopUp,
       showExitWarningPopUp,
+      gameMaster,
     } = this.state;
     return (
       <Fragment>
@@ -721,7 +725,7 @@ class App extends Component {
             />
           </ErrorBoundary>
         ) : null}
-        {showPlayerLinkPopUp ? (
+        {showPlayerLinkPopUp && gameMaster ? (
           <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
             <PlayersLinkPopUp
               closePopup={this.togglePlayersLinkPopUp}
@@ -732,7 +736,7 @@ class App extends Component {
             />
           </ErrorBoundary>
         ) : null}
-        {showExitWarningPopUp ? (
+        {showExitWarningPopUp && gameMaster ? (
           <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
             <ExitWarningPopUp
               closePopup={this.toggleExitWarningPopUp}
@@ -766,12 +770,13 @@ class App extends Component {
   }
 
   renderMapMainScreen() {
+    const { gameMaster } = this.state;
     if (this.state.authToken) {
       return (
         <div className="row h-100 w-100 p-0">
           {this.renderMapArea()}
-          {this.renderSideBar()}
-          {this.renderPopUps()})
+          {this.renderSideBar(gameMaster)}
+          {this.renderPopUps(gameMaster)})
         </div>
       );
     } else {
@@ -790,11 +795,7 @@ class App extends Component {
           <Route path="/reset">{this.renderPasswordResetScreen()}</Route>
           <Route path="/map">{this.renderMapMainScreen()}</Route>
           <Route path="/home">{this.renderWelcomeScreen()}</Route>
-          <Route path="/game">
-            <div className="row h-100 w-100 p-0">
-              {this.renderMapArea(false)}
-            </div>
-          </Route>
+          <Route path="/game">{this.renderMapMainScreen()}</Route>
         </Switch>
         <Persist
           name="dnd-app"

@@ -47,6 +47,7 @@ class AboutPage extends Component {
               </label>
               <ul className="pl-3 mt-2">
                 <h5 className="font-weight-bold">The game includes:</h5>
+                <li>Simultaneous gameplay for multiple players/computers.</li>
                 <li>
                   Chacacters and monsters that can be placed and move on the
                   board.
@@ -60,8 +61,8 @@ class AboutPage extends Component {
                   the game.
                 </li>
                 <li>
-                  You can save your current progress and continue to play
-                  another day.
+                  Your progress is automatically saved, you can continue to play
+                  another time.
                 </li>
                 <br></br>
                 <Link to="/home/register">

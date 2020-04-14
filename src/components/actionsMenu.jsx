@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import "./sideBar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -13,6 +13,7 @@ class ActionsMenu extends Component {
       itemDeletionModeOn,
       onFinishDeletion,
       onExitToMenu,
+      gameMaster,
     } = this.props;
     return (
       <ul className="nav nav-tabs flex-column bg-dark row w-100 MenuUl ml-1">
@@ -56,22 +57,26 @@ class ActionsMenu extends Component {
                 Delete a Character / Circle
               </button>
             </li>
-            <li className="nav-item">
-              <button
-                onClick={onShowPlayersLink}
-                className="btn btn-primary form-control mt-3"
-              >
-                Show Link for Players
-              </button>
-            </li>
-            <li className="nav-item">
-              <button
-                onClick={onExitToMenu}
-                className="btn btn-primary form-control mt-3"
-              >
-                Exit to Menu
-              </button>
-            </li>
+            {gameMaster ? (
+              <Fragment>
+                <li className="nav-item">
+                  <button
+                    onClick={onShowPlayersLink}
+                    className="btn btn-primary form-control mt-3"
+                  >
+                    Show Link for Players
+                  </button>
+                </li>
+                <li className="nav-item">
+                  <button
+                    onClick={onExitToMenu}
+                    className="btn btn-primary form-control mt-3"
+                  >
+                    Exit to Menu
+                  </button>
+                </li>
+              </Fragment>
+            ) : null}
           </span>
         )}
       </ul>

@@ -13,12 +13,14 @@ Version 0.0 - Done!
 12. Deploy!
 
 Version 0.1:
-0. Game url that all players can use.
+0. Game url that all players can use. - Done
 1. Example maps.
 2. Maps uploading.
 3. Add option to delete users.
 4. Add "zoom" meter on the side.
 5. Drop-down list for spellCircle owners.
+6. "Turn off" game for players when game master exists.
+7. Players can only create one character.
 
 Further versions:
 -1. Characters list (turns) - when hover over character in the list, the character will be marked with a colorful border.
