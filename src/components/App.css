@@ -45,4 +45,7 @@
 .SideBar {
   border: blue 5px solid;
   padding: 0;
+  max-height: 99.5vh;
+  overflow-y: auto;
+  box-sizing: border-box;
 }

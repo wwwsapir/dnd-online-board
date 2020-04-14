@@ -1,4 +1,6 @@
 .HomeBg {
+  max-height: 100vh;
+  overflow-y: auto;
   position: fixed;
   width: 100%;
   height: 100%;
@@ -22,8 +24,8 @@
 
 .AboutScreenContent {
   position: absolute;
-  left: 20%;
-  right: 20%;
+  left: 17%;
+  right: 17%;
   top: 5%;
   bottom: 20%;
   margin: auto;
