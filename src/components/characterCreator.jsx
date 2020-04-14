@@ -218,7 +218,7 @@ class CharacterCreator extends Component {
           </span>
         </li>
         {this.state.missingFields ? (
-          <li className="nav-item col">
+          <li className="nav-item col mt-3">
             <h4>
               <span className="badge badge-danger">
                 Not all fields are filled/selected!

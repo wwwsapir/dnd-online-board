@@ -150,7 +150,7 @@ class CharacterCreator extends Component {
           </span>
         </li>
         {missingFields ? (
-          <li className="nav-item col">
+          <li className="nav-item col mt-3">
             <h4>
               <span className="badge badge-danger">
                 Not all fields are filled/selected!
@@ -159,7 +159,7 @@ class CharacterCreator extends Component {
           </li>
         ) : null}
         {isRadiusValid ? null : (
-          <li className="nav-item col">
+          <li className="nav-item col mt-3">
             <h4>
               <span className="badge badge-danger">
                 Radius value should be {MIN_SPELL_CIRCLE_RADIUS_FEET}-
