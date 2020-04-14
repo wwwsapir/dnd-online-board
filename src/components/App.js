@@ -557,14 +557,18 @@ class App extends Component {
       gameMaster: true,
       updating: true,
     });
-    const promise = CallEraseGameDataAPI(this.state.authToken);
-    promise.then((res) => {
-      if (!res) return;
+    const erasePromise = CallEraseGameDataAPI(this.state.authToken);
+    erasePromise.then((eraseRes) => {
+      if (!eraseRes) return;
       this.setState({ updating: false });
-      if (res.status !== 200) {
-        console.error(res.body.error.message);
-      } else {
+      if (
+        eraseRes.status === 200 ||
+        eraseRes.body.error.message == "Couldn't find game data to delete"
+      ) {
         this.initiateGame();
+        this.handleSaveGame();
+      } else {
+        console.debug(eraseRes.body.error.message);
       }
     });
   };
@@ -574,8 +578,11 @@ class App extends Component {
     const promise = CallGetGameDataAPI(this.state.authToken);
     promise.then((res) => {
       if (!res) return;
-      if (res.status !== 200) {
-        console.error(res.body.error.message);
+      if (
+        res.status !== 200 &&
+        res.body.error != "Couldn't find game data to retrieve"
+      ) {
+        console.debug(res.body.error.message);
       } else {
         if (
           !this.state.selectedChar &&
