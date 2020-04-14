@@ -21,6 +21,8 @@ import ExitWarningPopUp from "./exitWarningPopUp";
 import { Persist } from "react-persist";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
 import "./home.css";
+import PlayersLinkPopUp from "./playersLinkPopUp";
+import { PLAYERS_GAME_URL } from "../constants";
 
 class App extends Component {
   state = {
@@ -54,6 +56,8 @@ class App extends Component {
     showExitWarningPopUp: false,
     showGameMenu: true,
     toGameMenu: false,
+    updating: false,
+    showPlayerLinkPopUp: false,
   };
 
   constructor(props) {
@@ -116,6 +120,7 @@ class App extends Component {
     if (selectedCircle) {
       let spellCircles = [...this.state.spellCircles];
       const spellCircleInd = this.moveSpellCircle(cell);
+      this.handleSaveGame();
       if (triggerDeselect) {
         spellCircles = this.getSpellCirclesArrWithoutSelection();
         this.setState({
@@ -139,6 +144,7 @@ class App extends Component {
       }
 
       const charInd = this.moveCharacter(cell);
+      this.handleSaveGame();
       if (triggerDeselect) {
         characters = this.getCharsArrWithoutSelection();
         this.setState({ selectedChar: null, placingChar: null, characters });
@@ -375,6 +381,22 @@ class App extends Component {
     document.addEventListener("keyup", this.handleKeyUp, false);
     if (localStorage.getItem("dnd-app")) {
     }
+    if (
+      !this.state.authToken &&
+      window.location.href.split("/").includes("game")
+    ) {
+      // player mode (/game route)
+      const authToken = this.getAuthTokenFromParams();
+      if (authToken) {
+        this.setState({ authToken });
+      }
+    }
+    setInterval(() => {
+      const { authToken, selectedChar, selectedCircle } = this.state;
+      if (authToken && !selectedChar && !selectedCircle) {
+        this.handleContinueSavedGame();
+      }
+    }, 1000);
   }
 
   componentWillUnmount() {
@@ -440,6 +462,9 @@ class App extends Component {
 
   toggleItemDeletionMode = () => {
     const { itemDeletionModeOn, selectedChar } = this.state;
+    if (itemDeletionModeOn) {
+      this.handleSaveGame();
+    }
     if (selectedChar) {
       this.setState({
         selectedChar: null,
@@ -454,6 +479,10 @@ class App extends Component {
     this.setState({
       showSpellCircleCreatorPopup: !this.state.showSpellCircleCreatorPopup,
     });
+  };
+
+  togglePlayersLinkPopUp = () => {
+    this.setState({ showPlayerLinkPopUp: !this.state.showPlayerLinkPopUp });
   };
 
   toggleExitWarningPopUp = () => {
@@ -485,6 +514,7 @@ class App extends Component {
   };
 
   createOrUpdateGameState(body_object, authToken) {
+    this.setState({ updating: true });
     const promiseGet = CallGetGameDataAPI(authToken);
     promiseGet.then((resGet) => {
       if (!resGet) return;
@@ -493,10 +523,9 @@ class App extends Component {
       const promisePost = apiCall(body_object, authToken);
       promisePost.then((resPost) => {
         if (!resPost) return;
+        this.setState({ updating: false });
         if (resPost.status !== 200) {
           console.error(resPost.body.error.message);
-        } else {
-          this.showTempMessage("Game Saved Sucessfully!", 1500);
         }
       });
     });
@@ -530,7 +559,12 @@ class App extends Component {
       if (res.status !== 200) {
         console.error(res.body.error.message);
       } else {
-        this.setStateFromSavedGameData(res.body.gameState);
+        if (
+          !this.state.selectedChar &&
+          !this.state.selectedCircle &&
+          !this.state.updating
+        )
+          this.setStateFromSavedGameData(res.body.gameState);
       }
     });
   };
@@ -591,7 +625,7 @@ class App extends Component {
             onCharacterCreation={this.toggleCharacterCreatorPopup}
             onSpellCircleCreation={this.toggleSpellCircleCreatorPopup}
             onCharacterCircleDelete={this.toggleItemDeletionMode}
-            onGameSave={this.handleSaveGame}
+            onShowPlayersLink={this.togglePlayersLinkPopUp}
             enableDeletion={characters.length > 0 || spellCircles.length > 0}
             itemDeletionModeOn={itemDeletionModeOn}
             onFinishDeletion={this.toggleItemDeletionMode}
@@ -605,7 +639,13 @@ class App extends Component {
     );
   }
 
-  renderMapArea() {
+  getAuthTokenFromParams() {
+    const hrefParts = window.location.href.split("/");
+    const authToken = hrefParts[hrefParts.length - 1];
+    return authToken;
+  }
+
+  renderMapArea(gameMaster = true) {
     const {
       rowCount,
       colCount,
@@ -622,8 +662,10 @@ class App extends Component {
       placingCircle,
       mapImage,
     } = this.state;
+
+    const map_width = gameMaster ? "col-9" : "col";
     return (
-      <div className="MapArea col-9 h-100 p-0">
+      <div className={"MapArea h-100 p-0 " + map_width}>
         <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
           <MapCanvas
             rowCount={rowCount}
@@ -658,6 +700,7 @@ class App extends Component {
       tempMessageText,
       showCharacterCreatorPopup,
       showSpellCircleCreatorPopup,
+      showPlayerLinkPopUp,
       showExitWarningPopUp,
     } = this.state;
     return (
@@ -675,6 +718,17 @@ class App extends Component {
             <SpellCircleCreatorPopUp
               closePopup={this.toggleSpellCircleCreatorPopup}
               onSpellCircleCreation={this.handleSpellCircleCreation}
+            />
+          </ErrorBoundary>
+        ) : null}
+        {showPlayerLinkPopUp ? (
+          <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
+            <PlayersLinkPopUp
+              closePopup={this.togglePlayersLinkPopUp}
+              onCopyToClipboard={() =>
+                this.showTempMessage("Link copied to clipboard", 1500)
+              }
+              gameLink={PLAYERS_GAME_URL + this.state.authToken}
             />
           </ErrorBoundary>
         ) : null}
@@ -736,6 +790,11 @@ class App extends Component {
           <Route path="/reset">{this.renderPasswordResetScreen()}</Route>
           <Route path="/map">{this.renderMapMainScreen()}</Route>
           <Route path="/home">{this.renderWelcomeScreen()}</Route>
+          <Route path="/game">
+            <div className="row h-100 w-100 p-0">
+              {this.renderMapArea(false)}
+            </div>
+          </Route>
         </Switch>
         <Persist
           name="dnd-app"

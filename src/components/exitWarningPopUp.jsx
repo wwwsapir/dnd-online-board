@@ -20,25 +20,24 @@ class ExitWarningPopUp extends Component {
             className="nav nav-tabs flex-column text-white bg-dark row w-100"
             style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
           >
-            <h4>
-              Exiting to menu will cause the loss of any unsaved changes.
-              <br></br>
-              <br></br>
-              Continue?
-            </h4>
-            <span className="inline-form">
-              <button
-                onClick={this.handleExitToMenu}
-                className="btn btn-primary form-control ml-3 mt-3 col-7 d-inline"
-              >
-                Yes - Exit to Menu
-              </button>
-              <button
-                onClick={this.handleCancelExit}
-                className="btn btn-danger form-control ml-2 mt-3 col-4 d-inline"
-              >
-                No - Back to Game
-              </button>
+            <h4>Your progress is saved. Exit to menu?</h4>
+            <span className="row mt-3">
+              <div className="col-7 d-inline">
+                <button
+                  onClick={this.handleExitToMenu}
+                  className="btn btn-primary form-control"
+                >
+                  Yes - Exit to Menu
+                </button>
+              </div>
+              <div className="col-5 d-inline">
+                <button
+                  onClick={this.handleCancelExit}
+                  className="btn btn-danger form-control"
+                >
+                  No - Back to Game
+                </button>
+              </div>
             </span>
           </div>
         </div>

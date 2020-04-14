@@ -71,33 +71,34 @@ class CharacterCreator extends Component {
   render() {
     const { characterName, height, width, avatarFile } = this.state;
     return (
-      <ul
-        className="nav nav-tabs flex-column bg-dark row w-100 p-20 MenuUl"
-      >
-        <h4 className="mb-4">
-          <span className="creatorHeader ml-2">Add a New Character</span>
-        </h4>
+      <ul className="nav nav-tabs flex-column bg-dark row w-100 p-20 MenuUl">
+        <div>
+          <h4 className="mb-4">
+            <span className="creatorHeader ml-2">Add a New Character</span>
+          </h4>
+        </div>
         <li className="nav-item">
-          <input
-            className="input-group-sm form-control col-11 mb-3 ml-2"
-            id="characterName"
-            value={characterName}
-            placeholder="Character name"
-            required
-            onChange={(event) =>
-              this.setState({ characterName: event.target.value })
-            }
-          />
+          <div className="col">
+            <input
+              className="input-group-sm form-control"
+              id="characterName"
+              value={characterName}
+              placeholder="Character name"
+              required
+              onChange={(event) =>
+                this.setState({ characterName: event.target.value })
+              }
+            />
+          </div>
         </li>
-        <li className="nav-item">
-          <span className="inline-form">
-            <span className="form-group">
-              <label className="col-4 d-inline" htmlFor="width">
-                Width in squares:{" "}
+        <li className="nav-item col">
+          <div className="row mt-3 mb-3">
+            <span className="form-group" className="col-6 d-inline">
+              <label className="d-inline col-5" htmlFor="width">
+                Width in squares:
               </label>
               <input
-                className="input-group-sm form-control col-4 d-inline"
-                style={{ maxWidth: "254px" }}
+                className="input-group-sm form-control d-inline col-7"
                 id="width"
                 type="number"
                 step={MIN_CHARACTER_SIZE_SQUARES}
@@ -108,13 +109,12 @@ class CharacterCreator extends Component {
                 onChange={(event) => this.onChangeSize(event, false)}
               />
             </span>
-            <span className="form-group">
-              <label className="ml-30 col-4 d-inline ml-1" htmlFor="height">
+            <span className="form-group" className="col-6 d-inline">
+              <label className="d-inline col-5" htmlFor="height">
                 Height in squares:
               </label>
               <input
-                className="input-group-sm form-control col-4 d-inline"
-                style={{ maxWidth: "254px" }}
+                className="input-group-sm form-control d-inline col-7"
                 id="height"
                 type="number"
                 step={MIN_CHARACTER_SIZE_SQUARES}
@@ -125,7 +125,7 @@ class CharacterCreator extends Component {
                 onChange={(event) => this.onChangeSize(event, true)}
               />
             </span>
-          </span>
+          </div>
         </li>
         <li className="nav-item col">
           <span className="form-group">
@@ -198,19 +198,23 @@ class CharacterCreator extends Component {
           </div>
         </li> */}
         <li className="nav-item">
-          <span className="inline-form">
-            <button
-              onClick={this.handleCreateButtonClick}
-              className="btn btn-primary form-control mt-3 col-8 d-inline ml-2"
-            >
-              Create!
-            </button>
-            <button
-              onClick={this.handleCancelCreation}
-              className="btn btn-danger form-control ml-3 mt-3 col-3 d-inline"
-            >
-              Cancel
-            </button>
+          <span className="row mt-3">
+            <div className="mt-3 col-8 d-inline">
+              <button
+                onClick={this.handleCreateButtonClick}
+                className="btn btn-primary form-control"
+              >
+                Create!
+              </button>
+            </div>
+            <div className="mt-3 col-4 d-inline">
+              <button
+                onClick={this.handleCancelCreation}
+                className="btn btn-danger form-control"
+              >
+                Cancel
+              </button>
+            </div>
           </span>
         </li>
         {this.state.missingFields ? (

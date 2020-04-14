@@ -8,16 +8,14 @@ class ActionsMenu extends Component {
       onCharacterCreation,
       onSpellCircleCreation,
       onCharacterCircleDelete,
-      onGameSave,
+      onShowPlayersLink,
       enableDeletion,
       itemDeletionModeOn,
       onFinishDeletion,
       onExitToMenu,
     } = this.props;
     return (
-      <ul
-        className="nav nav-tabs flex-column bg-dark row w-100 MenuUl ml-1"
-      >
+      <ul className="nav nav-tabs flex-column bg-dark row w-100 MenuUl ml-1">
         <h4 className="mb-3">
           <span className="creatorHeader">Actions</span>
         </h4>
@@ -60,10 +58,10 @@ class ActionsMenu extends Component {
             </li>
             <li className="nav-item">
               <button
-                onClick={onGameSave}
+                onClick={onShowPlayersLink}
                 className="btn btn-primary form-control mt-3"
               >
-                Save the Game
+                Show Link for Players
               </button>
             </li>
             <li className="nav-item">

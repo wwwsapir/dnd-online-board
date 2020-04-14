@@ -59,7 +59,7 @@ const sendRequest = async (
   console.debug("sending: ", req, url);
   try {
     const res = await fetch(url, req);
-    console.log("result:", res);
+    console.debug("result:", res);
     const data = await res.json();
     console.debug("response: ", { status: res.status, body: data });
     return { status: res.status, body: data };

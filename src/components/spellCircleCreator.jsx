@@ -122,7 +122,7 @@ class CharacterCreator extends Component {
             </li>
           </span>
           <li className="nav-item col-3 d-inline">
-            <label>Choose color for the circle:</label>
+            <label className="mb-2">Choose color for the circle:</label>
             <SketchPicker
               color={color}
               onChange={(color) => this.setState({ color: color.rgb })}
@@ -130,18 +130,24 @@ class CharacterCreator extends Component {
           </li>
         </span>
         <li className="nav-item">
-          <button
-            onClick={this.handleCreateButtonClick}
-            className="btn btn-primary form-control ml-3 mt-3 col-md-8 d-inline"
-          >
-            Create!
-          </button>
-          <button
-            onClick={this.handleCancelCreation}
-            className="btn btn-danger form-control ml-4 mt-3 col-md-3 d-inline"
-          >
-            Cancel
-          </button>
+          <span className="row mt-3">
+            <div className="mt-3 col-8 d-inline">
+              <button
+                onClick={this.handleCreateButtonClick}
+                className="btn btn-primary form-control"
+              >
+                Create!
+              </button>
+            </div>
+            <div className="mt-3 col-4 d-inline">
+              <button
+                onClick={this.handleCancelCreation}
+                className="btn btn-danger form-control"
+              >
+                Cancel
+              </button>
+            </div>
+          </span>
         </li>
         {missingFields ? (
           <li className="nav-item col">

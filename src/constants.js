@@ -26,6 +26,8 @@ export const CURSOR_IMAGES = {
   delete: CURSOR_IMAGES_PATH + "delete.png",
 };
 
+export const PLAYERS_GAME_URL = "http://localhost:3000/#/game/";
+
 export const GAMEPLAY_IMG_PATH = MISC_IMAGES_PATH + "gameplay.png";
 export const DEFAULT_MAP_IMG_PATH = MAP_IMAGES_PATH + "default.jpg";
 

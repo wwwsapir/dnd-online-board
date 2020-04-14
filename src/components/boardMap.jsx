@@ -11,7 +11,6 @@ class BoardMap extends Component {
   }
 
   render() {
-    console.log(CURSOR_IMAGES.move);
     const {
       matrix,
       selectedChar,
