@@ -12,6 +12,7 @@ import {
   CallGetGameDataAPI,
   CallSaveNewGameDataAPI,
   CallUpdateGameDataAPI,
+  CallEraseGameDataAPI,
 } from "../apiUtils";
 import SpellCircleCreatorPopUp from "./spellCircleCreatorPopUp";
 import WelcomeScreen from "./welcomeScreen";
@@ -550,8 +551,17 @@ class App extends Component {
   };
 
   handleStartNewGame = () => {
-    this.setState({ showGameMenu: false, toGameMenu: false });
-    this.initiateGame();
+    this.setState({ showGameMenu: false, toGameMenu: false, updating: true });
+    const promise = CallEraseGameDataAPI(this.state.authToken);
+    promise.then((res) => {
+      if (!res) return;
+      if (res.status !== 200) {
+        console.error(res.body.error.message);
+      } else {
+        this.initiateGame();
+        this.setState({ updating: false });
+      }
+    });
   };
 
   handleContinueSavedGame = () => {
