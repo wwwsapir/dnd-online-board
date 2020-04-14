@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { CURSOR_IMAGES } from "../constants";
 
 class SpellCircle extends Component {
   getStyle() {
@@ -24,7 +25,11 @@ class SpellCircle extends Component {
       width: position.radius * 2,
       background: transparentColor,
       borderRadius: position.radius,
-      cursor: clickable ? "pointer" : "move",
+      cursor: itemDeletionModeOn
+        ? "url(" + CURSOR_IMAGES.delete + "), pointer"
+        : clickable
+        ? "url(" + CURSOR_IMAGES.pointer + "), pointer"
+        : "url(" + CURSOR_IMAGES.move + "), move",
       border: borderStyle,
       pointerEvents: clickable ? "auto" : "none",
     };

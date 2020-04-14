@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { CURSOR_IMAGES } from "../constants";
 
 class Character extends Component {
   getStyle() {
@@ -20,7 +21,11 @@ class Character extends Component {
       top: position.topLeft.row,
       left: position.topLeft.col,
       border: borderStyle,
-      cursor: clickable ? "pointer" : "move",
+      cursor: itemDeletionModeOn
+        ? "url(" + CURSOR_IMAGES.delete + "), pointer"
+        : clickable
+        ? "url(" + CURSOR_IMAGES.pointer + "), pointer"
+        : "url(" + CURSOR_IMAGES.move + "), move",
       opacity,
       pointerEvents: clickable ? "auto" : "none",
     };

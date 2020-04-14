@@ -1,8 +1,11 @@
 import React from "react";
 
-const CHARACTER_IMAGES_PATH = process.env.PUBLIC_URL + "/images/characters/";
-const MAP_IMAGES_PATH = process.env.PUBLIC_URL + "/images/maps/";
-const MISC_IMAGES_PATH = process.env.PUBLIC_URL + "/images/misc/";
+const IMAGES_PATH = process.env.PUBLIC_URL + "/images/";
+
+const CHARACTER_IMAGES_PATH = IMAGES_PATH + "characters/";
+const MAP_IMAGES_PATH = IMAGES_PATH + "maps/";
+const MISC_IMAGES_PATH = IMAGES_PATH + "misc/";
+const CURSOR_IMAGES_PATH = IMAGES_PATH + "cursors/";
 
 export const AVATAR_IMG_URLS = {
   ranger: CHARACTER_IMAGES_PATH + "ranger.png",
@@ -15,6 +18,12 @@ export const AVATAR_IMG_URLS = {
   beetle: CHARACTER_IMAGES_PATH + "beetle.png",
   balrog: CHARACTER_IMAGES_PATH + "balrog.png",
   alligator: CHARACTER_IMAGES_PATH + "alligator.png",
+};
+
+export const CURSOR_IMAGES = {
+  move: CURSOR_IMAGES_PATH + "move.png",
+  pointer: CURSOR_IMAGES_PATH + "pointer.png",
+  delete: CURSOR_IMAGES_PATH + "delete.png",
 };
 
 export const GAMEPLAY_IMG_PATH = MISC_IMAGES_PATH + "gameplay.png";

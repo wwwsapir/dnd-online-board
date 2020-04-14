@@ -3,6 +3,7 @@ import MapCell from "./mapCell";
 import Character from "./character";
 import SpellCircle from "./spellCircle";
 import "./boardMap.css";
+import { CURSOR_IMAGES } from "../constants";
 
 class BoardMap extends Component {
   getBackgroundClass() {
@@ -10,6 +11,7 @@ class BoardMap extends Component {
   }
 
   render() {
+    console.log(CURSOR_IMAGES.move);
     const {
       matrix,
       selectedChar,
@@ -26,7 +28,7 @@ class BoardMap extends Component {
       itemDeletionModeOn,
       onSpellCircleClick,
       onCalcSpellCirclePosition,
-      placingCircle
+      placingCircle,
     } = this.props;
 
     return (
@@ -42,7 +44,9 @@ class BoardMap extends Component {
                   onClick={onCellClick}
                   borderWidth={borderWidth}
                   cursorHover={
-                    placingCircle || placingChar ? "pointer" : "move"
+                    placingCircle || placingChar
+                      ? "url(" + CURSOR_IMAGES.pointer + "), pointer"
+                      : "url(" + CURSOR_IMAGES.move + "), move"
                   }
                   onMouseEnterCell={onMouseEnterCell}
                 />
