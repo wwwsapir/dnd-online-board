@@ -36,6 +36,8 @@ export const MIN_CHARACTER_SIZE_SQUARES = 1;
 export const MAX_CHARACTER_SIZE_SQUARES = 6;
 export const MIN_SPELL_CIRCLE_RADIUS_FEET = 5;
 export const MAX_SPELL_CIRCLE_RADIUS_FEET = 60;
+export const MIN_DICE_FOR_ROLL = 1;
+export const MAX_DICE_FOR_ROLL = 30;
 
 export const DefaultFallbackComponent = ({ componentStack, error }) => (
   <div>

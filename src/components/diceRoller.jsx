@@ -1,25 +1,39 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./sideBar.css";
+import { MIN_DICE_FOR_ROLL, MAX_DICE_FOR_ROLL } from "../constants";
 
 class DiceRoller extends Component {
   state = {
     diceType: 4,
     diceCount: 1,
-    resultSum: undefined,
+    resultSum: null,
+    diceResults: [],
+    isDiceNumberValid: true,
   };
 
   handleRoll = () => {
     const { diceCount, diceType } = this.state;
-    let sum = 0;
-    for (let i = 0; i < diceCount; i++) {
-      sum += Math.floor(Math.random() * diceType) + 1;
+    if (MIN_DICE_FOR_ROLL > diceCount || diceCount > MAX_DICE_FOR_ROLL) {
+      this.setState({
+        isDiceNumberValid: false,
+        resultSum: null,
+        diceResults: [],
+      });
+    } else {
+      let sum = 0;
+      let diceResults = [];
+      for (let i = 0; i < diceCount; i++) {
+        const nextRes = Math.floor(Math.random() * diceType) + 1;
+        sum += nextRes;
+        diceResults.push(nextRes);
+      }
+      this.setState({ resultSum: sum, diceResults, isDiceNumberValid: true });
     }
-    this.setState({ resultSum: sum });
   };
 
   render() {
-    const { diceCount, resultSum } = this.state;
+    const { diceCount, resultSum, diceResults, isDiceNumberValid } = this.state;
     return (
       <ul className="nav nav-tabs flex-column bg-dark row w-100 MenuUl ml-1">
         <h4 className="mb-4">
@@ -129,28 +143,48 @@ class DiceRoller extends Component {
             id="diceCount"
             type="number"
             step={1}
-            min={1}
-            max={200}
+            min={MIN_DICE_FOR_ROLL}
+            max={MAX_DICE_FOR_ROLL}
             value={diceCount}
             onChange={(event) =>
               this.setState({ diceCount: event.target.value.replace(/\D/, "") })
             }
           />
-        </li>
-        <li className="nav-item">
           <button
             onClick={this.handleRoll}
-            className="btn btn-primary form-control mt-1 col-md-3"
+            className="btn btn-primary form-control mt-1 col-md-3 d-inline"
           >
             Roll
           </button>
-          <label className="mr-3 mb-2 radio control-label col-md-8">
-            Roll Result Sum:{" "}
-            <span className="rollResult" hidden={resultSum ? false : true}>
-              {resultSum}
-            </span>
-          </label>
+          {isDiceNumberValid && resultSum ? (
+            <label className="mr-3 mb-2 radio control-label col-md-8 d-inline">
+              Roll Result Sum:
+              <span className="rollSum ml-3">{resultSum}</span>
+            </label>
+          ) : null}
         </li>
+        {isDiceNumberValid && resultSum ? (
+          <Fragment>
+            <label className="mr-3 mb-2 radio control-label mt-2">
+              Dice results:
+              <div className="mt-1 row ml-1 mt-1">
+                {diceResults.map((res, i) => (
+                  <div id={i} className="rollResult d-inline ml-1">
+                    {res}
+                  </div>
+                ))}
+              </div>
+            </label>
+          </Fragment>
+        ) : !isDiceNumberValid ? (
+          <li className="nav-item col mt-3">
+            <h4>
+              <span className="badge badge-danger">
+                Dice number should be {MIN_DICE_FOR_ROLL}-{MAX_DICE_FOR_ROLL}
+              </span>
+            </h4>
+          </li>
+        ) : null}
       </ul>
     );
   }
