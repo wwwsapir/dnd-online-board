@@ -572,6 +572,11 @@ class App extends Component {
     });
   };
 
+  handleEnterSavedGameAsMaster = () => {
+    this.setState({ gameMaster: true });
+    this.handleContinueSavedGame();
+  };
+
   handlePasswordResetComplete = () => {
     this.showTempMessage("Password changed successfully!", 2000);
   };
@@ -593,7 +598,7 @@ class App extends Component {
       <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
         <WelcomeScreen
           onNewGame={this.handleStartNewGame}
-          onContinueSavedGame={this.handleContinueSavedGame}
+          onContinueSavedGame={this.handleEnterSavedGameAsMaster}
           onRegisteredNewUser={this.handleRegisteredNewUser}
           authToken={this.state.authToken}
           userName={this.state.userName}
