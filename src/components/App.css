@@ -47,5 +47,5 @@
   padding: 0;
   max-height: 99.5vh;
   overflow-y: auto;
-  box-sizing: border-box;
+  overflow-x: hidden;
 }
