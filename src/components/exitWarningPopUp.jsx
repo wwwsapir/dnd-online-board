@@ -16,10 +16,7 @@ class ExitWarningPopUp extends Component {
     return (
       <div className="PopUp">
         <div className="ExitWarningPopUpInner">
-          <div
-            className="nav nav-tabs flex-column text-white bg-dark row w-100"
-            style={{ border: "8px double blue", fontSize: 15, padding: 20 }}
-          >
+          <div className="nav nav-tabs flex-column row w-100 MenuUl">
             <h4>Your progress is saved. Exit to menu?</h4>
             <span className="row mt-3">
               <div className="col-7 d-inline">
