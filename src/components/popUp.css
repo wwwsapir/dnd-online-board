@@ -21,6 +21,15 @@
   margin: auto;
 }
 
+.CharacterCreatorPopUpInnerSmallerScreen {
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  top: 4%;
+  bottom: 15%;
+  margin: auto;
+}
+
 .SpellCircleCreatorPopUpInner {
   position: absolute;
   left: 20%;

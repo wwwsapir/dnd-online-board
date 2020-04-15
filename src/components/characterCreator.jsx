@@ -75,6 +75,7 @@ class CharacterCreator extends Component {
         <div>
           <h4 className="mb-4">
             <span className="creatorHeader ml-2">Add a New Character</span>
+            
           </h4>
         </div>
         <li className="nav-item">

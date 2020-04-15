@@ -14,9 +14,12 @@ class CharacterCreatorPopUp extends Component {
   };
 
   render() {
+    const innerClass = this.props.isSmallerScreen
+      ? "CharacterCreatorPopUpInnerSmallerScreen"
+      : "CharacterCreatorPopUpInner";
     return (
       <div className="PopUp">
-        <div className="CharacterCreatorPopUpInner">
+        <div className={innerClass}>
           <CharacterCreator
             onCreation={this.handleCharacterCreationClick}
             onCancel={this.handleCancelCreation}

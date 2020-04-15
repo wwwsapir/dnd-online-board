@@ -7,6 +7,36 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { HashRouter, Route } from "react-router-dom";
 import { DEFAULT_MAP_IMG_PATH } from "./constants";
 import { isMobile } from "react-device-detect";
+import BrowserDetection from "react-browser-detection";
+
+const renderApp = () => {
+  return (
+    <div className="container-fluid DNDMapContainer">
+      <HashRouter>
+        <Route path="/">
+          <App
+            cellSize={45}
+            rowCount={15}
+            colCount={15}
+            bgImageLink={DEFAULT_MAP_IMG_PATH}
+          />
+        </Route>
+      </HashRouter>
+    </div>
+  );
+};
+
+const browserHandler = {
+  chrome: renderApp,
+  firefox: renderApp,
+  opera: renderApp,
+  default: (browser) => (
+    <div>
+      Hi {browser}! This app currently only works on Firefox, Chrome and Opera
+      browsers. Please use one of them to enter :)
+    </div>
+  ),
+};
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,18 +46,7 @@ ReactDOM.render(
         enter :)
       </div>
     ) : (
-      <div className="container-fluid DNDMapContainer">
-        <HashRouter>
-          <Route path="/">
-            <App
-              cellSize={45}
-              rowCount={15}
-              colCount={15}
-              bgImageLink={DEFAULT_MAP_IMG_PATH}
-            />
-          </Route>
-        </HashRouter>
-      </div>
+      <BrowserDetection>{browserHandler}</BrowserDetection>
     )}
   </React.StrictMode>,
   document.getElementById("root")

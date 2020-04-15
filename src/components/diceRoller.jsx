@@ -34,9 +34,14 @@ class DiceRoller extends Component {
 
   render() {
     const { diceCount, resultSum, diceResults, isDiceNumberValid } = this.state;
+    const designClass = this.props.isSmallerScreen ? "MenuUlSmallerScreen" : "MenuUl";
     return (
-      <ul className="nav nav-tabs flex-column bg-dark row w-100 MenuUl ml-1">
-        <h4 className="mb-4">
+      <ul
+        className={
+          "nav nav-tabs flex-column bg-dark row w-100 ml-1 " + designClass
+        }
+      >
+        <h4 className="mb-3">
           <span className="creatorHeader">Roll Dice</span>
         </h4>
         <li className="nav-item">
@@ -169,7 +174,7 @@ class DiceRoller extends Component {
               Dice results:
               <div className="mt-1 row ml-1 mt-1">
                 {diceResults.map((res, i) => (
-                  <div id={i} className="rollResult d-inline ml-1">
+                  <div key={i} className="rollResult d-inline ml-1">
                     {res}
                   </div>
                 ))}

@@ -24,6 +24,7 @@ import { Route, Redirect, Switch, Link } from "react-router-dom";
 import "./home.css";
 import PlayersLinkPopUp from "./playersLinkPopUp";
 import { PLAYERS_GAME_URL } from "../constants";
+import withSizes from "react-sizes";
 
 class App extends Component {
   state = {
@@ -398,7 +399,7 @@ class App extends Component {
         this.setState({ authToken });
       }
     }
-    setInterval(() => {
+    this.updateMapIntervalID = setInterval(() => {
       const { authToken, selectedChar, selectedCircle } = this.state;
       if (authToken && !selectedChar && !selectedCircle) {
         this.handleContinueSavedGame();
@@ -408,6 +409,7 @@ class App extends Component {
 
   componentWillUnmount() {
     document.removeEventListener("keyup", this.handleKeyUp, false);
+    if (this.updateMapIntervalID) clearInterval(this.updateMapIntervalID);
   }
 
   handleMouseEnterCell = (cell) => {
@@ -615,6 +617,12 @@ class App extends Component {
     this.setState({ toGameMenu: false });
   };
 
+  getAuthTokenFromParams() {
+    const hrefParts = window.location.href.split("/");
+    const authToken = hrefParts[hrefParts.length - 1];
+    return authToken;
+  }
+
   renderWelcomeScreen() {
     return (
       <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
@@ -648,8 +656,9 @@ class App extends Component {
 
   renderSideBar(gameMaster = true) {
     const { characters, spellCircles, itemDeletionModeOn } = this.state;
+    const sideBarWidthCols = this.props.isSmallerScreen ? 4 : 3;
     return (
-      <div className="SideBar col-3 bg-primary">
+      <div className={"SideBar bg-primary col-" + sideBarWidthCols}>
         <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
           <ActionsMenu
             onCharacterCreation={this.toggleCharacterCreatorPopup}
@@ -661,19 +670,14 @@ class App extends Component {
             onFinishDeletion={this.toggleItemDeletionMode}
             onExitToMenu={this.toggleExitWarningPopUp}
             gameMaster={gameMaster}
+            isSmallerScreen={this.props.isSmallerScreen}
           />
         </ErrorBoundary>
         <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
-          <DiceRoller />
+          <DiceRoller isSmallerScreen={this.props.isSmallerScreen} />
         </ErrorBoundary>
       </div>
     );
-  }
-
-  getAuthTokenFromParams() {
-    const hrefParts = window.location.href.split("/");
-    const authToken = hrefParts[hrefParts.length - 1];
-    return authToken;
   }
 
   renderMapArea() {
@@ -694,8 +698,10 @@ class App extends Component {
       mapImage,
     } = this.state;
 
+    const mapAreaWidthCols = this.props.isSmallerScreen ? 8 : 9;
+
     return (
-      <div className="MapArea h-100 p-0 col-9">
+      <div className={"MapArea h-100 p-0 col-" + mapAreaWidthCols}>
         <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
           <MapCanvas
             rowCount={rowCount}
@@ -741,6 +747,7 @@ class App extends Component {
             <CharacterCreatorPopUp
               closePopup={this.toggleCharacterCreatorPopup}
               onCharacterCreation={this.handleCharacterCreation}
+              isSmallerScreen={this.props.isSmallerScreen}
             />
           </ErrorBoundary>
         ) : null}
@@ -803,7 +810,7 @@ class App extends Component {
         <div className="row h-100 w-100 p-0">
           {this.renderMapArea()}
           {this.renderSideBar(gameMaster)}
-          {this.renderPopUps(gameMaster)})
+          {this.renderPopUps(gameMaster)}
         </div>
       );
     } else {
@@ -835,4 +842,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapSizesToProps = ({ width }) => ({
+  isSmallerScreen: width < 1700,
+});
+
+export default withSizes(mapSizesToProps)(App);

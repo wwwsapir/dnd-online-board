@@ -14,9 +14,16 @@ class ActionsMenu extends Component {
       onFinishDeletion,
       onExitToMenu,
       gameMaster,
+      isSmallerScreen,
     } = this.props;
+    const designClass = isSmallerScreen ? "MenuUlSmallerScreen" : "MenuUl";
+    const buttonTopMargin = isSmallerScreen ? 2 : 3;
     return (
-      <ul className="nav nav-tabs flex-column bg-dark row w-100 MenuUl ml-1">
+      <ul
+        className={
+          "nav nav-tabs flex-column bg-dark row w-100 ml-1 " + designClass
+        }
+      >
         <h4 className="mb-3">
           <span className="creatorHeader">Actions</span>
         </h4>
@@ -35,7 +42,7 @@ class ActionsMenu extends Component {
             <li className="nav-item">
               <button
                 onClick={onCharacterCreation}
-                className="btn btn-primary form-control mt-3"
+                className={"btn btn-primary form-control mt-" + buttonTopMargin}
               >
                 Create a New Character
               </button>
@@ -43,7 +50,7 @@ class ActionsMenu extends Component {
             <li className="nav-item">
               <button
                 onClick={onSpellCircleCreation}
-                className="btn btn-primary form-control mt-3"
+                className={"btn btn-primary form-control mt-" + buttonTopMargin}
               >
                 Create a Spell Circle
               </button>
@@ -51,7 +58,7 @@ class ActionsMenu extends Component {
             <li className="nav-item">
               <button
                 onClick={onCharacterCircleDelete}
-                className="btn btn-primary form-control mt-3"
+                className={"btn btn-primary form-control mt-" + buttonTopMargin}
                 disabled={!enableDeletion}
               >
                 Delete a Character / Circle
@@ -62,7 +69,9 @@ class ActionsMenu extends Component {
                 <li className="nav-item">
                   <button
                     onClick={onShowPlayersLink}
-                    className="btn btn-primary form-control mt-3"
+                    className={
+                      "btn btn-primary form-control mt-" + buttonTopMargin
+                    }
                   >
                     Show Link for Players
                   </button>
@@ -70,7 +79,9 @@ class ActionsMenu extends Component {
                 <li className="nav-item">
                   <button
                     onClick={onExitToMenu}
-                    className="btn btn-primary form-control mt-3"
+                    className={
+                      "btn btn-primary form-control mt-" + buttonTopMargin
+                    }
                   >
                     Exit to Menu
                   </button>

@@ -43,8 +43,15 @@
 .MenuUl {
   border: 8px double blue;
   font-size: 15;
-  padding: 25;
   color: white;
   list-style-type: none;
   padding: 30px;
+}
+
+.MenuUlSmallerScreen {
+  border: 8px double blue;
+  font-size: 12;
+  color: white;
+  list-style-type: none;
+  padding: 15px;
 }

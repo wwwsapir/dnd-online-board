@@ -1,3 +1,6 @@
+Continue:
+Add tests
+
 Version 0.0 - Done!
 1. Characters creation toolbar. + Roll dice. - Done
 2. The abiliy to move characters. - Done
@@ -10,16 +13,16 @@ Version 0.0 - Done!
 9. Reset password option - Done
 10. Save app state on refresh/close and open browser. - Done
 11. Make back and forward buttons work. Handle paths system. - Done
-12. Deploy!
+12. Deploy! - Done
 
 Version 0.1:
 0. Game url that all players can use. - Done
-1. Example maps.
-2. Maps uploading.
-3. Add option to delete users.
-4. Add "zoom" meter on the side.
-5. Drop-down list for spellCircle owners.
-6. "Turn off" game for players when game master exists.
+1. "Turn off" game for players when game master exists.
+2. Example maps.
+3. Maps uploading.
+4. Add option to delete users.
+5. Add "zoom" meter on the side.
+6. Drop-down list for spellCircle owners.
 7. Players can only create one character.
 
 Further versions:
@@ -36,6 +39,7 @@ Further versions:
 9. For large maps - the option to zoo, out on all of it.
 10. Handle flying characters (character above character in the same position).
 11. Enable spell circle centered in the center of a character and not a cell (different when the character is large).
+12. Add characters states (maybe also enable adding to the dice rolls).
 
 Linkedin and CV description:
 An interactive online map board for D&D players.
