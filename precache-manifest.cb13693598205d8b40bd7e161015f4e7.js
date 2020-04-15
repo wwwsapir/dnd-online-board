@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2b3d05466abc34776d286c2ca6edf986",
+    "revision": "8b4be1dcb75064a7a762ba5042182250",
     "url": "/dnd-online-board/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/dnd-online-board/static/css/2.86f50a85.chunk.css"
   },
   {
-    "revision": "3892e272b746773d92ec",
-    "url": "/dnd-online-board/static/css/main.6c1434bb.chunk.css"
+    "revision": "0ee977834e7bdfad61c9",
+    "url": "/dnd-online-board/static/css/main.1ad704b6.chunk.css"
   },
   {
     "revision": "269811b98270f08136ea",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/dnd-online-board/static/js/2.f78a09da.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "3892e272b746773d92ec",
-    "url": "/dnd-online-board/static/js/main.9a7e8ee6.chunk.js"
+    "revision": "0ee977834e7bdfad61c9",
+    "url": "/dnd-online-board/static/js/main.edab346b.chunk.js"
   },
   {
     "revision": "c81961047f69adb36443",
