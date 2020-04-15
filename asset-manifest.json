@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/dnd-online-board/static/css/main.b1734917.chunk.css",
-    "main.js": "/dnd-online-board/static/js/main.813976a0.chunk.js",
-    "main.js.map": "/dnd-online-board/static/js/main.813976a0.chunk.js.map",
+    "main.css": "/dnd-online-board/static/css/main.d405234c.chunk.css",
+    "main.js": "/dnd-online-board/static/js/main.a134e693.chunk.js",
+    "main.js.map": "/dnd-online-board/static/js/main.a134e693.chunk.js.map",
     "runtime-main.js": "/dnd-online-board/static/js/runtime-main.fe086ff1.js",
     "runtime-main.js.map": "/dnd-online-board/static/js/runtime-main.fe086ff1.js.map",
     "static/css/2.86f50a85.chunk.css": "/dnd-online-board/static/css/2.86f50a85.chunk.css",
-    "static/js/2.b9993cac.chunk.js": "/dnd-online-board/static/js/2.b9993cac.chunk.js",
-    "static/js/2.b9993cac.chunk.js.map": "/dnd-online-board/static/js/2.b9993cac.chunk.js.map",
+    "static/js/2.f78a09da.chunk.js": "/dnd-online-board/static/js/2.f78a09da.chunk.js",
+    "static/js/2.f78a09da.chunk.js.map": "/dnd-online-board/static/js/2.f78a09da.chunk.js.map",
     "index.html": "/dnd-online-board/index.html",
-    "precache-manifest.56430e94d6c80150f4f946c452aa82b6.js": "/dnd-online-board/precache-manifest.56430e94d6c80150f4f946c452aa82b6.js",
+    "precache-manifest.42546c113a4039cca6c7610c7431cfe3.js": "/dnd-online-board/precache-manifest.42546c113a4039cca6c7610c7431cfe3.js",
     "service-worker.js": "/dnd-online-board/service-worker.js",
     "static/css/2.86f50a85.chunk.css.map": "/dnd-online-board/static/css/2.86f50a85.chunk.css.map",
-    "static/css/main.b1734917.chunk.css.map": "/dnd-online-board/static/css/main.b1734917.chunk.css.map",
-    "static/js/2.b9993cac.chunk.js.LICENSE.txt": "/dnd-online-board/static/js/2.b9993cac.chunk.js.LICENSE.txt",
+    "static/css/main.d405234c.chunk.css.map": "/dnd-online-board/static/css/main.d405234c.chunk.css.map",
+    "static/js/2.f78a09da.chunk.js.LICENSE.txt": "/dnd-online-board/static/js/2.f78a09da.chunk.js.LICENSE.txt",
     "static/media/index.css": "/dnd-online-board/static/media/checkbcd1a436590360ed53ac2f46c76e43e4.bcd1a436.png"
   },
   "entrypoints": [
     "static/js/runtime-main.fe086ff1.js",
     "static/css/2.86f50a85.chunk.css",
-    "static/js/2.b9993cac.chunk.js",
-    "static/css/main.b1734917.chunk.css",
-    "static/js/main.813976a0.chunk.js"
+    "static/js/2.f78a09da.chunk.js",
+    "static/css/main.d405234c.chunk.css",
+    "static/js/main.a134e693.chunk.js"
   ]
 }
