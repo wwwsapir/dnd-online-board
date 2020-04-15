@@ -21,10 +21,10 @@ class ActionsMenu extends Component {
     return (
       <ul
         className={
-          "nav nav-tabs flex-column bg-dark row w-100 ml-1 " + designClass
+          "nav nav-tabs flex-column row w-100 ml-1 " + designClass
         }
       >
-        <h4 className="mb-3">
+        <h4 className="mb-1">
           <span className="creatorHeader">Actions</span>
         </h4>
         {itemDeletionModeOn ? (

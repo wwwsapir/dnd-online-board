@@ -41,7 +41,7 @@ class DiceRoller extends Component {
           "nav nav-tabs flex-column bg-dark row w-100 ml-1 " + designClass
         }
       >
-        <h4 className="mb-3">
+        <h4 className="mb-1">
           <span className="creatorHeader">Roll Dice</span>
         </h4>
         <li className="nav-item">
@@ -144,7 +144,7 @@ class DiceRoller extends Component {
         <li className="nav-item">
           <label className="mr-1 col-md-5 p-0">How many dice? </label>
           <input
-            className="input-group-sm mb-3 form-control col-md-5 d-inline mt-2"
+            className="input-group-sm mb-3 form-control col-md-5 d-inline mt-1"
             id="diceCount"
             type="number"
             step={1}

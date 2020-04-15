@@ -37,6 +37,7 @@ class WelcomeScreen extends Component {
               userName={userName}
               authToken={authToken}
               cancelRedirectFromMap={cancelRedirectFromMap}
+              isSmallerScreen={this.props.isSmallerScreen}
             />
           </Route>
           <Route path="/home/forgot_password">

@@ -635,6 +635,7 @@ class App extends Component {
           onLogOut={() => this.setState({ authToken: null, userName: "" })}
           onLogIn={this.handleLogIn}
           cancelRedirectFromMap={this.cancelRedirectFromMap}
+          isSmallerScreen={this.props.isSmallerScreen}
         />
         {this.state.showTempMessage ? (
           <TempMessage message={this.state.tempMessageText} />
@@ -843,7 +844,7 @@ class App extends Component {
 }
 
 const mapSizesToProps = ({ width }) => ({
-  isSmallerScreen: width < 1700,
+  isSmallerScreen: width < 1800,
 });
 
 export default withSizes(mapSizesToProps)(App);

@@ -103,7 +103,7 @@ class GameMenu extends Component {
             Start a New Game
           </button>
         </li>
-        <li className="mt-2 mb-3">
+        <li className="mt-2 mb-4">
           <a className="float-right" href="#" onClick={this.handleLogOutClick}>
             Log Out
           </a>
@@ -116,18 +116,22 @@ class GameMenu extends Component {
               </h6>
             </li>
             <span className="inline-form row">
-              <button
-                onClick={this.beginNewGame}
-                className="btn btn-danger form-control ml-3 mt-3 col-7 d-inline"
-              >
-                Yes - Delete my saved game
-              </button>
-              <button
-                onClick={() => this.setState({ showWarning: false })}
-                className="btn btn-primary form-control ml-2 mt-3 col-4 d-inline"
-              >
-                No - Keep my saved game
-              </button>
+              <dev className="col-7 d-inline p-1">
+                <button
+                  onClick={this.beginNewGame}
+                  className="btn btn-danger form-control mt-3"
+                >
+                  Yes - Delete my saved game
+                </button>
+              </dev>
+              <dev className="col-5 d-inline p-1">
+                <button
+                  onClick={() => this.setState({ showWarning: false })}
+                  className="btn btn-primary form-control mt-3"
+                >
+                  No - Keep my saved game
+                </button>
+              </dev>
             </span>
           </span>
         ) : null}
@@ -151,7 +155,7 @@ class GameMenu extends Component {
   }
 
   render() {
-    const { authToken } = this.props;
+    const { authToken, isSmallerScreen } = this.props;
     const { toLogin, toMap } = this.state;
 
     if (toLogin) {
@@ -160,9 +164,11 @@ class GameMenu extends Component {
       return <Redirect push to="/map" />;
     }
 
+    const menuDesignClass = isSmallerScreen ? "MenuUlSmallerScreen" : "MenuUl";
+
     return (
       <div className="GameMenuBgContent">
-        <ul className="MenuUl bg-dark w-100">
+        <ul className={"w-100 " + menuDesignClass}>
           {authToken ? this.renderGameMenu() : this.renderNotLoggedInError()}
         </ul>
       </div>
