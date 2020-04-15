@@ -16,6 +16,7 @@ class ResetPasswordForm extends Component {
     tokenValid: false,
     isLoading: true,
     toLogin: false,
+    loading: false,
   };
 
   constructor(props) {
@@ -64,6 +65,7 @@ class ResetPasswordForm extends Component {
       return;
     }
 
+    this.setState({ loading: true });
     const promise = CallResetPasswordResetAPI({
       newPassword,
       authToken,
@@ -72,9 +74,9 @@ class ResetPasswordForm extends Component {
     promise.then((res) => {
       if (!res) return;
       if (res.status !== 200) {
-        this.setState({ errorMessage: res.body.error.message });
+        this.setState({ errorMessage: res.body.error.message, loading: false });
       } else {
-        this.setState({ toLogin: true });
+        this.setState({ toLogin: true, loading: false });
         onPasswordReset();
       }
     });
@@ -108,7 +110,13 @@ class ResetPasswordForm extends Component {
   }
 
   renderPasswordResetPage() {
-    const { newPassword, confirmPassword, errorMessage, toLogin } = this.state;
+    const {
+      newPassword,
+      confirmPassword,
+      errorMessage,
+      toLogin,
+      loading,
+    } = this.state;
 
     if (toLogin) {
       return <Redirect push to="/home/login" />;
@@ -153,8 +161,9 @@ class ResetPasswordForm extends Component {
                 <button
                   type="submit"
                   className="btn btn-primary form-control mt-3"
+                  disabled={loading}
                 >
-                  Submit
+                  {loading ? "Please wait..." : "Submit"}
                 </button>
               </li>
               {errorMessage ? (

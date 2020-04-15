@@ -3,12 +3,12 @@
   "name": "D&D Online Board - Interactive D&D Online Map Board",
   "icons": [
     {
-      "src": "dragon_favicon.ico",
+      "src": "images/misc/dragon_favicon.ico",
       "sizes": "32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "dragon.png",
+      "src": "images/characters/dragon.png",
       "type": "image/png",
       "sizes": "250x250"
     }

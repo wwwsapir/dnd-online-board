@@ -9,27 +9,29 @@ class LoginForm extends Component {
     password: "",
     errorMessage: "",
     toGameMenu: false,
+    loading: false,
   };
 
   handleLoginFormSubmit = (e) => {
     e.preventDefault();
     const { email, password } = this.state;
     const { onLogin } = this.props;
+    this.setState({ loading: true });
     const promise = CallLoginAPI({ email, password });
 
     promise.then((res) => {
       if (!res) return;
       if (res.status !== 200) {
-        this.setState({ errorMessage: res.body.error.message });
+        this.setState({ errorMessage: res.body.error.message, loading: false });
       } else {
-        this.setState({ toGameMenu: true });
+        this.setState({ toGameMenu: true, loading: false });
         onLogin(res.body.userName, res.body.authToken);
       }
     });
   };
 
   render() {
-    const { email, password, errorMessage, toGameMenu } = this.state;
+    const { email, password, errorMessage, toGameMenu, loading } = this.state;
 
     if (toGameMenu) {
       return <Redirect to="/home/game_menu" />;
@@ -78,8 +80,9 @@ class LoginForm extends Component {
               <button
                 type="submit"
                 className="btn btn-primary form-control mt-3"
+                disabled={loading}
               >
-                Log In
+                {loading ? "Please wait..." : "Log In"}
               </button>
             </li>
             <li className="mt-2">

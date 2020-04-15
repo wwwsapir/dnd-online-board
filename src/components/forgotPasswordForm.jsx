@@ -9,9 +9,11 @@ class ForgotPasswordForm extends Component {
     errMessage: "",
     messageUnderBox:
       "A message with a link to reset your password will be sent to this email address.",
+    loading: false,
   };
 
   callResetPasswordSendAPI(email) {
+    this.setState({ loading: true });
     const promise = CallResetPasswordSendAPI({ email: email });
     promise.then((res) => {
       if (!res) return;
@@ -19,11 +21,13 @@ class ForgotPasswordForm extends Component {
         this.setState({
           errMessage: res.body.error.message,
           messageUnderBox: "An error has occured",
+          loading: false,
         });
       } else {
         this.setState({
           emailSent: true,
           messageUnderBox: "Reset message sent to email address!",
+          loading: false,
         });
       }
     });
@@ -36,7 +40,7 @@ class ForgotPasswordForm extends Component {
   };
 
   render() {
-    const { email, errMessage, messageUnderBox } = this.state;
+    const { email, errMessage, messageUnderBox, loading } = this.state;
     return (
       <div className="HomeBgContent">
         <ul className="MenuUl bg-dark w-100">
@@ -60,6 +64,7 @@ class ForgotPasswordForm extends Component {
             <button
               onClick={this.handleSendButtonClick}
               className="btn btn-primary form-control mt-3"
+              disabled={loading}
             >
               Send
             </button>

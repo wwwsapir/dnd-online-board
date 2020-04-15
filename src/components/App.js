@@ -61,6 +61,7 @@ class App extends Component {
     updating: false,
     showPlayerLinkPopUp: false,
     gameMaster: true,
+    initializing: false,
   };
 
   constructor(props) {
@@ -529,7 +530,7 @@ class App extends Component {
       const promisePost = apiCall(body_object, authToken);
       promisePost.then((resPost) => {
         if (!resPost) return;
-        this.setState({ updating: false });
+        this.setState({ updating: false, initializing: false });
         if (resPost.status !== 200) {
           console.error(resPost.body.error.message);
         }
@@ -558,6 +559,7 @@ class App extends Component {
       toGameMenu: false,
       gameMaster: true,
       updating: true,
+      initializing: true,
     });
     const erasePromise = CallEraseGameDataAPI(this.state.authToken);
     erasePromise.then((eraseRes) => {
@@ -571,6 +573,7 @@ class App extends Component {
         this.handleSaveGame();
       } else {
         console.debug(eraseRes.body.error.message);
+        this.setState({ initializing: false });
       }
     });
   };
@@ -740,6 +743,7 @@ class App extends Component {
       showPlayerLinkPopUp,
       showExitWarningPopUp,
       gameMaster,
+      initializing,
     } = this.state;
     return (
       <Fragment>
@@ -780,6 +784,7 @@ class App extends Component {
           </ErrorBoundary>
         ) : null}
         {showTempMessage ? <TempMessage message={tempMessageText} /> : null}
+        {initializing ? <TempMessage message={"Initializing..."} /> : null}
       </Fragment>
     );
   }

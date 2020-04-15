@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { CallRegisterAPI } from "../apiUtils";
 import { Redirect, Link } from "react-router-dom";
+import TempMessage from "./tempMessage";
 
 class RegistrationForm extends Component {
   state = {
@@ -10,27 +11,39 @@ class RegistrationForm extends Component {
     password: "",
     errorMessage: "",
     toLogin: false,
+    loading: false,
   };
 
   handleRegisterFormSubmit = (e) => {
     e.preventDefault();
     const { userName, email, password } = this.state;
     const { onRegistered } = this.props;
+    this.setState({ loading: true });
     const promise = CallRegisterAPI({ userName, email, password });
 
     promise.then((res) => {
       if (!res) return;
       if (res.status !== 200) {
-        this.setState({ errorMessage: res.body.error.message });
+        this.setState({
+          errorMessage: res.body.error.message,
+          loading: false,
+        });
       } else {
-        this.setState({ toLogin: true });
+        this.setState({ toLogin: true, loading: false });
         onRegistered();
       }
     });
   };
 
   render() {
-    const { userName, email, password, errorMessage, toLogin } = this.state;
+    const {
+      userName,
+      email,
+      password,
+      errorMessage,
+      toLogin,
+      loading,
+    } = this.state;
 
     if (toLogin) {
       return <Redirect push to="/home/login" />;
@@ -84,6 +97,7 @@ class RegistrationForm extends Component {
               <button
                 type="submit"
                 className="btn btn-primary form-control mt-3"
+                disabled={loading}
               >
                 Register
               </button>
@@ -100,6 +114,7 @@ class RegistrationForm extends Component {
                 </h4>
               </li>
             ) : null}
+            {loading ? <TempMessage message="Please wait..." /> : null}
           </ul>
         </form>
       </div>
