@@ -1,9 +1,18 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import App from "./App";
+import { MemoryRouter } from "react-router-dom";
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+it("renders correctly", () => {
+  const wrapper = mount(
+    <MemoryRouter>
+      <App
+        cellSize={45}
+        rowCount={15}
+        colCount={15}
+        bgImageLink={"mock/image/path.png"}
+      />
+    </MemoryRouter>
+  );
+
+  expect(wrapper).toMatchSnapshot();
 });

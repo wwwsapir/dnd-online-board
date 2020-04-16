@@ -8,12 +8,10 @@ import ActionsMenu from "./actionsMenu";
 import CloneDeep from "lodash/cloneDeep";
 import ErrorBoundary from "react-error-boundary";
 import { DefaultFallbackComponent } from "../constants";
-import {
-  CallGetGameDataAPI,
-  CallSaveNewGameDataAPI,
-  CallUpdateGameDataAPI,
-  CallEraseGameDataAPI,
-} from "../apiUtils";
+import getGameData from "../services/getUserGameData";
+import saveNewGameData from "../services/saveNewGameData";
+import updateGameData from "../services/updateGameData";
+import eraseGameData from "../services/eraseUserGameData";
 import SpellCircleCreatorPopUp from "./spellCircleCreatorPopUp";
 import WelcomeScreen from "./welcomeScreen";
 import TempMessage from "./tempMessage";
@@ -520,22 +518,17 @@ class App extends Component {
     this.createOrUpdateGameState({ gameState: gameStateToSave }, authToken);
   };
 
-  createOrUpdateGameState(body_object, authToken) {
+  async createOrUpdateGameState(body_object, authToken) {
     this.setState({ updating: true });
-    const promiseGet = CallGetGameDataAPI(authToken);
-    promiseGet.then((resGet) => {
-      if (!resGet) return;
-      const apiCall =
-        resGet.status !== 200 ? CallSaveNewGameDataAPI : CallUpdateGameDataAPI;
-      const promisePost = apiCall(body_object, authToken);
-      promisePost.then((resPost) => {
-        if (!resPost) return;
-        this.setState({ updating: false, initializing: false });
-        if (resPost.status !== 200) {
-          console.error(resPost.body.error.message);
-        }
-      });
-    });
+    const resGet = await getGameData(authToken);
+    if (!resGet) return;
+    const serviceCall =
+      resGet.status !== 200 ? saveNewGameData : updateGameData;
+
+    const resPost = await serviceCall(body_object, authToken);
+    if (!resPost) return;
+    this.setState({ updating: false, initializing: false });
+    if (resPost.status !== 200) console.error(resPost.body.error.message);
   }
 
   showTempMessage(messageText, timeoutMs) {
@@ -553,7 +546,7 @@ class App extends Component {
     this.showTempMessage("User registered successfully!", 1500);
   };
 
-  handleStartNewGame = () => {
+  handleStartNewGame = async () => {
     this.setState({
       showGameMenu: false,
       toGameMenu: false,
@@ -561,42 +554,38 @@ class App extends Component {
       updating: true,
       initializing: true,
     });
-    const erasePromise = CallEraseGameDataAPI(this.state.authToken);
-    erasePromise.then((eraseRes) => {
-      if (!eraseRes) return;
-      this.setState({ updating: false });
-      if (
-        eraseRes.status === 200 ||
-        eraseRes.body.error.message == "Couldn't find game data to delete"
-      ) {
-        this.initiateGame();
-        this.handleSaveGame();
-      } else {
-        console.debug(eraseRes.body.error.message);
-        this.setState({ initializing: false });
-      }
-    });
+    const res = await eraseGameData(this.state.authToken);
+    if (!res) return;
+    this.setState({ updating: false });
+    if (
+      res.status === 200 ||
+      res.body.error.message == "Couldn't find game data to delete"
+    ) {
+      this.initiateGame();
+      this.handleSaveGame();
+    } else {
+      console.debug(res.body.error.message);
+      this.setState({ initializing: false });
+    }
   };
 
-  handleContinueSavedGame = () => {
+  handleContinueSavedGame = async () => {
     this.setState({ showGameMenu: false, toGameMenu: false });
-    const promise = CallGetGameDataAPI(this.state.authToken);
-    promise.then((res) => {
-      if (!res) return;
+    const res = await getGameData(this.state.authToken);
+    if (!res) return;
+    if (
+      res.status !== 200 &&
+      res.body.error != "Couldn't find game data to retrieve"
+    ) {
+      console.debug(res.body.error.message);
+    } else {
       if (
-        res.status !== 200 &&
-        res.body.error != "Couldn't find game data to retrieve"
-      ) {
-        console.debug(res.body.error.message);
-      } else {
-        if (
-          !this.state.selectedChar &&
-          !this.state.selectedCircle &&
-          !this.state.updating
-        )
-          this.setStateFromSavedGameData(res.body.gameState);
-      }
-    });
+        !this.state.selectedChar &&
+        !this.state.selectedCircle &&
+        !this.state.updating
+      )
+        this.setStateFromSavedGameData(res.body.gameState);
+    }
   };
 
   handleEnterSavedGameAsMaster = () => {

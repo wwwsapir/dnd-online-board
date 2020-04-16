@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CallRegisterAPI } from "../apiUtils";
+import registerNewUser from "../services/registerNewUser";
 import { Redirect, Link } from "react-router-dom";
 import TempMessage from "./tempMessage";
 
@@ -14,25 +14,23 @@ class RegistrationForm extends Component {
     loading: false,
   };
 
-  handleRegisterFormSubmit = (e) => {
+  handleRegisterFormSubmit = async (e) => {
     e.preventDefault();
     const { userName, email, password } = this.state;
     const { onRegistered } = this.props;
     this.setState({ loading: true });
-    const promise = CallRegisterAPI({ userName, email, password });
+    const res = await registerNewUser({ userName, email, password });
 
-    promise.then((res) => {
-      if (!res) return;
-      if (res.status !== 200) {
-        this.setState({
-          errorMessage: res.body.error.message,
-          loading: false,
-        });
-      } else {
-        this.setState({ toLogin: true, loading: false });
-        onRegistered();
-      }
-    });
+    if (!res) return;
+    if (res.status !== 200) {
+      this.setState({
+        errorMessage: res.body.error.message,
+        loading: false,
+      });
+    } else {
+      this.setState({ toLogin: true, loading: false });
+      onRegistered();
+    }
   };
 
   render() {

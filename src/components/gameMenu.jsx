@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Redirect, Link } from "react-router-dom";
-import { CallGetGameDataAPI } from "../apiUtils";
+import getGameData from "../services/getUserGameData";
 import "./home.css";
 
 let _gameMenuMounted = false;
@@ -37,22 +37,20 @@ class GameMenu extends Component {
     }
   }
 
-  checkForExistingGameData(authToken) {
+  async checkForExistingGameData(authToken) {
     this.setState({ continueGameText: "Collecting game data from server..." });
-    const promise = CallGetGameDataAPI(authToken);
-    promise.then((res) => {
-      if (!res || !_gameMenuMounted) return;
-      if (res.status !== 200) {
-        this.setState({
-          continueGameText: "No Saved Game",
-        });
-      } else {
-        this.setState({
-          gameDataExists: true,
-          continueGameText: "Continue Last Saved Game",
-        });
-      }
-    });
+    const res = await getGameData(authToken);
+    if (!res || !_gameMenuMounted) return;
+    if (res.status !== 200) {
+      this.setState({
+        continueGameText: "No Saved Game",
+      });
+    } else {
+      this.setState({
+        gameDataExists: true,
+        continueGameText: "Continue Last Saved Game",
+      });
+    }
   }
 
   handleLogOutClick = () => {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CallResetPasswordSendAPI } from "../apiUtils";
+import sendResetUserPasswordEmail from "../services/sendResetPasswordEmail";
 import { Link } from "react-router-dom";
 
 class ForgotPasswordForm extends Component {
@@ -12,25 +12,23 @@ class ForgotPasswordForm extends Component {
     loading: false,
   };
 
-  callResetPasswordSendAPI(email) {
+  async callResetPasswordSendAPI(email) {
     this.setState({ loading: true });
-    const promise = CallResetPasswordSendAPI({ email: email });
-    promise.then((res) => {
-      if (!res) return;
-      if (res.status !== 200) {
-        this.setState({
-          errMessage: res.body.error.message,
-          messageUnderBox: "An error has occured",
-          loading: false,
-        });
-      } else {
-        this.setState({
-          emailSent: true,
-          messageUnderBox: "Reset message sent to email address!",
-          loading: false,
-        });
-      }
-    });
+    const res = await sendResetUserPasswordEmail({ email: email });
+    if (!res) return;
+    if (res.status !== 200) {
+      this.setState({
+        errMessage: res.body.error.message,
+        messageUnderBox: "An error has occured",
+        loading: false,
+      });
+    } else {
+      this.setState({
+        emailSent: true,
+        messageUnderBox: "Reset message sent to email address!",
+        loading: false,
+      });
+    }
   }
 
   handleSendButtonClick = () => {

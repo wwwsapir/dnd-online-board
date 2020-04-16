@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  CallResetPasswordResetAPI,
-  CallCheckPasswordTokenMatches,
-} from "../apiUtils";
+import resetUserPassword from "../services/resetUserPassword";
+import checkPasswordTokenValid from "../services/checkPasswordTokenValid";
 import { Redirect } from "react-router-dom";
 import "./home.css";
 
@@ -36,22 +34,20 @@ class ResetPasswordForm extends Component {
     return authToken;
   }
 
-  isTokenMatchesUSer() {
-    const promise = CallCheckPasswordTokenMatches(this.state.authToken);
-    promise.then((res) => {
-      if (!res) return;
-      if (res.status !== 200) {
-        this.setState({
-          errorMessage: res.body.error.message,
-          isLoading: false,
-        });
-      } else {
-        this.setState({ tokenValid: true, isLoading: false });
-      }
-    });
+  async isTokenMatchesUSer() {
+    const res = await checkPasswordTokenValid(this.state.authToken);
+    if (!res) return;
+    if (res.status !== 200) {
+      this.setState({
+        errorMessage: res.body.error.message,
+        isLoading: false,
+      });
+    } else {
+      this.setState({ tokenValid: true, isLoading: false });
+    }
   }
 
-  handleChangePasswordFormSubmit = (e) => {
+  handleChangePasswordFormSubmit = async (e) => {
     e.preventDefault();
     const { newPassword, confirmPassword, authToken } = this.state;
     const { onPasswordReset } = this.props;
@@ -66,20 +62,18 @@ class ResetPasswordForm extends Component {
     }
 
     this.setState({ loading: true });
-    const promise = CallResetPasswordResetAPI({
+    const res = await resetUserPassword({
       newPassword,
       authToken,
     });
 
-    promise.then((res) => {
-      if (!res) return;
-      if (res.status !== 200) {
-        this.setState({ errorMessage: res.body.error.message, loading: false });
-      } else {
-        this.setState({ toLogin: true, loading: false });
-        onPasswordReset();
-      }
-    });
+    if (!res) return;
+    if (res.status !== 200) {
+      this.setState({ errorMessage: res.body.error.message, loading: false });
+    } else {
+      this.setState({ toLogin: true, loading: false });
+      onPasswordReset();
+    }
   };
 
   renderLoadingPage() {

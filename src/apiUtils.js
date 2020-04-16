@@ -1,39 +1,3 @@
-export const CallLoginAPI = (loginData) => {
-  return sendRequest("/auth/login/", "POST", loginData);
-};
-
-export const CallRegisterAPI = (userData) => {
-  return sendRequest("/auth/register/", "POST", userData);
-};
-
-export const CallResetPasswordSendAPI = (resetData) => {
-  return sendRequest("/auth/reset_password/send", "POST", resetData);
-};
-
-export const CallCheckPasswordTokenMatches = (authToken) => {
-  return sendRequest("/auth/user/" + authToken, "GET");
-};
-
-export const CallResetPasswordResetAPI = (resetData) => {
-  return sendRequest("/auth/reset_password/reset", "POST", resetData);
-};
-
-export const CallEraseGameDataAPI = (authToken) => {
-  return sendRequest("/gameData/delete", "DELETE", undefined, authToken);
-};
-
-export const CallGetGameDataAPI = (authToken) => {
-  return sendRequest("/gameData", "GET", undefined, authToken);
-};
-
-export const CallSaveNewGameDataAPI = (gameState, authToken) => {
-  return sendRequest("/gameData", "POST", gameState, authToken);
-};
-
-export const CallUpdateGameDataAPI = (gameState, authToken) => {
-  return sendRequest("/gameData", "PATCH", gameState, authToken);
-};
-
 export const API_URL_DEV = "http://localhost:9000";
 export const API_URL = "https://dnd-online-board.herokuapp.com";
 
@@ -45,7 +9,7 @@ const createRequest = (method, bodyObject) => {
   };
 };
 
-const sendRequest = async (
+export const SendRequest = async (
   urlEnd,
   method,
   bodyObject = undefined,

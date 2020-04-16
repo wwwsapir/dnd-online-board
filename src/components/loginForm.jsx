@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { CallLoginAPI } from "../apiUtils";
+import loginUser from "../services/loginUser";
 import { Redirect, Link } from "react-router-dom";
 
 class LoginForm extends Component {
@@ -12,22 +12,20 @@ class LoginForm extends Component {
     loading: false,
   };
 
-  handleLoginFormSubmit = (e) => {
+  handleLoginFormSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = this.state;
     const { onLogin } = this.props;
     this.setState({ loading: true });
-    const promise = CallLoginAPI({ email, password });
 
-    promise.then((res) => {
-      if (!res) return;
-      if (res.status !== 200) {
-        this.setState({ errorMessage: res.body.error.message, loading: false });
-      } else {
-        this.setState({ toGameMenu: true, loading: false });
-        onLogin(res.body.userName, res.body.authToken);
-      }
-    });
+    const res = await loginUser({ email, password });
+    if (!res) return;
+    if (res.status !== 200) {
+      this.setState({ errorMessage: res.body.error.message, loading: false });
+    } else {
+      this.setState({ toGameMenu: true, loading: false });
+      onLogin(res.body.userName, res.body.authToken);
+    }
   };
 
   render() {
