@@ -14,6 +14,9 @@
     "bootstrap": "^4.4.1",
     "croppie": "^2.6.4",
     "deep-freeze": "0.0.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.4",
     "expect": "^25.2.3",
     "lodash": "^4.17.15",
     "react": "^16.13.1",
@@ -30,7 +33,8 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.1",
     "react-sizes": "^2.0.0",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "sinon": "^9.0.2"
   },
   "scripts": {
     "predeploy": "npm run build",

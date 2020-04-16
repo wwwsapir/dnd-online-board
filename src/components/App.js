@@ -658,8 +658,13 @@ class App extends Component {
     );
   }
 
-  renderSideBar(gameMaster = true) {
-    const { characters, spellCircles, itemDeletionModeOn } = this.state;
+  renderSideBar() {
+    const {
+      characters,
+      spellCircles,
+      itemDeletionModeOn,
+      gameMaster,
+    } = this.state;
     const sideBarWidthCols = this.props.isSmallerScreen ? 4 : 3;
     return (
       <div className={"SideBar bg-primary col-" + sideBarWidthCols}>
@@ -810,13 +815,12 @@ class App extends Component {
   }
 
   renderMapMainScreen() {
-    const { gameMaster } = this.state;
     if (this.state.authToken) {
       return (
         <div className="row h-100 w-100 p-0">
           {this.renderMapArea()}
-          {this.renderSideBar(gameMaster)}
-          {this.renderPopUps(gameMaster)}
+          {this.renderSideBar()}
+          {this.renderPopUps()}
         </div>
       );
     } else {
