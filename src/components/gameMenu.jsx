@@ -12,6 +12,7 @@ class GameMenu extends Component {
     toMap: false,
     gameDataExists: false,
     continueGameText: "",
+    loading: false,
   };
 
   componentWillMount() {
@@ -38,17 +39,22 @@ class GameMenu extends Component {
   }
 
   async checkForExistingGameData(authToken) {
-    this.setState({ continueGameText: "Collecting game data from server..." });
+    this.setState({
+      continueGameText: "Collecting game data from server...",
+      loading: true,
+    });
     const res = await getGameData(authToken);
     if (!res || !_gameMenuMounted) return;
     if (res.status !== 200) {
       this.setState({
         continueGameText: "No Saved Game",
+        loading: false,
       });
     } else {
       this.setState({
         gameDataExists: true,
         continueGameText: "Continue Last Saved Game",
+        loading: false,
       });
     }
   }
@@ -78,7 +84,12 @@ class GameMenu extends Component {
 
   renderGameMenu() {
     const { userName } = this.props;
-    const { showWarning, gameDataExists, continueGameText } = this.state;
+    const {
+      showWarning,
+      gameDataExists,
+      continueGameText,
+      loading,
+    } = this.state;
     return (
       <Fragment>
         <h4 className="mb-4">
@@ -97,6 +108,7 @@ class GameMenu extends Component {
           <button
             onClick={this.handleStartNewGameButtonClick}
             className="btn btn-primary form-control mt-3"
+            disabled={loading}
           >
             Start a New Game
           </button>

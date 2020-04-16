@@ -13,8 +13,8 @@ it("renders correctly - shallow", () => {
   expect(wrapper).toMatchSnapshot();
 });
 
+// Test send click functionality (async)
 jest.mock("../services/sendResetPasswordEmail");
-
 it("handles Send click correctly", async (done) => {
   const wrapper = shallow(<ForgotPasswordForm />);
   expect(wrapper.find("label").first().text()).toEqual(
@@ -25,7 +25,6 @@ it("handles Send click correctly", async (done) => {
     .simulate("change", { target: { value: "wwwsapir@gmail.com" } });
   wrapper.find("button").simulate("click");
   setTimeout(() => {
-    wrapper.update();
     expect(wrapper.find("label").first().text()).toEqual(
       "Reset message sent to email address!"
     );

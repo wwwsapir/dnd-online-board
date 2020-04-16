@@ -1,0 +1,217 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly with authToken 1`] = `
+<div
+  className="GameMenuBgContent"
+>
+  <ul
+    className="w-100 MenuUl"
+  >
+    <h4
+      className="mb-4"
+    >
+      <span
+        className="creatorHeader"
+      >
+        Hi, 
+        userName
+        ! Ready to play?
+      </span>
+    </h4>
+    <li>
+      <button
+        className="btn btn-primary form-control mt-3"
+        disabled={true}
+        onClick={[Function]}
+      >
+        Collecting game data from server...
+      </button>
+    </li>
+    <li>
+      <button
+        className="btn btn-primary form-control mt-3"
+        disabled={true}
+        onClick={[Function]}
+      >
+        Start a New Game
+      </button>
+    </li>
+    <li
+      className="mt-2 mb-4"
+    >
+      <a
+        className="float-right"
+        href="#"
+        onClick={[Function]}
+      >
+        Log Out
+      </a>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`renders correctly without authToken 1`] = `
+<div
+  className="GameMenuBgContent"
+>
+  <ul
+    className="w-100 MenuUl"
+  >
+    <h4
+      className="mb-4"
+    >
+      <span
+        className="creatorHeader"
+      >
+        Hey... unknown user!
+      </span>
+      <br />
+      <br />
+      Oops! You can't see the game menu if you're not logged in :) 
+      <br />
+      Please log in to play.
+    </h4>
+    <Link
+      to="/home/login"
+    >
+      Login Here
+    </Link>
+  </ul>
+</div>
+`;
+
+exports[`start a new game click and user rejection functionality (async) 1`] = `
+<div
+  className="GameMenuBgContent"
+>
+  <ul
+    className="w-100 MenuUl"
+  >
+    <h4
+      className="mb-4"
+    >
+      <span
+        className="creatorHeader"
+      >
+        Hi, 
+        userName
+        ! Ready to play?
+      </span>
+    </h4>
+    <li>
+      <button
+        className="btn btn-primary form-control mt-3"
+        disabled={false}
+        onClick={[Function]}
+      >
+        Continue Last Saved Game
+      </button>
+    </li>
+    <li>
+      <button
+        className="btn btn-primary form-control mt-3"
+        disabled={false}
+        onClick={[Function]}
+      >
+        Start a New Game
+      </button>
+    </li>
+    <li
+      className="mt-2 mb-4"
+    >
+      <a
+        className="float-right"
+        href="#"
+        onClick={[Function]}
+      >
+        Log Out
+      </a>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`start a new game click and warning menu opens (async) 1`] = `
+<div
+  className="GameMenuBgContent"
+>
+  <ul
+    className="w-100 MenuUl"
+  >
+    <h4
+      className="mb-4"
+    >
+      <span
+        className="creatorHeader"
+      >
+        Hi, 
+        userName
+        ! Ready to play?
+      </span>
+    </h4>
+    <li>
+      <button
+        className="btn btn-primary form-control mt-3"
+        disabled={false}
+        onClick={[Function]}
+      >
+        Continue Last Saved Game
+      </button>
+    </li>
+    <li>
+      <button
+        className="btn btn-primary form-control mt-3"
+        disabled={false}
+        onClick={[Function]}
+      >
+        Start a New Game
+      </button>
+    </li>
+    <li
+      className="mt-2 mb-4"
+    >
+      <a
+        className="float-right"
+        href="#"
+        onClick={[Function]}
+      >
+        Log Out
+      </a>
+    </li>
+    <span>
+      <li
+        className="mt-2"
+      >
+        <h6>
+          Starting a new game will erase the last saved game, continue?
+        </h6>
+      </li>
+      <span
+        className="inline-form row"
+      >
+        <dev
+          className="col-7 d-inline p-1"
+        >
+          <button
+            className="btn btn-danger form-control mt-3"
+            onClick={[Function]}
+          >
+            Yes - Delete my saved game
+          </button>
+        </dev>
+        <dev
+          className="col-5 d-inline p-1"
+        >
+          <button
+            className="btn btn-primary form-control mt-3"
+            onClick={[Function]}
+          >
+            No - Keep my saved game
+          </button>
+        </dev>
+      </span>
+    </span>
+  </ul>
+</div>
+`;
