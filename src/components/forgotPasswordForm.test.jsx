@@ -25,6 +25,7 @@ it("handles Send click correctly", async (done) => {
     .simulate("change", { target: { value: "wwwsapir@gmail.com" } });
   wrapper.find("button").simulate("click");
   setTimeout(() => {
+    wrapper.update();
     expect(wrapper.find("label").first().text()).toEqual(
       "Reset message sent to email address!"
     );

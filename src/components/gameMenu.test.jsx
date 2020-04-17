@@ -1,5 +1,4 @@
 import GameMenu from "./gameMenu";
-import { MemoryRouter } from "react-router-dom";
 
 it("renders correctly with authToken", () => {
   const wrapper = shallow(
@@ -47,30 +46,32 @@ it("game data check functionality (async)", async (done) => {
     />
   );
   setTimeout(() => {
+    wrapper.update();
     expect(wrapper.find("button").first().prop("disabled")).toEqual(false);
     done();
   });
 });
 
 it("start a new game click and warning menu opens (async)", (done) => {
-    const wrapper = shallow(
-      <GameMenu
-        onContinueSavedGame={() => {}}
-        onStartANewGame={() => {}}
-        onLogOut={() => {}}
-        userName={"userName"}
-        authToken={"authToken"}
-        cancelRedirectFromMap={() => {}}
-        isSmallerScreen={false}
-      />
-    );
-  
-    setTimeout(() => {
-      wrapper.find("button").at(1).simulate("click");
-      expect(wrapper).toMatchSnapshot();
-      done();
-    });
+  const wrapper = shallow(
+    <GameMenu
+      onContinueSavedGame={() => {}}
+      onStartANewGame={() => {}}
+      onLogOut={() => {}}
+      userName={"userName"}
+      authToken={"authToken"}
+      cancelRedirectFromMap={() => {}}
+      isSmallerScreen={false}
+    />
+  );
+
+  setTimeout(() => {
+    wrapper.update();
+    wrapper.find("button").at(1).simulate("click");
+    expect(wrapper).toMatchSnapshot();
+    done();
   });
+});
 
 it("start a new game click and user approval functionality (async)", (done) => {
   const spyOnStartANewGame = sinon.spy();
@@ -87,6 +88,7 @@ it("start a new game click and user approval functionality (async)", (done) => {
   );
 
   setTimeout(() => {
+    wrapper.update();
     wrapper.find("button").at(1).simulate("click");
     wrapper.find("button").at(2).simulate("click");
     expect(spyOnStartANewGame.calledOnce).toBe(true);
@@ -108,6 +110,7 @@ it("start a new game click and user rejection functionality (async)", (done) => 
   );
 
   setTimeout(() => {
+    wrapper.update();
     wrapper.find("button").at(1).simulate("click");
     wrapper.find("button").at(3).simulate("click");
     expect(wrapper).toMatchSnapshot();
@@ -165,6 +168,7 @@ it("continue game click functionality (async)", (done) => {
   );
 
   setTimeout(() => {
+    wrapper.update();
     wrapper.find("button").first().simulate("click");
     expect(spyOnContinueSavedGame.calledOnce).toBe(true);
     done();

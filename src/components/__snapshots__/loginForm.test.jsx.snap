@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`login button functionality - failure (async) 1`] = `
+<div
+  className="HomeBgContent"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <ul
+      className="MenuUl bg-dark w-100"
+    >
+      <h4
+        className="mb-4"
+      >
+        <span
+          className="creatorHeader"
+        >
+          Welcome to D&D Online Board
+        </span>
+      </h4>
+      <li
+        className="mb-3"
+      >
+        <Link
+          to="/home/about"
+        >
+          <LinkAnchor
+            href="/home/about"
+            navigate={[Function]}
+          >
+            <a
+              href="/home/about"
+              onClick={[Function]}
+            >
+              <h5>
+                What is D&D Online Board?
+              </h5>
+            </a>
+          </LinkAnchor>
+        </Link>
+      </li>
+      <li>
+        <input
+          className="input-group-sm form-control"
+          id="email"
+          onChange={[Function]}
+          placeholder="Email Address"
+          required={true}
+          value="other_email"
+        />
+      </li>
+      <li>
+        <input
+          className="input-group-sm form-control mt-3"
+          id="password"
+          onChange={[Function]}
+          placeholder="Password"
+          required={true}
+          type="password"
+          value=""
+        />
+      </li>
+      <li>
+        <button
+          className="btn btn-primary form-control mt-3"
+          disabled={false}
+          type="submit"
+        >
+          Log In
+        </button>
+      </li>
+      <li
+        className="mt-2"
+      >
+        <Link
+          to="/home/register"
+        >
+          <LinkAnchor
+            href="/home/register"
+            navigate={[Function]}
+          >
+            <a
+              href="/home/register"
+              onClick={[Function]}
+            >
+              New user?
+            </a>
+          </LinkAnchor>
+        </Link>
+        <Link
+          className="float-right"
+          to="/home/forgot_password"
+        >
+          <LinkAnchor
+            className="float-right"
+            href="/home/forgot_password"
+            navigate={[Function]}
+          >
+            <a
+              className="float-right"
+              href="/home/forgot_password"
+              onClick={[Function]}
+            >
+              Forgot password?
+            </a>
+          </LinkAnchor>
+        </Link>
+      </li>
+      <li>
+        <h4>
+          <span
+            className="badge badge-danger"
+          >
+            Error
+          </span>
+        </h4>
+      </li>
+    </ul>
+  </form>
+</div>
+`;
+
+exports[`login button functionality - success (async) 1`] = `""`;
+
+exports[`renders correctly 1`] = `
+<div
+  className="HomeBgContent"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <ul
+      className="MenuUl bg-dark w-100"
+    >
+      <h4
+        className="mb-4"
+      >
+        <span
+          className="creatorHeader"
+        >
+          Welcome to D&D Online Board
+        </span>
+      </h4>
+      <li
+        className="mb-3"
+      >
+        <Link
+          to="/home/about"
+        >
+          <h5>
+            What is D&D Online Board?
+          </h5>
+        </Link>
+      </li>
+      <li>
+        <input
+          className="input-group-sm form-control"
+          id="email"
+          onChange={[Function]}
+          placeholder="Email Address"
+          required={true}
+          value=""
+        />
+      </li>
+      <li>
+        <input
+          className="input-group-sm form-control mt-3"
+          id="password"
+          onChange={[Function]}
+          placeholder="Password"
+          required={true}
+          type="password"
+          value=""
+        />
+      </li>
+      <li>
+        <button
+          className="btn btn-primary form-control mt-3"
+          disabled={false}
+          type="submit"
+        >
+          Log In
+        </button>
+      </li>
+      <li
+        className="mt-2"
+      >
+        <Link
+          to="/home/register"
+        >
+          New user?
+        </Link>
+        <Link
+          className="float-right"
+          to="/home/forgot_password"
+        >
+          Forgot password?
+        </Link>
+      </li>
+    </ul>
+  </form>
+</div>
+`;
