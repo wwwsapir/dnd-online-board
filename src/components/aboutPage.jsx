@@ -5,9 +5,15 @@ import { GAMEPLAY_IMG_PATH } from "../constants";
 
 class AboutPage extends Component {
   render() {
+    const contentClass = this.props.isSmallerScreen
+      ? "AboutScreenContentSmallerScreen"
+      : "AboutScreenContent";
+      const menuClass = this.props.isSmallerScreen
+      ? "MenuUlSmallerScreen"
+      : "MenuUl";
     return (
-      <div className="AboutScreenContent">
-        <ul className="MenuUl bg-dark w-100">
+      <div className={contentClass}>
+        <ul className={"bg-dark w-100 " + menuClass}>
           <h4 className="mb-5">
             <span className="creatorHeader">What is D&amp;D Online Board?</span>
           </h4>
@@ -77,6 +83,8 @@ class AboutPage extends Component {
                 style={{
                   width: "100%",
                   height: "auto",
+                  maxWidth: "550px",
+                  float: "right"
                 }}
               />
             </div>

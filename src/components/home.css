@@ -31,6 +31,15 @@
   margin: auto;
 }
 
+.AboutScreenContentSmallerScreen {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  top: 3%;
+  bottom: 20%;
+  margin: auto;
+}
+
 .GameMenuBgContent {
   position: absolute;
   left: 22%;

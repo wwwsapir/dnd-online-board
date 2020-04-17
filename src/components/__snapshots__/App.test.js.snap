@@ -38,7 +38,7 @@ Array [
                   onClick={[Function]}
                 >
                   <h5>
-                    What is D&D Online Board?
+                    What is D&D Online Board? Click here to find out!
                   </h5>
                 </a>
               </LinkAnchor>

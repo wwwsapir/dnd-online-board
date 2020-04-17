@@ -44,7 +44,7 @@ class WelcomeScreen extends Component {
             <ForgotPasswordForm />
           </Route>
           <Route path="/home/about">
-            <AboutPage />
+            <AboutPage isSmallerScreen={this.props.isSmallerScreen} />
           </Route>
           <Route path="/home/register">
             <RegistrationForm onRegistered={onRegisteredNewUser} />

@@ -46,7 +46,7 @@ class LoginForm extends Component {
             </h4>
             <li className="mb-3">
               <Link to="/home/about">
-                <h5>What is D&amp;D Online Board?</h5>
+                <h5>What is D&amp;D Online Board? Click here to find out!</h5>
               </Link>
             </li>
             <li>
