@@ -1,0 +1,172 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`register button functionality - failure (async) 1`] = `
+<div
+  className="HomeBgContent"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <ul
+      className="MenuUl bg-dark w-100"
+    >
+      <h4
+        className="mb-5"
+      >
+        <span
+          className="creatorHeader"
+        >
+          New User Registration
+        </span>
+      </h4>
+      <li>
+        <input
+          className="input-group-sm form-control"
+          id="userName"
+          onChange={[Function]}
+          placeholder="User Name"
+          required={true}
+          value="other_username"
+        />
+      </li>
+      <li>
+        <input
+          className="input-group-sm form-control mt-3"
+          id="email"
+          onChange={[Function]}
+          placeholder="Email Address"
+          required={true}
+          value=""
+        />
+      </li>
+      <li>
+        <input
+          className="input-group-sm form-control mt-3"
+          id="password"
+          onChange={[Function]}
+          placeholder="Password"
+          required={true}
+          type="password"
+          value=""
+        />
+      </li>
+      <li>
+        <button
+          className="btn btn-primary form-control mt-3"
+          disabled={false}
+          type="submit"
+        >
+          Register
+        </button>
+      </li>
+      <li
+        className="mt-2 mb-4"
+      >
+        <Link
+          className="float-right"
+          to="/home/login"
+        >
+          <LinkAnchor
+            className="float-right"
+            href="/home/login"
+            navigate={[Function]}
+          >
+            <a
+              className="float-right"
+              href="/home/login"
+              onClick={[Function]}
+            >
+              Already registered? log in
+            </a>
+          </LinkAnchor>
+        </Link>
+      </li>
+      <li>
+        <h4>
+          <span
+            className="badge badge-danger"
+          >
+            Error
+          </span>
+        </h4>
+      </li>
+    </ul>
+  </form>
+</div>
+`;
+
+exports[`register button functionality - success (async) 1`] = `""`;
+
+exports[`renders correctly 1`] = `
+<div
+  className="HomeBgContent"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <ul
+      className="MenuUl bg-dark w-100"
+    >
+      <h4
+        className="mb-5"
+      >
+        <span
+          className="creatorHeader"
+        >
+          New User Registration
+        </span>
+      </h4>
+      <li>
+        <input
+          className="input-group-sm form-control"
+          id="userName"
+          onChange={[Function]}
+          placeholder="User Name"
+          required={true}
+          value=""
+        />
+      </li>
+      <li>
+        <input
+          className="input-group-sm form-control mt-3"
+          id="email"
+          onChange={[Function]}
+          placeholder="Email Address"
+          required={true}
+          value=""
+        />
+      </li>
+      <li>
+        <input
+          className="input-group-sm form-control mt-3"
+          id="password"
+          onChange={[Function]}
+          placeholder="Password"
+          required={true}
+          type="password"
+          value=""
+        />
+      </li>
+      <li>
+        <button
+          className="btn btn-primary form-control mt-3"
+          disabled={false}
+          type="submit"
+        >
+          Register
+        </button>
+      </li>
+      <li
+        className="mt-2 mb-4"
+      >
+        <Link
+          className="float-right"
+          to="/home/login"
+        >
+          Already registered? log in
+        </Link>
+      </li>
+    </ul>
+  </form>
+</div>
+`;
