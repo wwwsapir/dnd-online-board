@@ -12,11 +12,12 @@
     color: #248ed4;
     radius: 6px;
   }
+}
 
-  &-sum {
-    border: {
-      width: 4px;
-      color: #89ffad;
-    }
+.roll-result-sum {
+  @extend .roll-result;
+  border: {
+    width: 4px;
+    color: #89ffad;
   }
 }
