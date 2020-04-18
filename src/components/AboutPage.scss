@@ -1,6 +1,7 @@
 @import ".common";
 
-.menu-window .AboutPage-window {
+.AboutPage-window {
+  @extend .menu-window;
   position: absolute;
   left: 17%;
   right: 17%;
