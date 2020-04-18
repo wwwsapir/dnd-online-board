@@ -3,46 +3,54 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import registerNewUser from "../services/registerNewUser";
 import { Redirect, Link } from "react-router-dom";
 import TempMessage from "./TempMessage";
-import "./.common.scss"
+import "./.common.scss";
+import ReactFormInputValidation from "react-form-input-validation";
 
 class RegistrationForm extends Component {
   state = {
-    userName: "",
-    email: "",
-    password: "",
-    errorMessage: "",
+    serverErrMessage: "",
     toLogin: false,
     loading: false,
   };
 
-  handleRegisterFormSubmit = async (e) => {
-    e.preventDefault();
-    const { userName, email, password } = this.state;
+  constructor(props) {
+    super(props);
+    this.state.fields = {
+      email: "",
+      password: "",
+    };
+    this.state.errors = {};
+    this.form = new ReactFormInputValidation(this);
+    this.form.useRules({
+      userName: "required|between:6,72",
+      email: "required|email",
+      password: "required|between:6,72",
+    });
+    this.form.onformsubmit = () => {
+      this.handleRegisterFormSubmit();
+    };
+  }
+
+  async handleRegisterFormSubmit() {
+    const { userName, email, password } = this.state.fields;
     const { onRegistered } = this.props;
-    this.setState({ loading: true });
+    this.setState({ loading: true, serverErrMessage: "" });
     const res = await registerNewUser({ userName, email, password });
 
     if (!res) return;
     if (res.status !== 200) {
       this.setState({
-        errorMessage: res.body.error.message,
+        serverErrMessage: res.body.error.message,
         loading: false,
       });
     } else {
       this.setState({ toLogin: true, loading: false });
       onRegistered();
     }
-  };
+  }
 
   render() {
-    const {
-      userName,
-      email,
-      password,
-      errorMessage,
-      toLogin,
-      loading,
-    } = this.state;
+    const { serverErrMessage, toLogin, loading } = this.state;
 
     if (toLogin) {
       return <Redirect push to="/home/login" />;
@@ -50,47 +58,55 @@ class RegistrationForm extends Component {
 
     return (
       <div className="menu-window">
-        <form onSubmit={this.handleRegisterFormSubmit}>
+        <form onSubmit={this.form.handleSubmit}>
           <ul className="menu bg-dark w-100">
             <h4 className="mb-5">
               <span className="menu-header">New User Registration</span>
             </h4>
+            <li className="mb-3">
+              <input
+                className="input-group-sm form-control"
+                name="userName"
+                type="text"
+                placeholder="User Name"
+                required
+                onBlur={this.form.handleBlurEvent}
+                onChange={this.form.handleChangeEvent}
+                value={this.state.fields.userName}
+              />
+              <label className="error badge badge-danger">
+                {this.state.errors.userName ? this.state.errors.userName : ""}
+              </label>
+            </li>
+            <li className="mb-3">
+              <input
+                className="input-group-sm form-control"
+                name="email"
+                type="email"
+                placeholder="Email Address"
+                required
+                onBlur={this.form.handleBlurEvent}
+                onChange={this.form.handleChangeEvent}
+                value={this.state.fields.email}
+              />
+              <label className="error badge badge-danger">
+                {this.state.errors.email ? this.state.errors.email : ""}
+              </label>
+            </li>
             <li>
               <input
                 className="input-group-sm form-control"
-                id="userName"
-                value={userName}
-                placeholder="User Name"
-                required
-                onChange={(event) =>
-                  this.setState({ userName: event.target.value })
-                }
-              />
-            </li>
-            <li>
-              <input
-                className="input-group-sm form-control mt-3"
-                id="email"
-                value={email}
-                placeholder="Email Address"
-                required
-                onChange={(event) =>
-                  this.setState({ email: event.target.value })
-                }
-              />
-            </li>
-            <li>
-              <input
-                className="input-group-sm form-control mt-3"
                 type="password"
-                id="password"
-                value={password}
+                name="password"
                 placeholder="Password"
                 required
-                onChange={(event) =>
-                  this.setState({ password: event.target.value })
-                }
+                onBlur={this.form.handleBlurEvent}
+                onChange={this.form.handleChangeEvent}
+                value={this.state.fields.password}
               />
+              <label className="error badge badge-danger">
+                {this.state.errors.password ? this.state.errors.password : ""}
+              </label>
             </li>
             <li>
               <button
@@ -106,11 +122,11 @@ class RegistrationForm extends Component {
                 Already registered? log in
               </Link>
             </li>
-            {errorMessage ? (
+            {serverErrMessage ? (
               <li>
-                <h4>
-                  <span className="badge badge-danger">{errorMessage}</span>
-                </h4>
+                <label>
+                  <span className="badge badge-danger">{serverErrMessage}</span>
+                </label>
               </li>
             ) : null}
             {loading ? <TempMessage message="Please wait..." /> : null}
