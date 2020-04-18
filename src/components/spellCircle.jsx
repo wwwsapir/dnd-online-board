@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { CURSOR_IMAGES } from "../constants";
+import "./SpellCircle.scss";
 
 class SpellCircle extends Component {
-  getStyle() {
+  getDynamicStyle() {
     const {
       position,
       itemDeletionModeOn,
@@ -17,7 +18,6 @@ class SpellCircle extends Component {
       borderStyle = `solid rgb(255, 0, 0, 1) ${borderWidth + 1}px`;
     }
     return {
-      position: "absolute",
       top: position.row,
       left: position.col,
       height: position.radius * 2,
@@ -46,7 +46,8 @@ class SpellCircle extends Component {
 
     return (
       <div
-        style={this.getStyle()}
+        className="SpellCircle"
+        style={this.getDynamicStyle()}
         onClick={() => onClick(spellCircle)}
         title={charTitle}
       />

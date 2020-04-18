@@ -2,16 +2,13 @@ import React, { Component } from "react";
 import "./MapCell.scss";
 
 class MapCell extends Component {
-  getCellStyle() {
+  getDynamicStyle() {
     const { borderWidth, cell, cursorHover, cellSize } = this.props;
-    let border = "solid black ";
-    border += borderWidth + "px";
-    let background = "rgba(0, 0, 0, ";
-    background += cell.wall ? "0.4)" : "0)";
+    const background = `rgba(0, 0, 0, 0${cell.wall ? ".4" : ""})`;
     return {
       width: cellSize,
       height: cellSize,
-      border,
+      borderWidth: `${borderWidth}px`,
       background,
       cursor: cursorHover,
     };
@@ -24,7 +21,7 @@ class MapCell extends Component {
     return (
       <div
         className="MapCell"
-        style={this.getCellStyle()}
+        style={this.getDynamicStyle()}
         onClick={() => onClick(cell)}
         onMouseEnter={() => onMouseEnterCell(cell)}
       />

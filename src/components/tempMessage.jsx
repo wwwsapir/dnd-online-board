@@ -7,7 +7,7 @@ class TempMessage extends Component {
     return (
       <div className="menu-bg-popup">
         <div className="TempMessage-window">
-          <div className="text-white" style={{ textAlignLast: "center" }}>
+          <div className="TempMessage-text">
             <h2>{this.props.message}</h2>
           </div>
         </div>

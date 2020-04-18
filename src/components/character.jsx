@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { CURSOR_IMAGES } from "../constants";
+import "./Character.scss";
 
 class Character extends Component {
-  getStyle() {
+  getDynamicStyle() {
     const {
       selected,
       position,
@@ -17,7 +18,6 @@ class Character extends Component {
     return {
       width: position.width,
       height: position.height,
-      position: "absolute",
       top: position.topLeft.row,
       left: position.topLeft.col,
       border: borderStyle,
@@ -43,7 +43,8 @@ class Character extends Component {
       <img
         src={imageSrc}
         alt={character.name}
-        style={this.getStyle()}
+        className="Character"
+        style={this.getDynamicStyle()}
         onClick={() => onClick(character)}
         title={character.name}
       />

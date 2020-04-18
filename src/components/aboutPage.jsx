@@ -73,14 +73,9 @@ class AboutPage extends Component {
             </p>
             <div className="col-6">
               <img
+                className="gameplay-img"
                 src={GAMEPLAY_IMG_PATH}
                 alt="gameplay"
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  maxWidth: "550px",
-                  float: "right",
-                }}
               />
             </div>
           </div>

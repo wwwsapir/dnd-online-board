@@ -9,22 +9,20 @@ class MapCanvas extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      scale: 2,
+      scale: 1.8,
       translation: { x: 0, y: 0 },
     };
   }
 
-  getStyle() {
+  getDynamicStyle() {
     const { mapImage } = this.props;
     const backgroundImage = mapImage.url
       ? `url(${mapImage.url})`
       : mapImage.file;
     return {
-      mapBgImg: {
-        height: this.props.cellSize * this.props.rowCount,
-        width: this.props.cellSize * this.props.colCount,
-        backgroundImage,
-      },
+      height: this.props.cellSize * this.props.rowCount,
+      width: this.props.cellSize * this.props.colCount,
+      backgroundImage,
     };
   }
 
@@ -59,7 +57,7 @@ class MapCanvas extends Component {
           this.setState({ scale, translation })
         }
       >
-        <div className="MapCanvas-bg-img" style={this.getStyle().mapBgImg}>
+        <div className="MapCanvas-bg-img" style={this.getDynamicStyle()}>
           <BoardMap
             rowCount={rowCount}
             colCount={colCount}
