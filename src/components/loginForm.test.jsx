@@ -1,4 +1,4 @@
-import LoginForm from "./LoginForm";
+import LoginForm from "./LoginForm1";
 import { MemoryRouter } from "react-router";
 
 it("renders correctly", () => {
