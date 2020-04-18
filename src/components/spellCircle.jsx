@@ -11,11 +11,10 @@ class SpellCircle extends Component {
       selected,
     } = this.props;
     const { color } = this.props.spellCircle;
-    const transparentColor =
-      "rgb(" + color.r + ", " + color.g + ", " + color.b + ", 0.5) ";
+    const transparentColor = `rgb(${color.r}, ${color.g}, ${color.b}, 0.5)`;
     let borderStyle = null;
     if (itemDeletionModeOn || selected) {
-      borderStyle = "solid rgb(255, 0, 0, 1) " + (borderWidth + 1) + "px";
+      borderStyle = `solid rgb(255, 0, 0, 1) ${borderWidth + 1}px`;
     }
     return {
       position: "absolute",
@@ -26,10 +25,10 @@ class SpellCircle extends Component {
       background: transparentColor,
       borderRadius: position.radius,
       cursor: itemDeletionModeOn
-        ? "url(" + CURSOR_IMAGES.delete + "), pointer"
+        ? `url(${CURSOR_IMAGES.delete}), pointer`
         : clickable
-        ? "url(" + CURSOR_IMAGES.pointer + "), pointer"
-        : "url(" + CURSOR_IMAGES.move + "), move",
+        ? `url(${CURSOR_IMAGES.pointer}), pointer`
+        : `url(${CURSOR_IMAGES.move}), move`,
       border: borderStyle,
       pointerEvents: clickable ? "auto" : "none",
     };
@@ -41,14 +40,15 @@ class SpellCircle extends Component {
       return "";
     }
 
+    const charTitle = `${spellCircle.name}${
+      spellCircle.owner ? `. Owner: ${spellCircle.owner}` : null
+    }`;
+
     return (
       <div
         style={this.getStyle()}
         onClick={() => onClick(spellCircle)}
-        title={
-          spellCircle.name +
-          (spellCircle.owner ? ". Owner: " + spellCircle.owner : null)
-        }
+        title={charTitle}
       />
     );
   }

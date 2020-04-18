@@ -615,9 +615,11 @@ class App extends Component {
       itemDeletionModeOn,
       gameMaster,
     } = this.state;
-    const sideBarWidthCols = this.props.isSmallerScreen ? 4 : 3;
+    const sideBarClass = `side-bar bg-primary col-${
+      this.props.isSmallerScreen ? 4 : 3
+    }`;
     return (
-      <div className={"side-bar bg-primary col-" + sideBarWidthCols}>
+      <div className={sideBarClass}>
         <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
           <ActionsMenu
             onCharacterCreation={this.toggleCharacterCreatorPopup}
@@ -656,10 +658,12 @@ class App extends Component {
       mapImage,
     } = this.state;
 
-    const mapAreaWidthCols = this.props.isSmallerScreen ? 8 : 9;
+    const mapAreaClass = `map-area h-100 p-0 col-${
+      this.props.isSmallerScreen ? 8 : 9
+    }`;
 
     return (
-      <div className={"map-area h-100 p-0 col-" + mapAreaWidthCols}>
+      <div className={mapAreaClass}>
         <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
           <MapCanvas
             rowCount={rowCount}

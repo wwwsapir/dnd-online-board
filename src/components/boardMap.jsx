@@ -44,8 +44,8 @@ class BoardMap extends Component {
                   borderWidth={borderWidth}
                   cursorHover={
                     placingCircle || placingChar
-                      ? "url(" + CURSOR_IMAGES.pointer + "), pointer"
-                      : "url(" + CURSOR_IMAGES.move + "), move"
+                      ? `url(${CURSOR_IMAGES.pointer}), pointer`
+                      : `url(${CURSOR_IMAGES.move}), move`
                   }
                   onMouseEnterCell={onMouseEnterCell}
                 />

@@ -17,7 +17,7 @@ class MapCanvas extends Component {
   getStyle() {
     const { mapImage } = this.props;
     const backgroundImage = mapImage.url
-      ? "url(" + mapImage.url + ")"
+      ? `url(${mapImage.url})`
       : mapImage.file;
     return {
       mapBgImg: {

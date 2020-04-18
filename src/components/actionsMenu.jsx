@@ -16,7 +16,9 @@ class ActionsMenu extends Component {
       gameMaster,
       isSmallerScreen,
     } = this.props;
-    const buttonTopMargin = isSmallerScreen ? 2 : 3;
+    const buttonClass = `btn btn-primary form-control mt-${
+      isSmallerScreen ? 2 : 3
+    }`;
     return (
       <ul className="nav nav-tabs flex-column row w-100 ml-1 menu">
         <h4 className="mb-1">
@@ -35,25 +37,19 @@ class ActionsMenu extends Component {
         ) : (
           <span>
             <li className="nav-item">
-              <button
-                onClick={onCharacterCreation}
-                className={"btn btn-primary form-control mt-" + buttonTopMargin}
-              >
+              <button onClick={onCharacterCreation} className={buttonClass}>
                 Create a New Character
               </button>
             </li>
             <li className="nav-item">
-              <button
-                onClick={onSpellCircleCreation}
-                className={"btn btn-primary form-control mt-" + buttonTopMargin}
-              >
+              <button onClick={onSpellCircleCreation} className={buttonClass}>
                 Create a Spell Circle
               </button>
             </li>
             <li className="nav-item">
               <button
                 onClick={onCharacterCircleDelete}
-                className={"btn btn-primary form-control mt-" + buttonTopMargin}
+                className={buttonClass}
                 disabled={!enableDeletion}
               >
                 Delete a Character / Circle
@@ -62,22 +58,12 @@ class ActionsMenu extends Component {
             {gameMaster ? (
               <Fragment>
                 <li className="nav-item">
-                  <button
-                    onClick={onShowPlayersLink}
-                    className={
-                      "btn btn-primary form-control mt-" + buttonTopMargin
-                    }
-                  >
+                  <button onClick={onShowPlayersLink} className={buttonClass}>
                     Show Link for Players
                   </button>
                 </li>
                 <li className="nav-item">
-                  <button
-                    onClick={onExitToMenu}
-                    className={
-                      "btn btn-primary form-control mt-" + buttonTopMargin
-                    }
-                  >
+                  <button onClick={onExitToMenu} className={buttonClass}>
                     Exit to Menu
                   </button>
                 </li>

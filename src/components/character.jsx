@@ -12,7 +12,7 @@ class Character extends Component {
       clickable,
     } = this.props;
     let borderStyle = selected || itemDeletionModeOn ? "solid red" : "none";
-    borderStyle += " " + borderWidth + "px";
+    borderStyle += ` ${borderWidth}px`;
     const opacity = transparent ? 0.45 : 1;
     return {
       width: position.width,
@@ -22,10 +22,10 @@ class Character extends Component {
       left: position.topLeft.col,
       border: borderStyle,
       cursor: itemDeletionModeOn
-        ? "url(" + CURSOR_IMAGES.delete + "), pointer"
+        ? `url(${CURSOR_IMAGES.delete}), pointer`
         : clickable
-        ? "url(" + CURSOR_IMAGES.pointer + "), pointer"
-        : "url(" + CURSOR_IMAGES.move + "), move",
+        ? `url(${CURSOR_IMAGES.pointer}), pointer`
+        : `url(${CURSOR_IMAGES.move}), move`,
       opacity,
       pointerEvents: clickable ? "auto" : "none",
     };

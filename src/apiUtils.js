@@ -29,7 +29,7 @@ export const SendRequest = async (
     return { status: res.status, body: data };
   } catch (err) {
     console.error(
-      "Error with request " + method + " to url " + url,
+      `Error with request ${method} to url ${url}`,
       "body:",
       bodyObject,
       err.message,
