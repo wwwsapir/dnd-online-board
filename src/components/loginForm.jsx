@@ -3,34 +3,52 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import loginUser from "../services/loginUser";
 import { Redirect, Link } from "react-router-dom";
 import "./.common.scss";
+import ReactFormInputValidation from "react-form-input-validation";
 
 class LoginForm extends Component {
   state = {
-    email: "",
-    password: "",
-    errorMessage: "",
+    serverErrMessage: "",
     toGameMenu: false,
     loading: false,
   };
 
-  handleLoginFormSubmit = async (e) => {
-    e.preventDefault();
-    const { email, password } = this.state;
+  constructor(props) {
+    super(props);
+    this.state.fields = {
+      email: "",
+      password: "",
+    };
+    this.state.errors = {};
+    this.form = new ReactFormInputValidation(this);
+    this.form.useRules({
+      email: "required|email",
+      password: "required|between:6,72",
+    });
+    this.form.onformsubmit = () => {
+      this.handleLoginFormSubmit();
+    };
+  }
+
+  async handleLoginFormSubmit() {
+    const { email, password } = this.state.fields;
     const { onLogin } = this.props;
-    this.setState({ loading: true });
+    this.setState({ loading: true, serverErrMessage: "" });
 
     const res = await loginUser({ email, password });
     if (!res) return;
     if (res.status !== 200) {
-      this.setState({ errorMessage: res.body.error.message, loading: false });
+      this.setState({
+        serverErrMessage: res.body.error.message,
+        loading: false,
+      });
     } else {
       this.setState({ toGameMenu: true, loading: false });
       onLogin(res.body.userName, res.body.authToken);
     }
-  };
+  }
 
   render() {
-    const { email, password, errorMessage, toGameMenu, loading } = this.state;
+    const { serverErrMessage: errorMessage, toGameMenu, loading } = this.state;
 
     if (toGameMenu) {
       return <Redirect to="/home/game_menu" />;
@@ -38,7 +56,7 @@ class LoginForm extends Component {
 
     return (
       <div className="menu-window">
-        <form onSubmit={this.handleLoginFormSubmit}>
+        <form onSubmit={this.form.handleSubmit}>
           <ul className="menu bg-dark w-100">
             <h4 className="mb-4">
               <span className="menu-header">
@@ -53,27 +71,32 @@ class LoginForm extends Component {
             <li>
               <input
                 className="input-group-sm form-control"
-                id="email"
-                value={email}
+                name="email"
+                type="email"
                 placeholder="Email Address"
                 required
-                onChange={(event) =>
-                  this.setState({ email: event.target.value })
-                }
+                onBlur={this.form.handleBlurEvent}
+                onChange={this.form.handleChangeEvent}
+                value={this.state.fields.email}
               />
+              <label className="error badge badge-danger">
+                {this.state.errors.email ? this.state.errors.email : ""}
+              </label>
             </li>
             <li>
               <input
                 className="input-group-sm form-control mt-3"
                 type="password"
-                id="password"
-                value={password}
+                name="password"
                 placeholder="Password"
                 required
-                onChange={(event) =>
-                  this.setState({ password: event.target.value })
-                }
+                onBlur={this.form.handleBlurEvent}
+                onChange={this.form.handleChangeEvent}
+                value={this.state.fields.password}
               />
+              <label className="error badge badge-danger">
+                {this.state.errors.password ? this.state.errors.password : ""}
+              </label>
             </li>
             <li>
               <button
@@ -92,9 +115,9 @@ class LoginForm extends Component {
             </li>
             {errorMessage ? (
               <li>
-                <h4>
+                <label>
                   <span className="badge badge-danger">{errorMessage}</span>
-                </h4>
+                </label>
               </li>
             ) : null}
           </ul>
