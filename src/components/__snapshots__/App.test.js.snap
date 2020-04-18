@@ -3,22 +3,22 @@
 exports[`renders correctly 1`] = `
 Array [
   <div
-    className="HomeBg"
+    className="menu-bg-home"
   >
     <div
-      className="HomeBgContent"
+      className="menu-window"
     >
       <form
         onSubmit={[Function]}
       >
         <ul
-          className="MenuUl bg-dark w-100"
+          className="menu bg-dark w-100"
         >
           <h4
             className="mb-4"
           >
             <span
-              className="creatorHeader"
+              className="menu-header"
             >
               Welcome to D&D Online Board
             </span>

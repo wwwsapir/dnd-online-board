@@ -2,19 +2,19 @@
 
 exports[`login button functionality - failure (async) 1`] = `
 <div
-  className="HomeBgContent"
+  className="menu-window"
 >
   <form
     onSubmit={[Function]}
   >
     <ul
-      className="MenuUl bg-dark w-100"
+      className="menu bg-dark w-100"
     >
       <h4
         className="mb-4"
       >
         <span
-          className="creatorHeader"
+          className="menu-header"
         >
           Welcome to D&D Online Board
         </span>
@@ -125,19 +125,19 @@ exports[`login button functionality - success (async) 1`] = `""`;
 
 exports[`renders correctly 1`] = `
 <div
-  className="HomeBgContent"
+  className="menu-window"
 >
   <form
     onSubmit={[Function]}
   >
     <ul
-      className="MenuUl bg-dark w-100"
+      className="menu bg-dark w-100"
     >
       <h4
         className="mb-4"
       >
         <span
-          className="creatorHeader"
+          className="menu-header"
         >
           Welcome to D&D Online Board
         </span>

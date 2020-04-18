@@ -589,7 +589,6 @@ class App extends Component {
           onLogOut={() => this.setState({ authToken: null, userName: "" })}
           onLogIn={this.handleLogIn}
           cancelRedirectFromMap={this.cancelRedirectFromMap}
-          isSmallerScreen={this.props.isSmallerScreen}
         />
         {this.state.showTempMessage ? (
           <TempMessage message={this.state.tempMessageText} />
@@ -630,11 +629,10 @@ class App extends Component {
             onFinishDeletion={this.toggleItemDeletionMode}
             onExitToMenu={this.toggleExitWarningPopUp}
             gameMaster={gameMaster}
-            isSmallerScreen={this.props.isSmallerScreen}
           />
         </ErrorBoundary>
         <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
-          <DiceRoller isSmallerScreen={this.props.isSmallerScreen} />
+          <DiceRoller />
         </ErrorBoundary>
       </div>
     );
@@ -708,7 +706,6 @@ class App extends Component {
             <CharacterCreatorPopUp
               closePopup={this.toggleCharacterCreatorPopup}
               onCharacterCreation={this.handleCharacterCreation}
-              isSmallerScreen={this.props.isSmallerScreen}
             />
           </ErrorBoundary>
         ) : null}

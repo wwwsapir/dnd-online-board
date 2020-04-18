@@ -2,16 +2,16 @@
 
 exports[`renders correctly with authToken 1`] = `
 <div
-  className="GameMenuBgContent"
+  className="GameMenu-window"
 >
   <ul
-    className="w-100 MenuUl"
+    className="w-100 menu"
   >
     <h4
       className="mb-4"
     >
       <span
-        className="creatorHeader"
+        className="menu-header"
       >
         Hi, 
         userName
@@ -53,16 +53,16 @@ exports[`renders correctly with authToken 1`] = `
 
 exports[`renders correctly without authToken 1`] = `
 <div
-  className="GameMenuBgContent"
+  className="GameMenu-window"
 >
   <ul
-    className="w-100 MenuUl"
+    className="w-100 menu"
   >
     <h4
       className="mb-4"
     >
       <span
-        className="creatorHeader"
+        className="menu-header"
       >
         Hey... unknown user!
       </span>
@@ -83,16 +83,16 @@ exports[`renders correctly without authToken 1`] = `
 
 exports[`start a new game click and user rejection functionality (async) 1`] = `
 <div
-  className="GameMenuBgContent"
+  className="GameMenu-window"
 >
   <ul
-    className="w-100 MenuUl"
+    className="w-100 menu"
   >
     <h4
       className="mb-4"
     >
       <span
-        className="creatorHeader"
+        className="menu-header"
       >
         Hi, 
         userName
@@ -134,16 +134,16 @@ exports[`start a new game click and user rejection functionality (async) 1`] = `
 
 exports[`start a new game click and warning menu opens (async) 1`] = `
 <div
-  className="GameMenuBgContent"
+  className="GameMenu-window"
 >
   <ul
-    className="w-100 MenuUl"
+    className="w-100 menu"
   >
     <h4
       className="mb-4"
     >
       <span
-        className="creatorHeader"
+        className="menu-header"
       >
         Hi, 
         userName
