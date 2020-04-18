@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./mapCell.css";
+import "./MapCell.scss";
 
 class MapCell extends Component {
   getCellStyle() {
@@ -13,7 +13,7 @@ class MapCell extends Component {
       height: cellSize,
       border,
       background,
-      cursor: cursorHover
+      cursor: cursorHover,
     };
   }
 
@@ -23,7 +23,7 @@ class MapCell extends Component {
     const { onClick, cell, onMouseEnterCell } = this.props;
     return (
       <div
-        className="CellStyle"
+        className="MapCell"
         style={this.getCellStyle()}
         onClick={() => onClick(cell)}
         onMouseEnter={() => onMouseEnterCell(cell)}

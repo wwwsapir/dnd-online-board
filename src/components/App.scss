@@ -1,8 +1,12 @@
-.App-screen-part .map-area {
+@import "./.common";
+
+.map-area {
+  @extend .App-screen-part;
   background-color: grey;
 }
 
-.App-screen-part .side-bar {
+.side-bar {
+  @extend .App-screen-part;
   padding: 0;
   max-height: 99.5vh;
   overflow-y: auto;

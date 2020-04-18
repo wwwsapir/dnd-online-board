@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import loginUser from "../services/loginUser";
 import { Redirect, Link } from "react-router-dom";
+import "./.common.scss";
 
 class LoginForm extends Component {
   state = {
@@ -36,11 +37,11 @@ class LoginForm extends Component {
     }
 
     return (
-      <div className="HomeBgContent">
+      <div className="menu-window">
         <form onSubmit={this.handleLoginFormSubmit}>
-          <ul className="MenuUl bg-dark w-100">
+          <ul className="menu bg-dark w-100">
             <h4 className="mb-4">
-              <span className="creatorHeader">
+              <span className="menu-header">
                 Welcome to D&amp;D Online Board
               </span>
             </h4>

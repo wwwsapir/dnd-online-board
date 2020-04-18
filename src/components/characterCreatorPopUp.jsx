@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CharacterCreator from "./CharacterCreator";
-import "./popUp.css";
+import "./CharacterCreatorPopUp.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class CharacterCreatorPopUp extends Component {
@@ -14,12 +14,9 @@ class CharacterCreatorPopUp extends Component {
   };
 
   render() {
-    const innerClass = this.props.isSmallerScreen
-      ? "CharacterCreatorPopUpInnerSmallerScreen"
-      : "CharacterCreatorPopUpInner";
     return (
-      <div className="PopUp">
-        <div className={innerClass}>
+      <div className="menu-bg-popup">
+        <div className="CharacterCreatorPopUp-window">
           <CharacterCreator
             onCreation={this.handleCharacterCreationClick}
             onCancel={this.handleCancelCreation}

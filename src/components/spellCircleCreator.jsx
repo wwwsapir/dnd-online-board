@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./sideBar.css";
+import "./.common.scss";
 import { SketchPicker } from "react-color";
 import {
   MIN_SPELL_CIRCLE_RADIUS_FEET,
@@ -75,9 +75,9 @@ class CharacterCreator extends Component {
       missingFields,
     } = this.state;
     return (
-      <ul className="nav nav-tabs flex-column bg-dark row w-100 MenuUl p-20">
+      <ul className="nav nav-tabs flex-column bg-dark row w-100 menu p-20">
         <h4 className="col mb-5">
-          <span className="creatorHeader">Add a Spell Circle</span>
+          <span className="menu-header">Add a Spell Circle</span>
         </h4>
         <span className="row">
           <span className="col-8 d-inline">

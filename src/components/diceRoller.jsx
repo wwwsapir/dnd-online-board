@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./sideBar.css";
+import "./DiceRoller.scss";
 import { MIN_DICE_FOR_ROLL, MAX_DICE_FOR_ROLL } from "../constants";
 
 class DiceRoller extends Component {
@@ -34,15 +34,14 @@ class DiceRoller extends Component {
 
   render() {
     const { diceCount, resultSum, diceResults, isDiceNumberValid } = this.state;
-    const designClass = this.props.isSmallerScreen ? "MenuUlSmallerScreen" : "MenuUl";
     return (
       <ul
         className={
-          "nav nav-tabs flex-column bg-dark row w-100 ml-1 " + designClass
+          "nav nav-tabs flex-column bg-dark row w-100 ml-1 menu"
         }
       >
         <h4 className="mb-1">
-          <span className="creatorHeader">Roll Dice</span>
+          <span className="menu-header">Roll Dice</span>
         </h4>
         <li className="nav-item">
           <label className="mr-3 mb-2 radio control-label">Dice type:</label>
@@ -164,7 +163,7 @@ class DiceRoller extends Component {
           {isDiceNumberValid && resultSum ? (
             <label className="mr-3 mb-2 radio control-label col-md-8 d-inline">
               Roll Result Sum:
-              <span className="rollSum ml-3">{resultSum}</span>
+              <span className="roll-result-sum ml-3">{resultSum}</span>
             </label>
           ) : null}
         </li>
@@ -174,7 +173,7 @@ class DiceRoller extends Component {
               Dice results:
               <div className="mt-1 row ml-1 mt-1">
                 {diceResults.map((res, i) => (
-                  <div key={i} className="rollResult d-inline ml-1">
+                  <div key={i} className="roll-result d-inline ml-1">
                     {res}
                   </div>
                 ))}

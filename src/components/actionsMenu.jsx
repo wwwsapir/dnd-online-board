@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import "./sideBar.css";
+import "./.common.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class ActionsMenu extends Component {
@@ -16,16 +16,11 @@ class ActionsMenu extends Component {
       gameMaster,
       isSmallerScreen,
     } = this.props;
-    const designClass = isSmallerScreen ? "MenuUlSmallerScreen" : "MenuUl";
     const buttonTopMargin = isSmallerScreen ? 2 : 3;
     return (
-      <ul
-        className={
-          "nav nav-tabs flex-column row w-100 ml-1 " + designClass
-        }
-      >
+      <ul className="nav nav-tabs flex-column row w-100 ml-1 menu">
         <h4 className="mb-1">
-          <span className="creatorHeader">Actions</span>
+          <span className="menu-header">Actions</span>
         </h4>
         {itemDeletionModeOn ? (
           <li className="nav-item">

@@ -1,6 +1,7 @@
 @import ".common";
 
-.menu-window .ExitWarningPopUpInner-window {
+.ExitWarningPopUpInner-window {
+  @extend .menu-window;
   left: 30%;
   right: 30%;
   top: 30%;

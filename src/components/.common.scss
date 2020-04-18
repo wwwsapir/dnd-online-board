@@ -23,26 +23,25 @@ $bigScreenThreshold: 1799px;
   bottom: 0;
   margin: auto;
   background-size: cover;
+}
 
-  &-home {
-    background-image: url("/dnd-online-board/images/misc/home_bg.png");
-  }
+.menu-bg-home {
+  @extend .menu-bg;
+  background-image: url("/dnd-online-board/images/misc/home_bg.png");
+}
 
-  &-popup {
-    background-color: rgba(0, 0, 0, 0.6);
-  }
+.menu-bg-popup {
+  @extend .menu-bg;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .menu-window {
   position: absolute;
   margin: auto;
-
-  &-window {
-    left: 30%;
-    right: 30%;
-    top: 20%;
-    bottom: 20%;
-  }
+  left: 30%;
+  right: 30%;
+  top: 20%;
+  bottom: 20%;
 }
 
 .menu {

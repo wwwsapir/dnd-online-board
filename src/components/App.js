@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import "./App.scss";
+import "./.common.scss";
 import DiceRoller from "./DiceRoller";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MapCanvas from "./MapCanvas";
@@ -19,7 +20,6 @@ import ResetPasswordForm from "./ResetPasswordForm";
 import ExitWarningPopUp from "./ExitWarningPopUp";
 import { Persist } from "react-persist";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
-import "./home.css";
 import PlayersLinkPopUp from "./PlayersLinkPopUp";
 import { PLAYERS_GAME_URL } from "../constants";
 import withSizes from "react-sizes";
@@ -155,44 +155,6 @@ class App extends Component {
       }
     }
   };
-
-  // handleKeyUp = e => {
-  //   let { selectedChar, matrix } = this.state;
-  //   if (!selectedChar) {
-  //     return;
-  //   }
-
-  //   let rowAdd = 0;
-  //   let colAdd = 0;
-
-  //   switch (e.keyCode) {
-  //     case 37: // Left
-  //       rowAdd = 0;
-  //       colAdd = -1;
-  //       break;
-  //     case 38: // Up
-  //       rowAdd = -1;
-  //       colAdd = 0;
-  //       break;
-  //     case 39: // Right
-  //       rowAdd = 0;
-  //       colAdd = 1;
-  //       break;
-  //     case 40: // Down
-  //       rowAdd = 1;
-  //       colAdd = 0;
-  //       break;
-  //     default:
-  //       const characters = this.getCharsArrWithoutSelection();
-  //       this.setState({ selectedChar: null, placingChar: null, characters });
-  //       return;
-  //   }
-  //   const row = selectedChar.topLeftRow + rowAdd;
-  //   const col = selectedChar.topLeftCol + colAdd;
-  //   if (this.checkIndicesValid(row, col, row, col)) {
-  //     this.handleCellClick(matrix[row][col], false);
-  //   }
-  // };
 
   handleKeyUp = (e) => {
     let { selectedChar, selectedCircle } = { ...this.state };
@@ -656,7 +618,7 @@ class App extends Component {
     } = this.state;
     const sideBarWidthCols = this.props.isSmallerScreen ? 4 : 3;
     return (
-      <div className={"SideBar bg-primary col-" + sideBarWidthCols}>
+      <div className={"side-bar bg-primary col-" + sideBarWidthCols}>
         <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
           <ActionsMenu
             onCharacterCreation={this.toggleCharacterCreatorPopup}
@@ -699,7 +661,7 @@ class App extends Component {
     const mapAreaWidthCols = this.props.isSmallerScreen ? 8 : 9;
 
     return (
-      <div className={"MapArea h-100 p-0 col-" + mapAreaWidthCols}>
+      <div className={"map-area h-100 p-0 col-" + mapAreaWidthCols}>
         <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
           <MapCanvas
             rowCount={rowCount}
@@ -785,11 +747,11 @@ class App extends Component {
 
   renderNotLoggedInError() {
     return (
-      <div className="HomeBg">
-        <div className="HomeBgContent">
-          <ul className="MenuUl bg-dark w-100">
+      <div className="menu-bg-home">
+        <div className="menu-window">
+          <ul className="menu bg-dark w-100">
             <h4 className="mb-4">
-              <span className="creatorHeader">Hey... unknown user!</span>
+              <span className="menu-header">Hey... unknown user!</span>
               <br></br>
               <br></br>
               Oops! You can't see the game map if you're not logged in :)

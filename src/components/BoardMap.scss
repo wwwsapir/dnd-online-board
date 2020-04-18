@@ -1,6 +1,7 @@
 @import ".common";
 
-.menu-bg .deletion-mode-bg {
+.deletion-mode-bg {
+  @extend .menu-bg;
   background-color: rgba(0, 0, 0, 0.75);
   pointer-events: none;
 }

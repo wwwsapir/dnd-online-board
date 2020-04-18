@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import registerNewUser from "../services/registerNewUser";
 import { Redirect, Link } from "react-router-dom";
 import TempMessage from "./TempMessage";
+import "./.common.scss"
 
 class RegistrationForm extends Component {
   state = {
@@ -48,11 +49,11 @@ class RegistrationForm extends Component {
     }
 
     return (
-      <div className="HomeBgContent">
+      <div className="menu-window">
         <form onSubmit={this.handleRegisterFormSubmit}>
-          <ul className="MenuUl bg-dark w-100">
+          <ul className="menu bg-dark w-100">
             <h4 className="mb-5">
-              <span className="creatorHeader">New User Registration</span>
+              <span className="menu-header">New User Registration</span>
             </h4>
             <li>
               <input

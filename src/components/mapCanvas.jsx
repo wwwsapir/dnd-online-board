@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { MapInteractionCSS } from "react-map-interaction";
-import "./mapCanvas.css";
+import "./MapCanvas.scss";
 import BoardMap from "./BoardMap";
 
 class MapCanvas extends Component {
@@ -59,7 +59,7 @@ class MapCanvas extends Component {
           this.setState({ scale, translation })
         }
       >
-        <div className="MapBgImg" style={this.getStyle().mapBgImg}>
+        <div className="MapCanvas-bg-img" style={this.getStyle().mapBgImg}>
           <BoardMap
             rowCount={rowCount}
             colCount={colCount}

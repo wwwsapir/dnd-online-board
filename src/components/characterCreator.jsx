@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./sideBar.css";
+import "./.common.scss";
 import ImagePicker from "react-image-picker";
 import "react-image-picker/dist/index.css";
 import {
@@ -71,10 +71,10 @@ class CharacterCreator extends Component {
   render() {
     const { characterName, height, width, avatarFile } = this.state;
     return (
-      <ul className="nav nav-tabs flex-column bg-dark row w-100 p-20 MenuUl">
+      <ul className="nav nav-tabs flex-column bg-dark row w-100 p-20 menu">
         <div>
           <h4 className="mb-4">
-            <span className="creatorHeader ml-2">Add a New Character</span>
+            <span className="menu-header ml-2">Add a New Character</span>
             
           </h4>
         </div>

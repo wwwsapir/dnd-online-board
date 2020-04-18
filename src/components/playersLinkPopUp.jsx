@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./popUp.css";
+import "./PlayersLinkPopUp.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import copy from "copy-to-clipboard";
 
@@ -23,9 +23,9 @@ class PlayersLinkPopUp extends Component {
 
   render() {
     return (
-      <div className="PopUp">
-        <div className="ExitWarningPopUpInner">
-          <ul className="nav nav-tabs flex-column bg-dark row w-100 p-20 MenuUl">
+      <div className="menu-bg-popup">
+        <div className="PlayersLinkPopUp-window">
+          <ul className="nav nav-tabs flex-column bg-dark row w-100 p-20 menu">
             <li>
               <h4 className="mb-3">Game link for players:</h4>
               <textarea rows={3} disabled className="form-control">

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./popUp.css";
+import "./ExitWarningPopUp.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class ExitWarningPopUp extends Component {
@@ -14,9 +14,9 @@ class ExitWarningPopUp extends Component {
 
   render() {
     return (
-      <div className="PopUp">
-        <div className="ExitWarningPopUpInner">
-          <div className="nav nav-tabs flex-column row w-100 MenuUl">
+      <div className="menu-bg-popup">
+        <div className="ExitWarningPopUpInner-window">
+          <div className="nav nav-tabs flex-column row w-100 menu">
             <h4>Your progress is saved. Exit to menu?</h4>
             <span className="row mt-3">
               <div className="col-7 d-inline">

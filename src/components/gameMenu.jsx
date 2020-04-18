@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Redirect, Link } from "react-router-dom";
 import getGameData from "../services/getUserGameData";
-import "./home.css";
+import "./GameMenu.scss";
 
 let _gameMenuMounted = false;
 
@@ -93,7 +93,7 @@ class GameMenu extends Component {
     return (
       <Fragment>
         <h4 className="mb-4">
-          <span className="creatorHeader">Hi, {userName}! Ready to play?</span>
+          <span className="menu-header">Hi, {userName}! Ready to play?</span>
         </h4>
         <li>
           <button
@@ -153,7 +153,7 @@ class GameMenu extends Component {
     return (
       <Fragment>
         <h4 className="mb-4">
-          <span className="creatorHeader">Hey... unknown user!</span>
+          <span className="menu-header">Hey... unknown user!</span>
           <br></br>
           <br></br>
           Oops! You can't see the game menu if you're not logged in :) <br></br>
@@ -174,11 +174,9 @@ class GameMenu extends Component {
       return <Redirect push to="/map" />;
     }
 
-    const menuDesignClass = isSmallerScreen ? "MenuUlSmallerScreen" : "MenuUl";
-
     return (
-      <div className="GameMenuBgContent">
-        <ul className={"w-100 " + menuDesignClass}>
+      <div className="GameMenu-window">
+        <ul className={"w-100 menu"}>
           {authToken ? this.renderGameMenu() : this.renderNotLoggedInError()}
         </ul>
       </div>

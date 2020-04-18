@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./home.css";
+import "./.common.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginForm from "./LoginForm";
 import GameMenu from "./GameMenu";
@@ -22,7 +22,7 @@ class WelcomeScreen extends Component {
     } = this.props;
 
     return (
-      <div className="HomeBg">
+      <div className="menu-bg-home">
         <Switch>
           <Redirect
             exact

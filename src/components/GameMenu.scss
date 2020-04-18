@@ -1,6 +1,7 @@
 @import ".common";
 
-.menu-window .GameMenu-window {
+.GameMenu-window {
+  @extend .menu-window;
   left: 22%;
   right: 22%;
   top: 20%;

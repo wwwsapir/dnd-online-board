@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SpellCircleCreator from "./SpellCircleCreator";
-import "./popUp.css";
+import "./SpellCircleCreatorPopUp.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class SpellCircleCreatorPopUp extends Component {
@@ -15,8 +15,8 @@ class SpellCircleCreatorPopUp extends Component {
 
   render() {
     return (
-      <div className="PopUp">
-        <div className="SpellCircleCreatorPopUpInner">
+      <div className="menu-bg-popup">
+        <div className="SpellCircleCreatorPopUp-window">
           <SpellCircleCreator
             onCreation={this.handleSpellCircleCreationClick}
             onCancel={this.handleCancelCreation}

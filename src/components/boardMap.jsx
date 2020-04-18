@@ -2,14 +2,10 @@ import React, { Component } from "react";
 import MapCell from "./MapCell";
 import Character from "./Character";
 import SpellCircle from "./SpellCircle";
-import "./boardMap.css";
+import "./BoardMap.scss";
 import { CURSOR_IMAGES } from "../constants";
 
 class BoardMap extends Component {
-  getBackgroundClass() {
-    return this.props.itemDeletionModeOn ? "DeletionMode" : "";
-  }
-
   render() {
     const {
       matrix,
@@ -29,6 +25,10 @@ class BoardMap extends Component {
       onCalcSpellCirclePosition,
       placingCircle,
     } = this.props;
+
+    const bgDesignClass = this.props.itemDeletionModeOn
+      ? "deletion-mode-bg"
+      : "";
 
     return (
       <div>
@@ -53,7 +53,7 @@ class BoardMap extends Component {
             </div>
           ))}
         </div>
-        <div className={this.getBackgroundClass()}>
+        <div className={bgDesignClass}>
           {spellCircles.map((spellCircle, i) => (
             <SpellCircle
               key={i}

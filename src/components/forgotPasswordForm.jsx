@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import sendResetUserPasswordEmail from "../services/sendResetPasswordEmail";
 import { Link } from "react-router-dom";
+import "./.common.scss";
 
 class ForgotPasswordForm extends Component {
   state = {
@@ -40,10 +41,10 @@ class ForgotPasswordForm extends Component {
   render() {
     const { email, errMessage, messageUnderBox, loading } = this.state;
     return (
-      <div className="HomeBgContent">
-        <ul className="MenuUl bg-dark w-100">
+      <div className="menu-window">
+        <ul className="menu bg-dark w-100">
           <h4 className="mb-5">
-            <span className="creatorHeader">Reset Password</span>
+            <span className="menu-header">Reset Password</span>
           </h4>
           <li>
             <input

@@ -1,6 +1,7 @@
 @import ".common";
 
-.menu-window .CharacterCreatorPopUp-window {
+.CharacterCreatorPopUp-window {
+  @extend .menu-window;
   left: 20%;
   right: 20%;
   top: 6%;

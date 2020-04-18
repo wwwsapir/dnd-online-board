@@ -2,20 +2,15 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import { GAMEPLAY_IMG_PATH } from "../constants";
+import "./AboutPage.scss";
 
 class AboutPage extends Component {
   render() {
-    const contentClass = this.props.isSmallerScreen
-      ? "AboutScreenContentSmallerScreen"
-      : "AboutScreenContent";
-      const menuClass = this.props.isSmallerScreen
-      ? "MenuUlSmallerScreen"
-      : "MenuUl";
     return (
-      <div className={contentClass}>
-        <ul className={"bg-dark w-100 " + menuClass}>
+      <div className="AboutPage-window">
+        <ul className="bg-dark w-100 menu">
           <h4 className="mb-5">
-            <span className="creatorHeader">What is D&amp;D Online Board?</span>
+            <span className="menu-header">What is D&amp;D Online Board?</span>
           </h4>
           <p>
             <h4>What is D&amp;D?</h4>
@@ -84,7 +79,7 @@ class AboutPage extends Component {
                   width: "100%",
                   height: "auto",
                   maxWidth: "550px",
-                  float: "right"
+                  float: "right",
                 }}
               />
             </div>

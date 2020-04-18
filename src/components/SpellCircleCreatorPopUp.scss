@@ -1,6 +1,7 @@
 @import ".common";
 
-.menu-window .SpellCircleCreatorPopUp-window {
+.SpellCircleCreatorPopUp-window {
+  @extend .menu-window;
   left: 20%;
   right: 20%;
   top: 8%;

@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import resetUserPassword from "../services/resetUserPassword";
 import checkPasswordTokenValid from "../services/checkPasswordTokenValid";
 import { Redirect } from "react-router-dom";
-import "./home.css";
+import "./.common.scss";
 
 class ResetPasswordForm extends Component {
   state = {
@@ -78,9 +78,9 @@ class ResetPasswordForm extends Component {
 
   renderLoadingPage() {
     return (
-      <ul className="MenuUl bg-dark w-100 h-100 row">
+      <ul className="menu bg-dark w-100 h-100 row">
         <h4 className="mb-5">
-          <span className="creatorHeader">Page loading...</span>
+          <span className="menu-header">Page loading...</span>
         </h4>
       </ul>
     );
@@ -88,10 +88,10 @@ class ResetPasswordForm extends Component {
 
   renderAccessDeniedPage() {
     return (
-      <ul className="MenuUl bg-dark w-100 h-100 row">
+      <ul className="menu bg-dark w-100 h-100 row">
         <li className="md-5">
           <h3 className="mb-5">
-            <span className="creatorHeader">Access denied</span>
+            <span className="menu-header">Access denied</span>
           </h3>
           <h5>
             If you're trying to reset your password, this link may be an old
@@ -117,12 +117,12 @@ class ResetPasswordForm extends Component {
     }
 
     return (
-      <div className="HomeBg">
-        <div className="HomeBgContent">
+      <div className="menu-bg-home">
+        <div className="menu-window">
           <form onSubmit={this.handleChangePasswordFormSubmit}>
-            <ul className="MenuUl bg-dark w-100">
+            <ul className="menu bg-dark w-100">
               <h4 className="mb-5">
-                <span className="creatorHeader">D&amp;D Online Board</span>
+                <span className="menu-header">D&amp;D Online Board</span>
               </h4>
               <h4>Reset Password</h4>
               <li>
