@@ -1,0 +1,10 @@
+.App-screen-part .map-area {
+  background-color: grey;
+}
+
+.App-screen-part .side-bar {
+  padding: 0;
+  max-height: 99.5vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

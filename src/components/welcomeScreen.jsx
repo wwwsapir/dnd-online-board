@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import "./home.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import LoginForm from "./loginForm";
-import GameMenu from "./gameMenu";
-import ForgotPasswordForm from "./forgotPasswordForm";
-import RegistrationForm from "./registrationForm";
-import AboutPage from "./aboutPage";
+import LoginForm from "./LoginForm";
+import GameMenu from "./GameMenu";
+import ForgotPasswordForm from "./ForgotPasswordForm";
+import RegistrationForm from "./RegistrationForm";
+import AboutPage from "./AboutPage";
 import { Route, Redirect, Switch } from "react-router-dom";
 
 class WelcomeScreen extends Component {

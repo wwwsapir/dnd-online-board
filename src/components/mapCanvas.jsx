@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { MapInteractionCSS } from "react-map-interaction";
 import "./mapCanvas.css";
-import BoardMap from "./boardMap";
+import BoardMap from "./BoardMap";
 
 class MapCanvas extends Component {
   state = {};

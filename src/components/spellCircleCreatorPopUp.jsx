@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SpellCircleCreator from "./spellCircleCreator";
+import SpellCircleCreator from "./SpellCircleCreator";
 import "./popUp.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 

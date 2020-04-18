@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import MapCell from "./mapCell";
-import Character from "./character";
-import SpellCircle from "./spellCircle";
+import MapCell from "./MapCell";
+import Character from "./Character";
+import SpellCircle from "./SpellCircle";
 import "./boardMap.css";
 import { CURSOR_IMAGES } from "../constants";
 

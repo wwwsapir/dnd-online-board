@@ -1,0 +1,74 @@
+$bigScreenThreshold: 1799px;
+
+@mixin smaller-screen() {
+  @media only screen and (max-width: $bigScreenThreshold) {
+    @content;
+  }
+}
+
+.menu-header {
+  font-weight: bold;
+  padding: 1px;
+}
+
+.menu-bg {
+  max-height: 100vh;
+  overflow-y: auto;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-size: cover;
+
+  &-home {
+    background-image: url("/dnd-online-board/images/misc/home_bg.png");
+  }
+
+  &-popup {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.menu-window {
+  position: absolute;
+  margin: auto;
+
+  &-window {
+    left: 30%;
+    right: 30%;
+    top: 20%;
+    bottom: 20%;
+  }
+}
+
+.menu {
+  color: white;
+  list-style-type: none;
+  background-color: #2e3031;
+  border: {
+    style: solid;
+    width: 8px;
+    color: blue;
+    radius: 18px;
+  }
+  font-size: 15;
+  padding: 30px;
+
+  @include smaller-screen() {
+    font-size: 12;
+    padding: 15px;
+    border-width: 7px;
+  }
+}
+
+.App-screen-part {
+  border: {
+    color: blue;
+    width: 5px;
+    style: solid;
+  }
+}

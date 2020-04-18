@@ -1,5 +1,5 @@
 Continue:
-Add tests
+לפרט מה השדה שחסר ביצירת דמות כשחסר מידע.
 
 Version 0.0 - Done!
 1. Characters creation toolbar. + Roll dice. - Done
@@ -47,3 +47,8 @@ A Desktop Web App project, written in React.JS front-end and Node.JS back-end.
 The source code can be found here:
 https://github.com/wwwsapir/dnd-online-board
 https://github.com/wwwsapir/dnd-online-board-api
+
+Cover Letter:
+Hello,
+
+My name is Sapir Zeelon, I'm an experienced software developer, Computer Science BS.c with honours.

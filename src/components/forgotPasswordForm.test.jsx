@@ -1,4 +1,4 @@
-import ForgotPasswordForm from "./forgotPasswordForm";
+import ForgotPasswordForm from "./ForgotPasswordForm";
 // Note: I use this specific test file as a test template for other tests creation, so there are lot of redundant comments here.
 
 // Shallow rendering test

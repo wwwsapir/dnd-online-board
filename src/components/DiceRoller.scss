@@ -1,0 +1,22 @@
+.roll-result {
+  font-weight: bold;
+  padding: {
+    right: 3px;
+    left: 3px;
+    top: 1px;
+    bottom: 1px;
+  }
+  border: {
+    style: solid;
+    width: 2px;
+    color: #248ed4;
+    radius: 6px;
+  }
+
+  &-sum {
+    border: {
+      width: 4px;
+      color: #89ffad;
+    }
+  }
+}

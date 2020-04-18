@@ -1,4 +1,4 @@
-import RegistrationForm from "./registrationForm";
+import RegistrationForm from "./RegistrationForm";
 import { MemoryRouter } from "react-router";
 
 it("renders correctly", () => {

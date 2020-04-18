@@ -1,0 +1,14 @@
+@import ".common";
+
+.menu-window .CharacterCreatorPopUp-window {
+  left: 20%;
+  right: 20%;
+  top: 6%;
+  bottom: 15%;
+
+  @include smaller-screen() {
+    left: 15%;
+    right: 15%;
+    top: 4%;
+  }
+}

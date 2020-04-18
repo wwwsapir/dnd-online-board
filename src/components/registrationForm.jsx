@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import registerNewUser from "../services/registerNewUser";
 import { Redirect, Link } from "react-router-dom";
-import TempMessage from "./tempMessage";
+import TempMessage from "./TempMessage";
 
 class RegistrationForm extends Component {
   state = {

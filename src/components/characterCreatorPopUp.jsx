@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CharacterCreator from "./characterCreator";
+import CharacterCreator from "./CharacterCreator";
 import "./popUp.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 

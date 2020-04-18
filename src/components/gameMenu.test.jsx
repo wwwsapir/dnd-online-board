@@ -1,4 +1,4 @@
-import GameMenu from "./gameMenu";
+import GameMenu from "./GameMenu";
 
 it("renders correctly with authToken", () => {
   const wrapper = shallow(

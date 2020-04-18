@@ -1,0 +1,16 @@
+@import ".common";
+
+.menu-window .AboutPage-window {
+  position: absolute;
+  left: 17%;
+  right: 17%;
+  top: 5%;
+  bottom: 20%;
+  margin: auto;
+
+  @include smaller-screen() {
+    left: 5%;
+    right: 5%;
+    top: 3%;
+  }
+}
