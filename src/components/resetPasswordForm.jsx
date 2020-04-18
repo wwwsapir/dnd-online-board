@@ -4,12 +4,11 @@ import resetUserPassword from "../services/resetUserPassword";
 import checkPasswordTokenValid from "../services/checkPasswordTokenValid";
 import { Redirect } from "react-router-dom";
 import "./.common.scss";
+import ReactFormInputValidation from "react-form-input-validation";
 
 class ResetPasswordForm extends Component {
   state = {
-    newPassword: "",
-    confirmPassword: "",
-    errorMessage: "",
+    serverErrorMessage: "",
     authToken: null,
     tokenValid: false,
     isLoading: true,
@@ -20,6 +19,25 @@ class ResetPasswordForm extends Component {
   constructor(props) {
     super(props);
     this.state.authToken = this.getAuthTokenFromParams();
+    this.state.fields = {
+      password: "",
+      password_confirmation: "",
+    };
+    this.state.errors = {};
+    this.form = new ReactFormInputValidation(this);
+    this.form.useRules({
+      password: "required|between:6,72",
+      password_confirmation: "required|between:6,72",
+    });
+    this.form.onformsubmit = () => {
+      if (
+        this.state.fields.password !== this.state.fields.password_confirmation
+      ) {
+        this.setState({ serverErrorMessage: "Passwords must match!" });
+        return;
+      }
+      this.handleChangePasswordFormSubmit();
+    };
   }
 
   componentDidMount() {
@@ -39,7 +57,7 @@ class ResetPasswordForm extends Component {
     if (!res) return;
     if (res.status !== 200) {
       this.setState({
-        errorMessage: res.body.error.message,
+        serverErrorMessage: res.body.error.message,
         isLoading: false,
       });
     } else {
@@ -47,34 +65,28 @@ class ResetPasswordForm extends Component {
     }
   }
 
-  handleChangePasswordFormSubmit = async (e) => {
-    e.preventDefault();
-    const { newPassword, confirmPassword, authToken } = this.state;
+  async handleChangePasswordFormSubmit() {
+    const { password } = this.state.fields;
+    const { authToken } = this.state;
     const { onPasswordReset } = this.props;
 
-    if (!newPassword || !confirmPassword) {
-      this.setState({ errorMessage: "Please fill both of the above fields" });
-      return;
-    }
-    if (newPassword !== confirmPassword) {
-      this.setState({ errorMessage: "Passwords must match" });
-      return;
-    }
-
-    this.setState({ loading: true });
+    this.setState({ loading: true, serverErrorMessage: "" });
     const res = await resetUserPassword({
-      newPassword,
+      newPassword: password,
       authToken,
     });
 
     if (!res) return;
     if (res.status !== 200) {
-      this.setState({ errorMessage: res.body.error.message, loading: false });
+      this.setState({
+        serverErrorMessage: res.body.error.message,
+        loading: false,
+      });
     } else {
       this.setState({ toLogin: true, loading: false });
       onPasswordReset();
     }
-  };
+  }
 
   renderLoadingPage() {
     return (
@@ -104,13 +116,7 @@ class ResetPasswordForm extends Component {
   }
 
   renderPasswordResetPage() {
-    const {
-      newPassword,
-      confirmPassword,
-      errorMessage,
-      toLogin,
-      loading,
-    } = this.state;
+    const { serverErrorMessage: errorMessage, toLogin, loading } = this.state;
 
     if (toLogin) {
       return <Redirect push to="/home/login" />;
@@ -119,37 +125,43 @@ class ResetPasswordForm extends Component {
     return (
       <div className="menu-bg-home">
         <div className="menu-window">
-          <form onSubmit={this.handleChangePasswordFormSubmit}>
+          <form onSubmit={this.form.handleSubmit}>
             <ul className="menu bg-dark w-100">
               <h4 className="mb-5">
                 <span className="menu-header">D&amp;D Online Board</span>
               </h4>
               <h4>Reset Password</h4>
-              <li>
+              <li className="mt-3">
                 <input
-                  className="input-group-sm form-control mt-3"
+                  className="input-group-sm form-control"
                   type="password"
-                  id="newPassword"
-                  value={newPassword}
-                  placeholder="New Password"
+                  name="password"
+                  placeholder="Password"
                   required
-                  onChange={(event) =>
-                    this.setState({ newPassword: event.target.value })
-                  }
+                  onBlur={this.form.handleBlurEvent}
+                  onChange={this.form.handleChangeEvent}
+                  value={this.state.fields.password}
                 />
+                <label className="error badge badge-danger">
+                  {this.state.errors.password ? this.state.errors.password : ""}
+                </label>
               </li>
-              <li>
+              <li className="mt-3">
                 <input
-                  className="input-group-sm form-control mt-3"
+                  className="input-group-sm form-control"
                   type="password"
-                  id="confirmPassword"
-                  value={confirmPassword}
+                  name="password_confirmation"
                   placeholder="Confirm Password"
                   required
-                  onChange={(event) =>
-                    this.setState({ confirmPassword: event.target.value })
-                  }
+                  onBlur={this.form.handleBlurEvent}
+                  onChange={this.form.handleChangeEvent}
+                  value={this.state.fields.password_confirmation}
                 />
+                <label className="error badge badge-danger">
+                  {this.state.errors.password_confirmation
+                    ? this.state.errors.password_confirmation
+                    : ""}
+                </label>
               </li>
               <li>
                 <button
@@ -162,9 +174,9 @@ class ResetPasswordForm extends Component {
               </li>
               {errorMessage ? (
                 <li className="nav-item col mt-4">
-                  <h4>
+                  <label>
                     <span className="badge badge-danger">{errorMessage}</span>
-                  </h4>
+                  </label>
                 </li>
               ) : null}
             </ul>
