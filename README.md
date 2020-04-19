@@ -1,6 +1,6 @@
 Welcome!
 
-This desktop web app is a platform that serves D&D (Dragons & Dungeons) players that usually meet their friends to play using a physical map board, and currently need to play online using a shared online map board because of the Corona outbreak.
+This desktop web app is a platform that serves D&D (Dragons & Dungeons) players that usually meet their friends to play using a physical map board, and currently need to play online using a shared online map board because of the Covid-19 outbreak.
 
 It was written by Sapir Zeelon in March-April, 2020.
 I created this app while independently learning all of the relevant material online in order to do what I love and become a full-stack or a frond-end developer.
