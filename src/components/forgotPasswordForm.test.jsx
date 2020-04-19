@@ -1,4 +1,5 @@
 import ForgotPasswordForm from "./ForgotPasswordForm";
+import { MemoryRouter } from "react-router-dom";
 // Note: I use this specific test file as a test template for other tests creation, so there are lot of redundant comments here.
 
 // Shallow rendering test
@@ -16,14 +17,21 @@ it("renders correctly - shallow", () => {
 // Test send click functionality (async)
 jest.mock("../services/sendResetPasswordEmail");
 it("handles Send click correctly", async (done) => {
-  const wrapper = shallow(<ForgotPasswordForm />);
+  const wrapper = mount(
+    <MemoryRouter>
+      <ForgotPasswordForm />
+    </MemoryRouter>
+  );
   expect(wrapper.find("label").first().text()).toEqual(
     "A message with a link to reset your password will be sent to this email address."
   );
   wrapper
     .find("input")
-    .simulate("change", { target: { value: "wwwsapir@gmail.com" } });
-  wrapper.find("button").simulate("click");
+    .first()
+    .simulate("change", {
+      target: { name: "email", value: "wwwsapir@gmail.com" },
+    });
+  wrapper.find("button").simulate("submit");
   setTimeout(() => {
     wrapper.update();
     expect(wrapper.find("label").first().text()).toEqual(

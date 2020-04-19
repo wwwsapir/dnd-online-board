@@ -1,4 +1,4 @@
-import LoginForm from "./LoginForm1";
+import LoginForm from "./LoginForm";
 import { MemoryRouter } from "react-router";
 
 it("renders correctly", () => {
@@ -18,9 +18,17 @@ it("login button functionality - success (async)", async (done) => {
   wrapper
     .find("input")
     .first()
-    .simulate("change", { target: { value: "wwwsapir@gmail.com" } });
+    .simulate("change", {
+      target: { name: "email", value: "wwwsapir@gmail.com" },
+    });
+  wrapper
+    .find("input")
+    .at(1)
+    .simulate("change", {
+      target: { name: "password", value: "111111" },
+    });
   wrapper.find("button").simulate("submit");
-  expect(wrapper.find("button").first().prop("disabled")).toEqual(true);
+  wrapper.update();
   setTimeout(() => {
     wrapper.update();
     expect(wrapper).toMatchSnapshot();
@@ -30,20 +38,29 @@ it("login button functionality - success (async)", async (done) => {
 });
 
 it("login button functionality - failure (async)", async (done) => {
+  const spyOnLogin = sinon.spy();
   const wrapper = mount(
     <MemoryRouter>
-      <LoginForm onLogin={() => {}} />
+      <LoginForm onLogin={spyOnLogin} />
     </MemoryRouter>
   );
   wrapper
     .find("input")
     .first()
-    .simulate("change", { target: { value: "other_email" } });
+    .simulate("change", {
+      target: { name: "email", value: "other@gmail.com" },
+    });
+  wrapper
+    .find("input")
+    .at(1)
+    .simulate("change", {
+      target: { name: "password", value: "111111" },
+    });
   wrapper.find("button").simulate("submit");
-  expect(wrapper.find("button").first().prop("disabled")).toEqual(true);
   setTimeout(() => {
     wrapper.update();
     expect(wrapper).toMatchSnapshot();
+    expect(spyOnLogin.called).toBe(false);
     done();
   });
 });

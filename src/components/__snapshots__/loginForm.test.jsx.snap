@@ -43,22 +43,31 @@ exports[`login button functionality - failure (async) 1`] = `
       <li>
         <input
           className="input-group-sm form-control"
-          id="email"
+          name="email"
+          onBlur={[Function]}
           onChange={[Function]}
           placeholder="Email Address"
           required={true}
-          value="other_email"
+          type="email"
+          value="other@gmail.com"
+        />
+        <label
+          className="error badge badge-danger"
         />
       </li>
       <li>
         <input
           className="input-group-sm form-control mt-3"
-          id="password"
+          name="password"
+          onBlur={[Function]}
           onChange={[Function]}
           placeholder="Password"
           required={true}
           type="password"
-          value=""
+          value="111111"
+        />
+        <label
+          className="error badge badge-danger"
         />
       </li>
       <li>
@@ -108,13 +117,13 @@ exports[`login button functionality - failure (async) 1`] = `
         </Link>
       </li>
       <li>
-        <h4>
+        <label>
           <span
             className="badge badge-danger"
           >
             Error
           </span>
-        </h4>
+        </label>
       </li>
     </ul>
   </form>
@@ -156,22 +165,31 @@ exports[`renders correctly 1`] = `
       <li>
         <input
           className="input-group-sm form-control"
-          id="email"
+          name="email"
+          onBlur={[Function]}
           onChange={[Function]}
           placeholder="Email Address"
           required={true}
+          type="email"
           value=""
+        />
+        <label
+          className="error badge badge-danger"
         />
       </li>
       <li>
         <input
           className="input-group-sm form-control mt-3"
-          id="password"
+          name="password"
+          onBlur={[Function]}
           onChange={[Function]}
           placeholder="Password"
           required={true}
           type="password"
           value=""
+        />
+        <label
+          className="error badge badge-danger"
         />
       </li>
       <li>

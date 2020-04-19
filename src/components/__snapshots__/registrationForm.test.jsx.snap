@@ -19,35 +19,53 @@ exports[`register button functionality - failure (async) 1`] = `
           New User Registration
         </span>
       </h4>
-      <li>
+      <li
+        className="mb-3"
+      >
         <input
           className="input-group-sm form-control"
-          id="userName"
+          name="userName"
+          onBlur={[Function]}
           onChange={[Function]}
           placeholder="User Name"
           required={true}
-          value="other_username"
+          type="text"
+          value="other"
+        />
+        <label
+          className="error badge badge-danger"
         />
       </li>
-      <li>
+      <li
+        className="mb-3"
+      >
         <input
-          className="input-group-sm form-control mt-3"
-          id="email"
+          className="input-group-sm form-control"
+          name="email"
+          onBlur={[Function]}
           onChange={[Function]}
           placeholder="Email Address"
           required={true}
-          value=""
+          type="email"
+          value="other@gmail.com"
+        />
+        <label
+          className="error badge badge-danger"
         />
       </li>
       <li>
         <input
-          className="input-group-sm form-control mt-3"
-          id="password"
+          className="input-group-sm form-control"
+          name="password"
+          onBlur={[Function]}
           onChange={[Function]}
           placeholder="Password"
           required={true}
           type="password"
-          value=""
+          value="111111"
+        />
+        <label
+          className="error badge badge-danger"
         />
       </li>
       <li>
@@ -82,13 +100,13 @@ exports[`register button functionality - failure (async) 1`] = `
         </Link>
       </li>
       <li>
-        <h4>
+        <label>
           <span
             className="badge badge-danger"
           >
             Error
           </span>
-        </h4>
+        </label>
       </li>
     </ul>
   </form>
@@ -116,35 +134,52 @@ exports[`renders correctly 1`] = `
           New User Registration
         </span>
       </h4>
-      <li>
+      <li
+        className="mb-3"
+      >
         <input
           className="input-group-sm form-control"
-          id="userName"
+          name="userName"
+          onBlur={[Function]}
           onChange={[Function]}
           placeholder="User Name"
           required={true}
-          value=""
+          type="text"
+        />
+        <label
+          className="error badge badge-danger"
         />
       </li>
-      <li>
+      <li
+        className="mb-3"
+      >
         <input
-          className="input-group-sm form-control mt-3"
-          id="email"
+          className="input-group-sm form-control"
+          name="email"
+          onBlur={[Function]}
           onChange={[Function]}
           placeholder="Email Address"
           required={true}
+          type="email"
           value=""
+        />
+        <label
+          className="error badge badge-danger"
         />
       </li>
       <li>
         <input
-          className="input-group-sm form-control mt-3"
-          id="password"
+          className="input-group-sm form-control"
+          name="password"
+          onBlur={[Function]}
           onChange={[Function]}
           placeholder="Password"
           required={true}
           type="password"
           value=""
+        />
+        <label
+          className="error badge badge-danger"
         />
       </li>
       <li>
