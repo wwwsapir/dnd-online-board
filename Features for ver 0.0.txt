@@ -1,5 +1,5 @@
 Continue:
-לפרט מה השדה שחסר ביצירת דמות כשחסר מידע.
+Give more info about the missing fields in character creation.
 
 Version 0.0 - Done!
 1. Characters creation toolbar. + Roll dice. - Done
@@ -40,15 +40,3 @@ Further versions:
 10. Handle flying characters (character above character in the same position).
 11. Enable spell circle centered in the center of a character and not a cell (different when the character is large).
 12. Add characters states (maybe also enable adding to the dice rolls).
-
-Linkedin and CV description:
-An interactive online map board for D&D players.
-A Desktop Web App project, written in React.JS front-end and Node.JS back-end.
-The source code can be found here:
-https://github.com/wwwsapir/dnd-online-board
-https://github.com/wwwsapir/dnd-online-board-api
-
-Cover Letter:
-Hello,
-
-My name is Sapir Zeelon, I'm an experienced software developer, Computer Science BS.c with honours.
