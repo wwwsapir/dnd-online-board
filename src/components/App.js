@@ -21,7 +21,8 @@ import SpellCircleCreatorPopUp from "./SpellCircleCreatorPopUp";
 import WelcomeScreen from "./WelcomeScreen";
 import TempMessage from "./TempMessage";
 import ResetPasswordForm from "./ResetPasswordForm";
-import ExitWarningPopUp from "./ExitWarningPopUp";
+import ExitToMenuWarningPopUp from "./ExitToMenuWarningPopUp";
+import ExitToHomeWarningPopUp from "./ExitToHomeWarningPopUp";
 import { Persist } from "react-persist";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
 import PlayersLinkPopUp from "./PlayersLinkPopUp";
@@ -61,7 +62,7 @@ class App extends Component {
     showSpellCircleCreatorPopup: false,
     showExitWarningPopUp: false,
     showGameMenu: true,
-    toGameMenu: false,
+    toHomeScreen: false,
     updating: false,
     showPlayerLinkPopUp: false,
     gameMaster: true,
@@ -459,9 +460,14 @@ class App extends Component {
     this.setState({ showPlayerLinkPopUp: !this.state.showPlayerLinkPopUp });
   };
 
-  toggleExitWarningPopUp = () => {
-    const { showExitWarningPopUp } = { ...this.state };
-    this.setState({ showExitWarningPopUp: !showExitWarningPopUp });
+  toggleExitToMenuWarningPopUp = () => {
+    const { showExitToMenuWarningPopUp } = { ...this.state };
+    this.setState({ showExitToMenuWarningPopUp: !showExitToMenuWarningPopUp });
+  };
+
+  toggleExitToHomeWarningPopUp = () => {
+    const { showExitToHomeWarningPopUp } = { ...this.state };
+    this.setState({ showExitToHomeWarningPopUp: !showExitToHomeWarningPopUp });
   };
 
   handleSaveGame = () => {
@@ -518,7 +524,7 @@ class App extends Component {
   handleStartNewGame = async () => {
     this.setState({
       showGameMenu: false,
-      toGameMenu: false,
+      toHomeScreen: false,
       gameMaster: true,
       updating: true,
       initializing: true,
@@ -539,7 +545,7 @@ class App extends Component {
   };
 
   handleContinueSavedGame = async () => {
-    this.setState({ showGameMenu: false, toGameMenu: false });
+    this.setState({ showGameMenu: false, toHomeScreen: false });
     const res = await getGameData(this.state.authToken);
     if (!res) return;
     if (
@@ -567,7 +573,11 @@ class App extends Component {
   };
 
   handleExitToMenu = () => {
-    this.setState({ toGameMenu: true });
+    this.setState({ toHomeScreen: true });
+  };
+
+  handleExitToHome = () => {
+    this.setState({ toHomeScreen: true, authToken: "", isGuest: false });
   };
 
   handleLogIn = (userName, authToken) => {
@@ -614,7 +624,7 @@ class App extends Component {
   }
 
   cancelRedirectFromMap = () => {
-    this.setState({ toGameMenu: false });
+    this.setState({ toHomeScreen: false });
   };
 
   getAuthTokenFromParams() {
@@ -678,7 +688,8 @@ class App extends Component {
             enableDeletion={characters.length > 0 || spellCircles.length > 0}
             itemDeletionModeOn={itemDeletionModeOn}
             onFinishDeletion={this.toggleItemDeletionMode}
-            onExitToMenu={this.toggleExitWarningPopUp}
+            onExitToMenu={this.toggleExitToMenuWarningPopUp}
+            onExitToHome={this.toggleExitToHomeWarningPopUp}
             gameMaster={gameMaster}
             isGuest={isGuest}
           />
@@ -749,7 +760,8 @@ class App extends Component {
       showCharacterCreatorPopup,
       showSpellCircleCreatorPopup,
       showPlayerLinkPopUp,
-      showExitWarningPopUp,
+      showExitToMenuWarningPopUp,
+      showExitToHomeWarningPopUp,
       gameMaster,
       initializing,
     } = this.state;
@@ -782,11 +794,19 @@ class App extends Component {
             />
           </ErrorBoundary>
         ) : null}
-        {showExitWarningPopUp && gameMaster ? (
+        {showExitToMenuWarningPopUp && gameMaster ? (
           <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
-            <ExitWarningPopUp
-              closePopup={this.toggleExitWarningPopUp}
+            <ExitToMenuWarningPopUp
+              closePopup={this.toggleExitToMenuWarningPopUp}
               onExitToMenu={this.handleExitToMenu}
+            />
+          </ErrorBoundary>
+        ) : null}
+        {showExitToHomeWarningPopUp && gameMaster ? (
+          <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
+            <ExitToHomeWarningPopUp
+              closePopup={this.toggleExitToHomeWarningPopUp}
+              onExitToHome={this.handleExitToHome}
             />
           </ErrorBoundary>
         ) : null}
@@ -835,7 +855,7 @@ class App extends Component {
       <Fragment>
         <Switch>
           <Redirect exact from="/" to="/home" />
-          {this.state.toGameMenu ? (
+          {this.state.toHomeScreen ? (
             <Redirect exact push from="/map" to="/home" />
           ) : null}
           <Route path="/reset">{this.renderPasswordResetScreen()}</Route>

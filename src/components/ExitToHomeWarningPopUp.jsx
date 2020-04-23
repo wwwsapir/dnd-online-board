@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import "./ExitWarningPopUp.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-class ExitWarningPopUp extends Component {
-  handleExitToMenu = (stateData) => {
+class ExitToHomeWarningPopUp extends Component {
+  handleExitToHome = () => {
     this.props.closePopup();
-    this.props.onExitToMenu();
+    this.props.onExitToHome();
   };
 
   handleCancelExit = () => {
@@ -17,14 +17,14 @@ class ExitWarningPopUp extends Component {
       <div className="menu-bg-popup">
         <div className="ExitWarningPopUpInner-window">
           <div className="nav nav-tabs flex-column row w-100 menu">
-            <h4>Your progress is saved. Exit to menu?</h4>
+            <h4>Your guest progress will be deleted. Exit to home?</h4>
             <span className="row mt-3">
               <div className="col-7 d-inline">
                 <button
-                  onClick={this.handleExitToMenu}
+                  onClick={this.handleExitToHome}
                   className="btn btn-primary form-control"
                 >
-                  Yes - Exit to Menu
+                  Yes - Exit to Home
                 </button>
               </div>
               <div className="col-5 d-inline">
@@ -43,4 +43,4 @@ class ExitWarningPopUp extends Component {
   }
 }
 
-export default ExitWarningPopUp;
+export default ExitToHomeWarningPopUp;

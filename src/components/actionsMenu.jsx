@@ -13,6 +13,7 @@ class ActionsMenu extends Component {
       itemDeletionModeOn,
       onFinishDeletion,
       onExitToMenu,
+      onExitToHome,
       gameMaster,
       isSmallerScreen,
       isGuest,
@@ -64,13 +65,15 @@ class ActionsMenu extends Component {
                   </button>
                 </li>
                 <li className="nav-item">
-                  <button
-                    onClick={onExitToMenu}
-                    className={buttonClass}
-                    hidden={isGuest}
-                  >
-                    Exit to Menu
-                  </button>
+                  {isGuest ? (
+                    <button onClick={onExitToHome} className={buttonClass}>
+                      Exit to Home
+                    </button>
+                  ) : (
+                    <button onClick={onExitToMenu} className={buttonClass}>
+                      Exit to Menu
+                    </button>
+                  )}
                 </li>
               </Fragment>
             ) : null}
