@@ -117,7 +117,7 @@ class LoginForm extends Component {
               </button>
             </li>
             <li className="mt-2">
-              <Link to="/home/register">New user?</Link>
+              <Link to="/home/register">New user? Register</Link>
               <Link className="float-right" to="/home/forgot_password">
                 Forgot password?
               </Link>
