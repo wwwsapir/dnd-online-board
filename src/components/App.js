@@ -379,6 +379,7 @@ class App extends Component {
   componentWillUnmount() {
     document.removeEventListener("keyup", this.handleKeyUp, false);
     if (this.updateMapIntervalID) clearInterval(this.updateMapIntervalID);
+    // I need to add deletion of guest users in server here, but currently I leave them in the DB because I want to see if someone new had visited my app.
   }
 
   handleMouseEnterCell = (cell) => {
