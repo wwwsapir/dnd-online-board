@@ -19,6 +19,8 @@ class WelcomeScreen extends Component {
       onLogOut,
       cancelRedirectFromMap,
       onLogIn,
+      onGuestEntry,
+      isGuest,
     } = this.props;
 
     return (
@@ -27,7 +29,7 @@ class WelcomeScreen extends Component {
           <Redirect
             exact
             from="/home"
-            to={authToken ? "/home/game_menu" : "/home/login"}
+            to={authToken && !isGuest ? "/home/game_menu" : "/home/login"}
           />
           <Route path="/home/game_menu">
             <GameMenu
@@ -50,7 +52,7 @@ class WelcomeScreen extends Component {
             <RegistrationForm onRegistered={onRegisteredNewUser} />
           </Route>
           <Route path="/home/login">
-            <LoginForm onLogin={onLogIn} />
+            <LoginForm onLogin={onLogIn} onGuestEntry={onGuestEntry} />
           </Route>
         </Switch>
       </div>

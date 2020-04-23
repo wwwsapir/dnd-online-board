@@ -15,6 +15,7 @@ class ActionsMenu extends Component {
       onExitToMenu,
       gameMaster,
       isSmallerScreen,
+      isGuest,
     } = this.props;
     const buttonClass = `btn btn-primary form-control mt-${
       isSmallerScreen ? 2 : 3
@@ -63,7 +64,11 @@ class ActionsMenu extends Component {
                   </button>
                 </li>
                 <li className="nav-item">
-                  <button onClick={onExitToMenu} className={buttonClass}>
+                  <button
+                    onClick={onExitToMenu}
+                    className={buttonClass}
+                    hidden={isGuest}
+                  >
                     Exit to Menu
                   </button>
                 </li>

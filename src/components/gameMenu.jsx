@@ -165,7 +165,7 @@ class GameMenu extends Component {
   }
 
   render() {
-    const { authToken, isSmallerScreen } = this.props;
+    const { authToken } = this.props;
     const { toLogin, toMap } = this.state;
 
     if (toLogin) {

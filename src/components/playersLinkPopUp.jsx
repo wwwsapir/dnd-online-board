@@ -28,9 +28,12 @@ class PlayersLinkPopUp extends Component {
           <ul className="nav nav-tabs flex-column bg-dark row w-100 p-20 menu">
             <li>
               <h4 className="mb-3">Game link for players:</h4>
-              <textarea rows={3} disabled className="form-control">
-                {this.props.gameLink}
-              </textarea>
+              <textarea
+                rows={3}
+                disabled
+                className="form-control"
+                value={this.props.gameLink}
+              />
             </li>
             <li className="row">
               <div className="col-8 d-inline">

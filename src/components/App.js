@@ -8,7 +8,11 @@ import CharacterCreatorPopUp from "./CharacterCreatorPopUp";
 import ActionsMenu from "./ActionsMenu";
 import CloneDeep from "lodash/cloneDeep";
 import ErrorBoundary from "react-error-boundary";
-import { DefaultFallbackComponent } from "../constants";
+import {
+  DefaultFallbackComponent,
+  GUEST_NAME_CHARS,
+  GUEST_NAME_LENGTH,
+} from "../constants";
 import getGameData from "../services/getUserGameData";
 import saveNewGameData from "../services/saveNewGameData";
 import updateGameData from "../services/updateGameData";
@@ -23,6 +27,8 @@ import { Route, Redirect, Switch, Link } from "react-router-dom";
 import PlayersLinkPopUp from "./PlayersLinkPopUp";
 import { PLAYERS_GAME_URL } from "../constants";
 import withSizes from "react-sizes";
+import registerNewUser from "../services/registerNewUser";
+import loginUser from "../services/loginUser";
 
 class App extends Component {
   state = {
@@ -60,6 +66,7 @@ class App extends Component {
     showPlayerLinkPopUp: false,
     gameMaster: true,
     initializing: false,
+    isGuest: false,
   };
 
   constructor(props) {
@@ -564,8 +571,47 @@ class App extends Component {
   };
 
   handleLogIn = (userName, authToken) => {
-    this.setState({ authToken, userName });
+    this.setState({ authToken, userName, isGuest: userName === "Guest" });
   };
+
+  handleGuestEntry = async () => {
+    this.setState({ initializing: true, showGameMenu: false });
+    const randomUserName = this.getGuestRandomUserName();
+    const guestEmail = randomUserName + "@fakeemail.com";
+    const guestPassword = "fakepassword";
+    const registerRes = await registerNewUser({
+      userName: randomUserName,
+      email: guestEmail,
+      password: guestPassword,
+    });
+    if (!registerRes) return;
+    if (registerRes.status !== 200) {
+      this.setState({ initializing: false });
+    } else {
+      this.loginGuest({ email: guestEmail, password: guestPassword });
+    }
+  };
+
+  async loginGuest(guestDetails) {
+    const loginRes = await loginUser(guestDetails);
+    if (!loginRes) return;
+    if (loginRes.status !== 200) {
+      this.setState({ initializing: false });
+    } else {
+      this.handleLogIn("Guest", loginRes.body.authToken);
+      this.handleStartNewGame();
+    }
+  }
+
+  getGuestRandomUserName() {
+    let userName = "Guest_";
+    for (let i = 0; i < GUEST_NAME_LENGTH; i++) {
+      userName += GUEST_NAME_CHARS.charAt(
+        Math.floor(Math.random() * GUEST_NAME_CHARS.length)
+      );
+    }
+    return userName;
+  }
 
   cancelRedirectFromMap = () => {
     this.setState({ toGameMenu: false });
@@ -589,6 +635,8 @@ class App extends Component {
           onLogOut={() => this.setState({ authToken: null, userName: "" })}
           onLogIn={this.handleLogIn}
           cancelRedirectFromMap={this.cancelRedirectFromMap}
+          onGuestEntry={this.handleGuestEntry}
+          isGuest={this.state.isGuest}
         />
         {this.state.showTempMessage ? (
           <TempMessage message={this.state.tempMessageText} />
@@ -614,6 +662,7 @@ class App extends Component {
       spellCircles,
       itemDeletionModeOn,
       gameMaster,
+      isGuest,
     } = this.state;
     const sideBarClass = `side-bar bg-primary col-${
       this.props.isSmallerScreen ? 4 : 3
@@ -631,6 +680,7 @@ class App extends Component {
             onFinishDeletion={this.toggleItemDeletionMode}
             onExitToMenu={this.toggleExitWarningPopUp}
             gameMaster={gameMaster}
+            isGuest={isGuest}
           />
         </ErrorBoundary>
         <ErrorBoundary FallbackComponent={DefaultFallbackComponent}>
@@ -767,7 +817,7 @@ class App extends Component {
   }
 
   renderMapMainScreen() {
-    if (this.state.authToken) {
+    if (this.state.authToken || this.state.initializing) {
       return (
         <div className="row h-100 w-100 p-0">
           {this.renderMapArea()}

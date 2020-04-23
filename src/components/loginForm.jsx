@@ -9,6 +9,7 @@ class LoginForm extends Component {
   state = {
     serverErrMessage: "",
     toGameMenu: false,
+    toMap: false,
     loading: false,
   };
 
@@ -47,17 +48,24 @@ class LoginForm extends Component {
     }
   }
 
+  handleGuestEntry = () => {
+    this.props.onGuestEntry();
+    this.setState({ toMap: true });
+  };
+
   render() {
-    const { serverErrMessage: errorMessage, toGameMenu, loading } = this.state;
+    const { serverErrMessage, toGameMenu, toMap, loading } = this.state;
 
     if (toGameMenu) {
       return <Redirect to="/home/game_menu" />;
+    } else if (toMap) {
+      return <Redirect to="/map" />;
     }
 
     return (
       <div className="menu-window">
-        <form onSubmit={this.form.handleSubmit}>
-          <ul className="menu bg-dark w-100">
+        <ul className="menu bg-dark w-100">
+          <form onSubmit={this.form.handleSubmit}>
             <h4 className="mb-4">
               <span className="menu-header">
                 Welcome to D&amp;D Online Board
@@ -68,6 +76,7 @@ class LoginForm extends Component {
                 <h5>What is D&amp;D Online Board? Click here to find out!</h5>
               </Link>
             </li>
+            <h6 className="mb-3">Sign In:</h6>
             <li>
               <input
                 className="input-group-sm form-control"
@@ -113,15 +122,28 @@ class LoginForm extends Component {
                 Forgot password?
               </Link>
             </li>
-            {errorMessage ? (
+            {serverErrMessage ? (
               <li>
                 <label>
-                  <span className="badge badge-danger">{errorMessage}</span>
+                  <span className="badge badge-danger">{serverErrMessage}</span>
                 </label>
               </li>
             ) : null}
-          </ul>
-        </form>
+          </form>
+          <h6 className="mb-3 mt-3">Or:</h6>
+          <li>
+            <button
+              className="btn btn-primary form-control"
+              disabled={loading}
+              onClick={this.handleGuestEntry}
+            >
+              Enter as a Guest
+            </button>
+            <label className="mt-1">
+              You will not be able to save your game and continue later.
+            </label>
+          </li>
+        </ul>
       </div>
     );
   }
