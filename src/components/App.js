@@ -30,6 +30,7 @@ import { PLAYERS_GAME_URL } from "../constants";
 import withSizes from "react-sizes";
 import registerNewUser from "../services/registerNewUser";
 import loginUser from "../services/loginUser";
+import eraseUserGameData from "../services/eraseUserGameData";
 
 class App extends Component {
   state = {
@@ -379,6 +380,7 @@ class App extends Component {
   componentWillUnmount() {
     document.removeEventListener("keyup", this.handleKeyUp, false);
     if (this.updateMapIntervalID) clearInterval(this.updateMapIntervalID);
+    if (this.state.isGuest) eraseUserGameData(this.state.authToken);
     // I need to add deletion of guest users in server here, but currently I leave them in the DB because I want to see if someone new had visited my app.
   }
 
@@ -578,7 +580,10 @@ class App extends Component {
   };
 
   handleExitToHome = () => {
-    this.setState({ toHomeScreen: true, authToken: "", isGuest: false });
+    if (this.state.isGuest) {
+      this.setState({ toHomeScreen: true, authToken: "", isGuest: false });
+      eraseUserGameData(this.state.authToken);
+    }
   };
 
   handleLogIn = (userName, authToken) => {
