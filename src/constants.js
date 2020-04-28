@@ -43,6 +43,17 @@ export const GUEST_NAME_CHARS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 export const GUEST_NAME_LENGTH = 25;
 
+export const EMAIL_REGEX_PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+export const FORM_ERROR_MESSAGE = {
+  emailInvalid: "Invalid email address",
+  emailMissing: "Email address is required",
+  passwordLength: "Password length should be 6-72 characters",
+  passwordMissing: "Password is required",
+  passwordsDontMatch: "The confirmation password must match the password",
+  userNameMissing: "User name is required",
+};
+
 export const DefaultFallbackComponent = ({ componentStack, error }) => (
   <div>
     <p>
