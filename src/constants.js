@@ -52,6 +52,7 @@ export const FORM_ERROR_MESSAGE = {
   passwordMissing: "Password is required",
   passwordsDontMatch: "The confirmation password must match the password",
   userNameMissing: "User name is required",
+  userNameLength: "User name length should be 6-72 characters",
 };
 
 export const DefaultFallbackComponent = ({ componentStack, error }) => (

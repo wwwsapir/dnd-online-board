@@ -17,7 +17,6 @@ const LoginForm = (props) => {
 
   const handleLoginFormSubmit = async (data) => {
     const { email, password } = data;
-    const { onLogin } = props;
     setServerErrMessage("");
     setIsLoading(true);
 
@@ -29,7 +28,7 @@ const LoginForm = (props) => {
     } else {
       setIsLoading(false);
       setToGameMenu(true);
-      onLogin(res.body.userName, res.body.authToken);
+      props.onLogin(res.body.userName, res.body.authToken);
     }
   };
 
@@ -40,11 +39,13 @@ const LoginForm = (props) => {
     setToMap(true);
   };
 
-  return toGameMenu ? (
-    <Redirect to="/home/game_menu" />
-  ) : toMap ? (
-    <Redirect to="/map" />
-  ) : (
+  if (toGameMenu) {
+    return <Redirect to="/home/game_menu" />;
+  } else if (toMap) {
+    return <Redirect to="/map" />;
+  }
+
+  return (
     <div className="menu-window">
       <ul className="menu bg-dark w-100">
         <form onSubmit={handleSubmit(onSubmit)}>
