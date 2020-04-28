@@ -1,94 +1,73 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import resetUserPassword from "../services/resetUserPassword";
 import checkPasswordTokenValid from "../services/checkPasswordTokenValid";
 import { Redirect } from "react-router-dom";
 import "./.common.scss";
-import ReactFormInputValidation from "react-form-input-validation";
+import { useForm } from "react-hook-form";
+import { FORM_ERROR_MESSAGE } from "../constants";
 
-class ResetPasswordForm extends Component {
-  state = {
-    serverErrorMessage: "",
-    authToken: null,
-    tokenValid: false,
-    isLoading: true,
-    toLogin: false,
-    loading: false,
-  };
+const ResetPasswordForm = (props) => {
+  const { register, handleSubmit, errors } = useForm({
+    mode: "onBlur",
+  });
+  const [serverErrMessage, setServerErrMessage] = useState("");
+  const [authToken, setAuthToken] = useState(null);
+  const [isTokenValid, setIsTokenValid] = useState(false);
+  const [isPageLoading, setIsPageLoading] = useState(true);
+  const [toLogin, setToLogin] = useState(false);
+  const [isRequestLoading, setIsRequestLoading] = useState(false);
 
-  constructor(props) {
-    super(props);
-    this.state.authToken = this.getAuthTokenFromParams();
-    this.state.fields = {
-      password: "",
-      password_confirmation: "",
-    };
-    this.state.errors = {};
-    this.form = new ReactFormInputValidation(this);
-    this.form.useRules({
-      password: "required|between:6,72",
-      password_confirmation: "required|between:6,72",
-    });
-    this.form.onformsubmit = () => {
-      if (
-        this.state.fields.password !== this.state.fields.password_confirmation
-      ) {
-        this.setState({ serverErrorMessage: "Passwords must match!" });
-        return;
-      }
-      this.handleChangePasswordFormSubmit();
-    };
-  }
-
-  componentDidMount() {
-    if (this.state.authToken) {
-      this.isTokenMatchesUSer();
-    }
-  }
-
-  getAuthTokenFromParams() {
+  const getAuthTokenFromParams = () => {
     const hrefParts = window.location.href.split("/");
     const authToken = hrefParts[hrefParts.length - 1];
     return authToken;
-  }
+  };
 
-  async isTokenMatchesUSer() {
-    const res = await checkPasswordTokenValid(this.state.authToken);
+  const onSubmit = (data) => {
+    const { password, passwordConfirmation } = data;
+    if (password !== passwordConfirmation) {
+      setServerErrMessage(FORM_ERROR_MESSAGE.passwordConfirmation);
+    } else {
+      handleChangePasswordFormSubmit(password);
+    }
+  };
+
+  const isTokenMatchesUser = async (token) => {
+    const res = await checkPasswordTokenValid(token);
+    setIsPageLoading(false);
     if (!res) return;
     if (res.status !== 200) {
-      this.setState({
-        serverErrorMessage: res.body.error.message,
-        isLoading: false,
-      });
+      setServerErrMessage(res.body.error.message);
     } else {
-      this.setState({ tokenValid: true, isLoading: false });
+      setIsTokenValid(true);
     }
-  }
+  };
 
-  async handleChangePasswordFormSubmit() {
-    const { password } = this.state.fields;
-    const { authToken } = this.state;
-    const { onPasswordReset } = this.props;
+  useEffect(() => {
+    const token = getAuthTokenFromParams();
+    setAuthToken(token);
+    isTokenMatchesUser(token);
+  }, []);
 
-    this.setState({ loading: true, serverErrorMessage: "" });
+  const handleChangePasswordFormSubmit = async (password) => {
+    setIsRequestLoading(true);
+    setServerErrMessage("");
     const res = await resetUserPassword({
       newPassword: password,
       authToken,
     });
-
+    setIsRequestLoading(false);
     if (!res) return;
     if (res.status !== 200) {
-      this.setState({
-        serverErrorMessage: res.body.error.message,
-        loading: false,
-      });
+      setServerErrMessage(res.body.error.message);
     } else {
-      this.setState({ toLogin: true, loading: false });
-      onPasswordReset();
+      setToLogin(true);
+      props.onPasswordReset();
     }
-  }
+  };
 
-  renderLoadingPage() {
+  const renderLoadingPage = () => {
     return (
       <ul className="menu bg-dark w-100 h-100 row">
         <h4 className="mb-5">
@@ -96,9 +75,9 @@ class ResetPasswordForm extends Component {
         </h4>
       </ul>
     );
-  }
+  };
 
-  renderAccessDeniedPage() {
+  const renderAccessDeniedPage = () => {
     return (
       <ul className="menu bg-dark w-100 h-100 row">
         <li className="md-5">
@@ -113,11 +92,9 @@ class ResetPasswordForm extends Component {
         </li>
       </ul>
     );
-  }
+  };
 
-  renderPasswordResetPage() {
-    const { serverErrorMessage: errorMessage, toLogin, loading } = this.state;
-
+  const renderPasswordResetPage = () => {
     if (toLogin) {
       return <Redirect push to="/home/login" />;
     }
@@ -125,7 +102,7 @@ class ResetPasswordForm extends Component {
     return (
       <div className="menu-bg-home">
         <div className="menu-window">
-          <form onSubmit={this.form.handleSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <ul className="menu bg-dark w-100">
               <h4 className="mb-5">
                 <span className="menu-header">D&amp;D Online Board</span>
@@ -133,33 +110,53 @@ class ResetPasswordForm extends Component {
               <h4>Reset Password</h4>
               <li className="mt-3">
                 <input
-                  className="input-group-sm form-control"
+                  className="input-group-sm form-control mt-3"
                   type="password"
                   name="password"
                   placeholder="Password"
-                  required
-                  onBlur={this.form.handleBlurEvent}
-                  onChange={this.form.handleChangeEvent}
-                  value={this.state.fields.password}
+                  ref={register({
+                    required: {
+                      value: true,
+                      message: FORM_ERROR_MESSAGE.passwordMissing,
+                    },
+                    minLength: {
+                      value: 6,
+                      message: FORM_ERROR_MESSAGE.passwordLength,
+                    },
+                    maxLength: {
+                      value: 72,
+                      message: FORM_ERROR_MESSAGE.passwordLength,
+                    },
+                  })}
                 />
                 <label className="error badge badge-danger">
-                  {this.state.errors.password ? this.state.errors.password : ""}
+                  {errors.password ? errors.password.message : ""}
                 </label>
               </li>
               <li className="mt-3">
                 <input
-                  className="input-group-sm form-control"
+                  className="input-group-sm form-control mt-3"
                   type="password"
-                  name="password_confirmation"
+                  name="passwordConfirmation"
                   placeholder="Confirm Password"
-                  required
-                  onBlur={this.form.handleBlurEvent}
-                  onChange={this.form.handleChangeEvent}
-                  value={this.state.fields.password_confirmation}
+                  ref={register({
+                    required: {
+                      value: true,
+                      message: FORM_ERROR_MESSAGE.passwordMissing,
+                    },
+                    minLength: {
+                      value: 6,
+                      message: FORM_ERROR_MESSAGE.passwordLength,
+                    },
+                    maxLength: {
+                      value: 72,
+                      message: FORM_ERROR_MESSAGE.passwordLength,
+                    },
+                  })}
                 />
                 <label className="error badge badge-danger">
-                  {this.state.errors.password_confirmation
-                    ? this.state.errors.password_confirmation
+                  {errors.passwordConfirmation
+                    ? errors.passwordConfirmation.message
                     : ""}
                 </label>
               </li>
@@ -167,15 +164,17 @@ class ResetPasswordForm extends Component {
                 <button
                   type="submit"
                   className="btn btn-primary form-control mt-3"
-                  disabled={loading}
+                  disabled={isRequestLoading}
                 >
-                  {loading ? "Please wait..." : "Submit"}
+                  {isRequestLoading ? "Please wait..." : "Submit"}
                 </button>
               </li>
-              {errorMessage ? (
+              {serverErrMessage ? (
                 <li className="nav-item col mt-4">
                   <label>
-                    <span className="badge badge-danger">{errorMessage}</span>
+                    <span className="badge badge-danger">
+                      {serverErrMessage}
+                    </span>
                   </label>
                 </li>
               ) : null}
@@ -184,18 +183,16 @@ class ResetPasswordForm extends Component {
         </div>
       </div>
     );
-  }
+  };
 
-  render() {
-    const { tokenValid, isLoading } = this.state;
-    if (isLoading) {
-      return this.renderLoadingPage();
-    } else if (tokenValid) {
-      return this.renderPasswordResetPage();
-    } else {
-      return this.renderAccessDeniedPage();
-    }
+  // Render:
+  if (isPageLoading) {
+    return renderLoadingPage();
+  } else if (isTokenValid) {
+    return renderPasswordResetPage();
+  } else {
+    return renderAccessDeniedPage();
   }
-}
+};
 
 export default ResetPasswordForm;
