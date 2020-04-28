@@ -15,24 +15,22 @@ const LoginForm = (props) => {
   const [toMap, setToMap] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLoginFormSubmit = async (data) => {
-    const { email, password } = data;
+  const handleLoginFormSubmit = async (email, password) => {
     setServerErrMessage("");
     setIsLoading(true);
 
     const res = await loginUser({ email, password });
     if (!res) return;
+    setIsLoading(false);
     if (res.status !== 200) {
       setServerErrMessage(res.body.error.message);
-      setIsLoading(false);
     } else {
-      setIsLoading(false);
       setToGameMenu(true);
       props.onLogin(res.body.userName, res.body.authToken);
     }
   };
 
-  const onSubmit = (data) => handleLoginFormSubmit(data);
+  const onSubmit = (data) => handleLoginFormSubmit(data.email, data.password);
 
   const handleGuestEntry = () => {
     props.onGuestEntry();

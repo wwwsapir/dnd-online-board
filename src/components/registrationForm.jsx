@@ -15,24 +15,23 @@ const RegistrationForm = (props) => {
   const [toLogin, setToLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleRegisterFormSubmit = async (data) => {
-    const { userName, email, password } = data;
+  const handleRegisterFormSubmit = async (userName, email, password) => {
     setServerErrMessage("");
     setIsLoading(true);
     const res = await registerNewUser({ userName, email, password });
 
     if (!res) return;
+    setIsLoading(false);
     if (res.status !== 200) {
       setServerErrMessage(res.body.error.message);
-      setIsLoading(false);
     } else {
-      setIsLoading(false);
       setToLogin(true);
       props.onRegistered();
     }
   };
 
-  const onSubmit = (data) => handleRegisterFormSubmit(data);
+  const onSubmit = (data) =>
+    handleRegisterFormSubmit(data.userName, data.email, data.password);
 
   if (toLogin) {
     return <Redirect push to="/home/login" />;
