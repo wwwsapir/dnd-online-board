@@ -9,6 +9,7 @@ React, Node.js, React-Hooks, SCSS, CSS, REST API, Express, ES6, MongoDB, Jest, E
 
 - I've transformed several components to use React-Hooks to demonstrate my knowledge in both methods.
 - The components written using hooks are: LoginForm, RegistrationForm, ResetPasswordForm and ForgotPasswordForm.
+- 'ResetPasswordForm' component also includes demonstrated use of "useEffect" hook.
 
 It is up and running at:
 https://wwwsapir.github.io/dnd-online-board/
