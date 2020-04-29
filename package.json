@@ -19,6 +19,7 @@
     "enzyme-to-json": "^3.4.4",
     "expect": "^25.2.3",
     "lodash": "^4.17.15",
+    "mutationobserver-shim": "^0.3.5",
     "node-sass": "^4.13.1",
     "react": "^16.13.1",
     "react-browser-detection": "^1.2.1",

@@ -4,11 +4,11 @@ exports[`login button functionality - failure (async) 1`] = `
 <div
   className="menu-window"
 >
-  <form
-    onSubmit={[Function]}
+  <ul
+    className="menu bg-dark w-100"
   >
-    <ul
-      className="menu bg-dark w-100"
+    <form
+      onSubmit={[Function]}
     >
       <h4
         className="mb-4"
@@ -40,16 +40,17 @@ exports[`login button functionality - failure (async) 1`] = `
           </LinkAnchor>
         </Link>
       </li>
+      <h6
+        className="mb-3"
+      >
+        Sign In:
+      </h6>
       <li>
         <input
           className="input-group-sm form-control"
           name="email"
-          onBlur={[Function]}
-          onChange={[Function]}
           placeholder="Email Address"
-          required={true}
           type="email"
-          value="other@gmail.com"
         />
         <label
           className="error badge badge-danger"
@@ -59,12 +60,8 @@ exports[`login button functionality - failure (async) 1`] = `
         <input
           className="input-group-sm form-control mt-3"
           name="password"
-          onBlur={[Function]}
-          onChange={[Function]}
           placeholder="Password"
-          required={true}
           type="password"
-          value="111111"
         />
         <label
           className="error badge badge-danger"
@@ -93,7 +90,7 @@ exports[`login button functionality - failure (async) 1`] = `
               href="/home/register"
               onClick={[Function]}
             >
-              New user?
+              New user? Register
             </a>
           </LinkAnchor>
         </Link>
@@ -125,8 +122,27 @@ exports[`login button functionality - failure (async) 1`] = `
           </span>
         </label>
       </li>
-    </ul>
-  </form>
+    </form>
+    <h6
+      className="mb-3 mt-3"
+    >
+      Or:
+    </h6>
+    <li>
+      <button
+        className="btn btn-primary form-control"
+        disabled={false}
+        onClick={[Function]}
+      >
+        Enter as a Guest
+      </button>
+      <label
+        className="mt-1"
+      >
+        You will not be able to save your game and continue later.
+      </label>
+    </li>
+  </ul>
 </div>
 `;
 
@@ -136,11 +152,11 @@ exports[`renders correctly 1`] = `
 <div
   className="menu-window"
 >
-  <form
-    onSubmit={[Function]}
+  <ul
+    className="menu bg-dark w-100"
   >
-    <ul
-      className="menu bg-dark w-100"
+    <form
+      onSubmit={[Function]}
     >
       <h4
         className="mb-4"
@@ -162,16 +178,17 @@ exports[`renders correctly 1`] = `
           </h5>
         </Link>
       </li>
+      <h6
+        className="mb-3"
+      >
+        Sign In:
+      </h6>
       <li>
         <input
           className="input-group-sm form-control"
           name="email"
-          onBlur={[Function]}
-          onChange={[Function]}
           placeholder="Email Address"
-          required={true}
           type="email"
-          value=""
         />
         <label
           className="error badge badge-danger"
@@ -181,12 +198,8 @@ exports[`renders correctly 1`] = `
         <input
           className="input-group-sm form-control mt-3"
           name="password"
-          onBlur={[Function]}
-          onChange={[Function]}
           placeholder="Password"
-          required={true}
           type="password"
-          value=""
         />
         <label
           className="error badge badge-danger"
@@ -207,7 +220,7 @@ exports[`renders correctly 1`] = `
         <Link
           to="/home/register"
         >
-          New user?
+          New user? Register
         </Link>
         <Link
           className="float-right"
@@ -216,7 +229,26 @@ exports[`renders correctly 1`] = `
           Forgot password?
         </Link>
       </li>
-    </ul>
-  </form>
+    </form>
+    <h6
+      className="mb-3 mt-3"
+    >
+      Or:
+    </h6>
+    <li>
+      <button
+        className="btn btn-primary form-control"
+        disabled={false}
+        onClick={[Function]}
+      >
+        Enter as a Guest
+      </button>
+      <label
+        className="mt-1"
+      >
+        You will not be able to save your game and continue later.
+      </label>
+    </li>
+  </ul>
 </div>
 `;

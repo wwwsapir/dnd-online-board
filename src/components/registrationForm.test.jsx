@@ -1,5 +1,6 @@
 import RegistrationForm from "./RegistrationForm";
 import { MemoryRouter } from "react-router";
+import "mutationobserver-shim";
 
 it("renders correctly", () => {
   const wrapper = shallow(<RegistrationForm onRegistered={() => {}} />);
@@ -15,24 +16,17 @@ it("register button functionality - success (async)", async (done) => {
       <RegistrationForm onRegistered={spyOnRegistered} />
     </MemoryRouter>
   );
-  wrapper
-    .find("input")
-    .first()
-    .simulate("change", { target: { name: "userName", value: "wwwsapir" } });
-  wrapper
-    .find("input")
-    .at(1)
-    .simulate("change", {
-      target: { name: "email", value: "wwwsapir@gmail.com" },
-    });
-  wrapper
-    .find("input")
-    .at(2)
-    .simulate("change", {
-      target: { name: "password", value: "111111" },
-    });
+  const userName = wrapper.find("input").first();
+  userName.getDOMNode().value = "wwwsapir";
+  userName.getDOMNode().dispatchEvent(new Event("input"));
+  const email = wrapper.find("input").at(1);
+  email.getDOMNode().value = "wwwsapir@gmail.com";
+  email.getDOMNode().dispatchEvent(new Event("input"));
+  const password = wrapper.find("input").at(2);
+  password.getDOMNode().value = "111111";
+  password.getDOMNode().dispatchEvent(new Event("input"));
 
-  wrapper.find("button").simulate("submit");
+  wrapper.find("button").first().simulate("submit");
   setTimeout(() => {
     wrapper.update();
     expect(wrapper).toMatchSnapshot();
@@ -48,23 +42,17 @@ it("register button functionality - failure (async)", async (done) => {
       <RegistrationForm onRegistered={spyOnRegistered} />
     </MemoryRouter>
   );
-  wrapper
-    .find("input")
-    .first()
-    .simulate("change", { target: { name: "userName", value: "other" } });
-  wrapper
-    .find("input")
-    .at(1)
-    .simulate("change", {
-      target: { name: "email", value: "other@gmail.com" },
-    });
-  wrapper
-    .find("input")
-    .at(2)
-    .simulate("change", {
-      target: { name: "password", value: "111111" },
-    });
-  wrapper.find("button").simulate("submit");
+  const userName = wrapper.find("input").first();
+  userName.getDOMNode().value = "other";
+  userName.getDOMNode().dispatchEvent(new Event("input"));
+  const email = wrapper.find("input").at(1);
+  email.getDOMNode().value = "other@gmail.com";
+  email.getDOMNode().dispatchEvent(new Event("input"));
+  const password = wrapper.find("input").at(2);
+  password.getDOMNode().value = "111111";
+  password.getDOMNode().dispatchEvent(new Event("input"));
+
+  wrapper.find("button").first().simulate("submit");
   setTimeout(() => {
     wrapper.update();
     expect(wrapper).toMatchSnapshot();

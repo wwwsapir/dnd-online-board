@@ -1,5 +1,6 @@
 import ForgotPasswordForm from "./ForgotPasswordForm";
 import { MemoryRouter } from "react-router-dom";
+import "mutationobserver-shim";
 // Note: I use this specific test file as a test template for other tests creation, so there are lot of redundant comments here.
 
 // Shallow rendering test
@@ -25,13 +26,12 @@ it("handles Send click correctly", async (done) => {
   expect(wrapper.find("label").first().text()).toEqual(
     "A message with a link to reset your password will be sent to this email address."
   );
-  wrapper
-    .find("input")
-    .first()
-    .simulate("change", {
-      target: { name: "email", value: "wwwsapir@gmail.com" },
-    });
-  wrapper.find("button").simulate("submit");
+
+  const email = wrapper.find("input").first();
+  email.getDOMNode().value = "wwwsapir@gmail.com";
+  email.getDOMNode().dispatchEvent(new Event("input"));
+
+  wrapper.find("button").first().simulate("submit");
   setTimeout(() => {
     wrapper.update();
     expect(wrapper.find("label").first().text()).toEqual(

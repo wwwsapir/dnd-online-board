@@ -25,16 +25,14 @@ exports[`register button functionality - failure (async) 1`] = `
         <input
           className="input-group-sm form-control"
           name="userName"
-          onBlur={[Function]}
-          onChange={[Function]}
           placeholder="User Name"
-          required={true}
           type="text"
-          value="other"
         />
         <label
           className="error badge badge-danger"
-        />
+        >
+          User name length should be 6-72 characters
+        </label>
       </li>
       <li
         className="mb-3"
@@ -42,12 +40,8 @@ exports[`register button functionality - failure (async) 1`] = `
         <input
           className="input-group-sm form-control"
           name="email"
-          onBlur={[Function]}
-          onChange={[Function]}
           placeholder="Email Address"
-          required={true}
           type="email"
-          value="other@gmail.com"
         />
         <label
           className="error badge badge-danger"
@@ -55,14 +49,10 @@ exports[`register button functionality - failure (async) 1`] = `
       </li>
       <li>
         <input
-          className="input-group-sm form-control"
+          className="input-group-sm form-control mt-3"
           name="password"
-          onBlur={[Function]}
-          onChange={[Function]}
           placeholder="Password"
-          required={true}
           type="password"
-          value="111111"
         />
         <label
           className="error badge badge-danger"
@@ -99,15 +89,6 @@ exports[`register button functionality - failure (async) 1`] = `
           </LinkAnchor>
         </Link>
       </li>
-      <li>
-        <label>
-          <span
-            className="badge badge-danger"
-          >
-            Error
-          </span>
-        </label>
-      </li>
     </ul>
   </form>
 </div>
@@ -140,10 +121,7 @@ exports[`renders correctly 1`] = `
         <input
           className="input-group-sm form-control"
           name="userName"
-          onBlur={[Function]}
-          onChange={[Function]}
           placeholder="User Name"
-          required={true}
           type="text"
         />
         <label
@@ -156,12 +134,8 @@ exports[`renders correctly 1`] = `
         <input
           className="input-group-sm form-control"
           name="email"
-          onBlur={[Function]}
-          onChange={[Function]}
           placeholder="Email Address"
-          required={true}
           type="email"
-          value=""
         />
         <label
           className="error badge badge-danger"
@@ -169,14 +143,10 @@ exports[`renders correctly 1`] = `
       </li>
       <li>
         <input
-          className="input-group-sm form-control"
+          className="input-group-sm form-control mt-3"
           name="password"
-          onBlur={[Function]}
-          onChange={[Function]}
           placeholder="Password"
-          required={true}
           type="password"
-          value=""
         />
         <label
           className="error badge badge-danger"

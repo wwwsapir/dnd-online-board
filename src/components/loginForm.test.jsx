@@ -1,5 +1,6 @@
 import LoginForm from "./LoginForm";
 import { MemoryRouter } from "react-router";
+import "mutationobserver-shim";
 
 it("renders correctly", () => {
   const wrapper = shallow(<LoginForm onLogin={() => {}} />);
@@ -15,19 +16,15 @@ it("login button functionality - success (async)", async (done) => {
       <LoginForm onLogin={spyOnLogin} />
     </MemoryRouter>
   );
-  wrapper
-    .find("input")
-    .first()
-    .simulate("change", {
-      target: { name: "email", value: "wwwsapir@gmail.com" },
-    });
-  wrapper
-    .find("input")
-    .at(1)
-    .simulate("change", {
-      target: { name: "password", value: "111111" },
-    });
-  wrapper.find("button").simulate("submit");
+
+  const email = wrapper.find("input").first();
+  email.getDOMNode().value = "wwwsapir@gmail.com";
+  email.getDOMNode().dispatchEvent(new Event("input"));
+  const password = wrapper.find("input").at(1);
+  password.getDOMNode().value = "111111";
+  password.getDOMNode().dispatchEvent(new Event("input"));
+
+  wrapper.find("button").first().simulate("submit");
   wrapper.update();
   setTimeout(() => {
     wrapper.update();
@@ -44,19 +41,15 @@ it("login button functionality - failure (async)", async (done) => {
       <LoginForm onLogin={spyOnLogin} />
     </MemoryRouter>
   );
-  wrapper
-    .find("input")
-    .first()
-    .simulate("change", {
-      target: { name: "email", value: "other@gmail.com" },
-    });
-  wrapper
-    .find("input")
-    .at(1)
-    .simulate("change", {
-      target: { name: "password", value: "111111" },
-    });
-  wrapper.find("button").simulate("submit");
+
+  const email = wrapper.find("input").first();
+  email.getDOMNode().value = "other@gmail.com";
+  email.getDOMNode().dispatchEvent(new Event("input"));
+  const password = wrapper.find("input").at(1);
+  password.getDOMNode().value = "111111";
+  password.getDOMNode().dispatchEvent(new Event("input"));
+
+  wrapper.find("button").first().simulate("submit");
   setTimeout(() => {
     wrapper.update();
     expect(wrapper).toMatchSnapshot();

@@ -2,127 +2,48 @@
 
 exports[`renders correctly 1`] = `
 Array [
-  <div
-    className="menu-bg-home"
-  >
-    <div
-      className="menu-window"
-    >
-      <form
-        onSubmit={[Function]}
-      >
-        <ul
-          className="menu bg-dark w-100"
-        >
-          <h4
-            className="mb-4"
-          >
-            <span
-              className="menu-header"
-            >
-              Welcome to D&D Online Board
-            </span>
-          </h4>
-          <li
-            className="mb-3"
-          >
-            <Link
-              to="/home/about"
-            >
-              <LinkAnchor
-                href="/home/about"
-                navigate={[Function]}
-              >
-                <a
-                  href="/home/about"
-                  onClick={[Function]}
-                >
-                  <h5>
-                    What is D&D Online Board? Click here to find out!
-                  </h5>
-                </a>
-              </LinkAnchor>
-            </Link>
-          </li>
-          <li>
-            <input
-              className="input-group-sm form-control"
-              name="email"
-              onBlur={[Function]}
-              onChange={[Function]}
-              placeholder="Email Address"
-              required={true}
-              type="email"
-              value=""
-            />
-            <label
-              className="error badge badge-danger"
-            />
-          </li>
-          <li>
-            <input
-              className="input-group-sm form-control mt-3"
-              name="password"
-              onBlur={[Function]}
-              onChange={[Function]}
-              placeholder="Password"
-              required={true}
-              type="password"
-              value=""
-            />
-            <label
-              className="error badge badge-danger"
-            />
-          </li>
-          <li>
-            <button
-              className="btn btn-primary form-control mt-3"
-              disabled={false}
-              type="submit"
-            >
-              Log In
-            </button>
-          </li>
-          <li
-            className="mt-2"
-          >
-            <Link
-              to="/home/register"
-            >
-              <LinkAnchor
-                href="/home/register"
-                navigate={[Function]}
-              >
-                <a
-                  href="/home/register"
-                  onClick={[Function]}
-                >
-                  New user?
-                </a>
-              </LinkAnchor>
-            </Link>
-            <Link
-              className="float-right"
-              to="/home/forgot_password"
-            >
-              <LinkAnchor
-                className="float-right"
-                href="/home/forgot_password"
-                navigate={[Function]}
-              >
-                <a
-                  className="float-right"
-                  href="/home/forgot_password"
-                  onClick={[Function]}
-                >
-                  Forgot password?
-                </a>
-              </LinkAnchor>
-            </Link>
-          </li>
-        </ul>
-      </form>
-    </div>
+  <div>
+    <p>
+      <strong>
+        Oops! An error occured! I guess I haven't done enough QA because I really wanted to show you the project early! But hey, at least I caught the error using a boundary :)
+      </strong>
+    </p>
+    <p>
+      Here’s what I know about the error:
+    </p>
+    <p>
+      <strong>
+        Error:
+      </strong>
+       
+      ReferenceError: MutationObserver is not defined
+    </p>
+    <p>
+      <strong>
+        Stacktrace:
+      </strong>
+       
+      
+    in input (at LoginForm.jsx:81)
+    in li (at LoginForm.jsx:80)
+    in form (at LoginForm.jsx:49)
+    in ul (at LoginForm.jsx:48)
+    in div (at LoginForm.jsx:47)
+    in LoginForm (at WelcomeScreen.jsx:55)
+    in Route (at WelcomeScreen.jsx:54)
+    in Switch (at WelcomeScreen.jsx:28)
+    in div (at WelcomeScreen.jsx:27)
+    in WelcomeScreen (at App.js:645)
+    in ErrorBoundary (at App.js:644)
+    in Route (at App.js:869)
+    in Switch (at App.js:862)
+    in App (created by withSizes(App))
+    in withSizes(App) (created by Context.Consumer)
+    in WithSizes (at App.test.js:8)
+    in Router (created by MemoryRouter)
+    in MemoryRouter (created by WrapperComponent)
+    in WrapperComponent
+    </p>
   </div>,
   "",
 ]
