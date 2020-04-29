@@ -8,7 +8,7 @@ The app was developed using these technologies:
 React, Node.js, React-Hooks, SCSS, CSS, REST API, Express, ES6, MongoDB, Jest, Enzyme, sinon, VS Code.
 
 - I've transformed several components to use React-Hooks to demonstrate my knowledge in both methods.
-- The components written using hooks are: LoginForm, RegistrationForm and ForgotPasswordForm.
+- The components written using hooks are: LoginForm, RegistrationForm, ResetPasswordForm and ForgotPasswordForm.
 
 It is up and running at:
 https://wwwsapir.github.io/dnd-online-board/
