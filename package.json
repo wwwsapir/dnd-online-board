@@ -20,7 +20,7 @@
     "expect": "^25.2.3",
     "lodash": "^4.17.15",
     "mutationobserver-shim": "^0.3.5",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-browser-detection": "^1.2.1",
     "react-color": "^2.17.3",
